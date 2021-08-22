@@ -21,7 +21,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <!-- 主方法类声明 -->
-        <mainClass>com.dwarfeng.familyhelper.finance.node.all.launcher.Launcher</mainClass>
+        <mainClass>com.dwarfeng.familyhelper.finance.node.launcher.Launcher</mainClass>
     </properties>
 
     <dependencies>
