@@ -10,6 +10,9 @@
 
     <packaging>pom</packaging>
 
+    <name>familyhelper-finance</name>
+    <url>http://maven.apache.org</url>
+
     <properties>
         <!-- 进行工程编码声明 -->
         <!-- 进行JDK版本声明 -->
