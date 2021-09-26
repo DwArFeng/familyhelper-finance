@@ -5,6 +5,8 @@ import com.dwarfeng.subgrade.sdk.bean.key.HibernateLongIdKey;
 import com.dwarfeng.subgrade.stack.bean.Bean;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -14,7 +16,7 @@ import java.util.Set;
 @Table(name = "tbl_account_book")
 public class HibernateAccountBook implements Bean {
 
-    private static final long serialVersionUID = 9087609206805987437L;
+    private static final long serialVersionUID = -6874503621198732735L;
 
     // -----------------------------------------------------------主键-----------------------------------------------------------
     @Id
@@ -25,18 +27,25 @@ public class HibernateAccountBook implements Bean {
     @Column(name = "name", length = Constraints.LENGTH_NAME, nullable = false)
     private String name;
 
+    @Column(name = "card_type", length = Constraints.LENGTH_TYPE)
+    private String cardType;
+
+    @Column(name = "recorded_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastRecordedDate;
+
+    @Column(name = "total_value")
+    private BigDecimal totalValue;
+
     @Column(name = "remark", length = Constraints.LENGTH_REMARK)
     private String remark;
 
     // -----------------------------------------------------------一对多-----------------------------------------------------------
-    @OneToMany(cascade = CascadeType.MERGE, targetEntity = HibernateBalance.class, mappedBy = "accountBook")
-    private Set<HibernateBalance> balances = new HashSet<>();
+    @OneToMany(cascade = CascadeType.MERGE, targetEntity = HibernateBankCard.class, mappedBy = "accountBook")
+    private Set<HibernateBankCard> bankCards = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.MERGE, targetEntity = HibernateFundChange.class, mappedBy = "accountBook")
     private Set<HibernateFundChange> fundChanges = new HashSet<>();
-
-    @OneToMany(cascade = CascadeType.MERGE, targetEntity = HibernateFundRepository.class, mappedBy = "accountBook")
-    private Set<HibernateFundRepository> fundRepositories = new HashSet<>();
 
     public HibernateAccountBook() {
     }
@@ -67,6 +76,30 @@ public class HibernateAccountBook implements Bean {
         this.name = name;
     }
 
+    public String getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(String cardType) {
+        this.cardType = cardType;
+    }
+
+    public Date getLastRecordedDate() {
+        return lastRecordedDate;
+    }
+
+    public void setLastRecordedDate(Date lastRecordedDate) {
+        this.lastRecordedDate = lastRecordedDate;
+    }
+
+    public BigDecimal getTotalValue() {
+        return totalValue;
+    }
+
+    public void setTotalValue(BigDecimal totalValue) {
+        this.totalValue = totalValue;
+    }
+
     public String getRemark() {
         return remark;
     }
@@ -75,12 +108,12 @@ public class HibernateAccountBook implements Bean {
         this.remark = remark;
     }
 
-    public Set<HibernateBalance> getBalances() {
-        return balances;
+    public Set<HibernateBankCard> getBankCards() {
+        return bankCards;
     }
 
-    public void setBalances(Set<HibernateBalance> balances) {
-        this.balances = balances;
+    public void setBankCards(Set<HibernateBankCard> bankCards) {
+        this.bankCards = bankCards;
     }
 
     public Set<HibernateFundChange> getFundChanges() {
@@ -91,22 +124,14 @@ public class HibernateAccountBook implements Bean {
         this.fundChanges = fundChanges;
     }
 
-    public Set<HibernateFundRepository> getFundRepositories() {
-        return fundRepositories;
-    }
-
-    public void setFundRepositories(Set<HibernateFundRepository> fundRepositories) {
-        this.fundRepositories = fundRepositories;
-    }
-
     @Override
     public String toString() {
-        return "HibernateAccountBook{" +
-                "longId=" + longId +
-                ", name='" + name + '\'' +
-                ", remark='" + remark + '\'' +
-                ", balances=" + balances +
-                ", fundChanges=" + fundChanges +
-                '}';
+        return getClass().getSimpleName() + "(" +
+                "longId = " + longId + ", " +
+                "name = " + name + ", " +
+                "cardType = " + cardType + ", " +
+                "lastRecordedDate = " + lastRecordedDate + ", " +
+                "totalValue = " + totalValue + ", " +
+                "remark = " + remark + ")";
     }
 }

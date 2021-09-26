@@ -12,7 +12,6 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.exception.DaoException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,12 +20,19 @@ import java.util.List;
 @Repository
 public class AccountBookDaoImpl implements AccountBookDao {
 
-    @Autowired
-    private HibernateBatchBaseDao<LongIdKey, HibernateLongIdKey, AccountBook, HibernateAccountBook> batchBaseDao;
-    @Autowired
-    private HibernateEntireLookupDao<AccountBook, HibernateAccountBook> entireLookupDao;
-    @Autowired
-    private HibernatePresetLookupDao<AccountBook, HibernateAccountBook> presetLookupDao;
+    private final HibernateBatchBaseDao<LongIdKey, HibernateLongIdKey, AccountBook, HibernateAccountBook> batchBaseDao;
+    private final HibernateEntireLookupDao<AccountBook, HibernateAccountBook> entireLookupDao;
+    private final HibernatePresetLookupDao<AccountBook, HibernateAccountBook> presetLookupDao;
+
+    public AccountBookDaoImpl(
+            HibernateBatchBaseDao<LongIdKey, HibernateLongIdKey, AccountBook, HibernateAccountBook> batchBaseDao,
+            HibernateEntireLookupDao<AccountBook, HibernateAccountBook> entireLookupDao,
+            HibernatePresetLookupDao<AccountBook, HibernateAccountBook> presetLookupDao
+    ) {
+        this.batchBaseDao = batchBaseDao;
+        this.entireLookupDao = entireLookupDao;
+        this.presetLookupDao = presetLookupDao;
+    }
 
     @Override
     @BehaviorAnalyse

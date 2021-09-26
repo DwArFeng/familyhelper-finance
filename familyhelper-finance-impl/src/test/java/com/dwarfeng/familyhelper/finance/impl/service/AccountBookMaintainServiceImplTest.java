@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -32,6 +34,8 @@ public class AccountBookMaintainServiceImplTest {
             AccountBook accountBook = new AccountBook(
                     null,
                     "name",
+                    new Date(),
+                    BigDecimal.ZERO,
                     "remark"
             );
             accountBooks.add(accountBook);

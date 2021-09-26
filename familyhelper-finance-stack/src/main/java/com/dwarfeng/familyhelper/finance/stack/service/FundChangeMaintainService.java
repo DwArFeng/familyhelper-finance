@@ -10,10 +10,11 @@ import com.dwarfeng.subgrade.stack.service.PresetLookupService;
  * 资金改变维护服务。
  *
  * @author DwArFeng
- * @since 0.0.1-alpha
+ * @since 1.0.0
  */
 public interface FundChangeMaintainService extends BatchCrudService<LongIdKey, FundChange>,
         EntireLookupService<FundChange>, PresetLookupService<FundChange> {
 
     String CHILD_FOR_ACCOUNT_BOOK = "child_for_account_book";
+    String CHILD_FOR_BANK_CARD = "child_for_bank_card";
 }

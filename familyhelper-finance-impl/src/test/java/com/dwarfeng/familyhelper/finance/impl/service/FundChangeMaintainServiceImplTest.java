@@ -1,8 +1,10 @@
 package com.dwarfeng.familyhelper.finance.impl.service;
 
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.AccountBook;
+import com.dwarfeng.familyhelper.finance.stack.bean.entity.BankCard;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.FundChange;
 import com.dwarfeng.familyhelper.finance.stack.service.AccountBookMaintainService;
+import com.dwarfeng.familyhelper.finance.stack.service.BankCardMaintainService;
 import com.dwarfeng.familyhelper.finance.stack.service.FundChangeMaintainService;
 import org.apache.commons.beanutils.BeanUtils;
 import org.junit.After;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,15 +30,19 @@ public class FundChangeMaintainServiceImplTest {
     private FundChangeMaintainService fundChangeMaintainService;
     @Autowired
     private AccountBookMaintainService accountBookMaintainService;
+    @Autowired
+    private BankCardMaintainService bankCardMaintainService;
 
     private List<FundChange> fundChanges;
     private AccountBook accountBook;
+    private BankCard bankCard;
 
     @Before
     public void setUp() {
         fundChanges = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             FundChange fundChange = new FundChange(
+                    null,
                     null,
                     null,
                     "change_type",
@@ -47,6 +54,20 @@ public class FundChangeMaintainServiceImplTest {
         accountBook = new AccountBook(
                 null,
                 "name",
+                new Date(),
+                BigDecimal.ZERO,
+                "remark"
+        );
+        bankCard = new BankCard(
+                null,
+                null,
+                "name",
+                "card_type",
+                new Date(),
+                BigDecimal.ZERO,
+                true,
+                new Date(),
+                BigDecimal.ZERO,
                 "remark"
         );
     }
@@ -55,6 +76,7 @@ public class FundChangeMaintainServiceImplTest {
     public void tearDown() {
         fundChanges.clear();
         accountBook = null;
+        bankCard = null;
     }
 
     @Test
@@ -93,6 +115,32 @@ public class FundChangeMaintainServiceImplTest {
             ).getCount());
         } finally {
             accountBookMaintainService.deleteIfExists(accountBook.getKey());
+            for (FundChange fundChange : fundChanges) {
+                fundChangeMaintainService.deleteIfExists(fundChange.getKey());
+            }
+        }
+    }
+
+    @Test
+    public void testForBankCardCascade() throws Exception {
+        try {
+            bankCard.setKey(bankCardMaintainService.insertOrUpdate(bankCard));
+            for (FundChange fundChange : fundChanges) {
+                fundChange.setBankCardKey(bankCard.getKey());
+                fundChange.setKey(fundChangeMaintainService.insert(fundChange));
+            }
+
+            assertEquals(fundChanges.size(), fundChangeMaintainService.lookup(
+                    FundChangeMaintainService.CHILD_FOR_BANK_CARD, new Object[]{bankCard.getKey()}
+            ).getCount());
+
+            bankCardMaintainService.deleteIfExists(bankCard.getKey());
+
+            assertEquals(0, fundChangeMaintainService.lookup(
+                    FundChangeMaintainService.CHILD_FOR_BANK_CARD, new Object[]{bankCard.getKey()}
+            ).getCount());
+        } finally {
+            bankCardMaintainService.deleteIfExists(bankCard.getKey());
             for (FundChange fundChange : fundChanges) {
                 fundChangeMaintainService.deleteIfExists(fundChange.getKey());
             }

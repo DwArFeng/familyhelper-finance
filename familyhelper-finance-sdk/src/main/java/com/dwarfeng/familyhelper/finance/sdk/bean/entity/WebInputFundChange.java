@@ -5,6 +5,7 @@ import com.dwarfeng.familyhelper.finance.stack.bean.entity.FundChange;
 import com.dwarfeng.subgrade.sdk.bean.key.WebInputLongIdKey;
 import com.dwarfeng.subgrade.stack.bean.Bean;
 
+import javax.validation.Valid;
 import java.util.Date;
 
 /**
@@ -15,12 +16,13 @@ import java.util.Date;
  */
 public class WebInputFundChange implements Bean {
 
-    private static final long serialVersionUID = -562586185696693603L;
+    private static final long serialVersionUID = 9148528013414554756L;
 
     public static FundChange toStackBean(WebInputFundChange webInputFundChange) {
         return new FundChange(
                 WebInputLongIdKey.toStackBean(webInputFundChange.getKey()),
                 WebInputLongIdKey.toStackBean(webInputFundChange.getAccountBookKey()),
+                WebInputLongIdKey.toStackBean(webInputFundChange.getBankCardKey()),
                 webInputFundChange.getChangeType(),
                 webInputFundChange.getHappenedDate(),
                 webInputFundChange.getRemark()
@@ -28,10 +30,16 @@ public class WebInputFundChange implements Bean {
     }
 
     @JSONField(name = "key")
+    @Valid
     private WebInputLongIdKey key;
 
     @JSONField(name = "account_book_key")
+    @Valid
     private WebInputLongIdKey accountBookKey;
+
+    @JSONField(name = "bank_card_key")
+    @Valid
+    private WebInputLongIdKey bankCardKey;
 
     @JSONField(name = "change_type")
     private String changeType;
@@ -59,6 +67,14 @@ public class WebInputFundChange implements Bean {
 
     public void setAccountBookKey(WebInputLongIdKey accountBookKey) {
         this.accountBookKey = accountBookKey;
+    }
+
+    public WebInputLongIdKey getBankCardKey() {
+        return bankCardKey;
+    }
+
+    public void setBankCardKey(WebInputLongIdKey bankCardKey) {
+        this.bankCardKey = bankCardKey;
     }
 
     public String getChangeType() {
@@ -90,6 +106,7 @@ public class WebInputFundChange implements Bean {
         return "WebInputFundChange{" +
                 "key=" + key +
                 ", accountBookKey=" + accountBookKey +
+                ", bankCardKey=" + bankCardKey +
                 ", changeType='" + changeType + '\'' +
                 ", happenedDate=" + happenedDate +
                 ", remark='" + remark + '\'' +

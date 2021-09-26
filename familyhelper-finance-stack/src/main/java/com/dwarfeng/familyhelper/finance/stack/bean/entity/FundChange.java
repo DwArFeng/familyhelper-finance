@@ -13,10 +13,11 @@ import java.util.Date;
  */
 public class FundChange implements Entity<LongIdKey> {
 
-    private static final long serialVersionUID = -6824920552743961759L;
+    private static final long serialVersionUID = 8614309127549157400L;
 
     private LongIdKey key;
     private LongIdKey accountBookKey;
+    private LongIdKey bankCardKey;
     private String changeType;
     private Date happenedDate;
     private String remark;
@@ -24,9 +25,13 @@ public class FundChange implements Entity<LongIdKey> {
     public FundChange() {
     }
 
-    public FundChange(LongIdKey key, LongIdKey accountBookKey, String changeType, Date happenedDate, String remark) {
+    public FundChange(
+            LongIdKey key, LongIdKey accountBookKey, LongIdKey bankCardKey, String changeType, Date happenedDate,
+            String remark
+    ) {
         this.key = key;
         this.accountBookKey = accountBookKey;
+        this.bankCardKey = bankCardKey;
         this.changeType = changeType;
         this.happenedDate = happenedDate;
         this.remark = remark;
@@ -48,6 +53,14 @@ public class FundChange implements Entity<LongIdKey> {
 
     public void setAccountBookKey(LongIdKey accountBookKey) {
         this.accountBookKey = accountBookKey;
+    }
+
+    public LongIdKey getBankCardKey() {
+        return bankCardKey;
+    }
+
+    public void setBankCardKey(LongIdKey bankCardKey) {
+        this.bankCardKey = bankCardKey;
     }
 
     public String getChangeType() {
@@ -79,6 +92,7 @@ public class FundChange implements Entity<LongIdKey> {
         return "FundChange{" +
                 "key=" + key +
                 ", accountBookKey=" + accountBookKey +
+                ", bankCardKey=" + bankCardKey +
                 ", changeType='" + changeType + '\'' +
                 ", happenedDate=" + happenedDate +
                 ", remark='" + remark + '\'' +

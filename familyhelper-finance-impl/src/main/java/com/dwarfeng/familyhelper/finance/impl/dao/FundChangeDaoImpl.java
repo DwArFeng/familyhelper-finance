@@ -12,7 +12,6 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.exception.DaoException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,12 +20,19 @@ import java.util.List;
 @Repository
 public class FundChangeDaoImpl implements FundChangeDao {
 
-    @Autowired
-    private HibernateBatchBaseDao<LongIdKey, HibernateLongIdKey, FundChange, HibernateFundChange> batchBaseDao;
-    @Autowired
-    private HibernateEntireLookupDao<FundChange, HibernateFundChange> entireLookupDao;
-    @Autowired
-    private HibernatePresetLookupDao<FundChange, HibernateFundChange> presetLookupDao;
+    private final HibernateBatchBaseDao<LongIdKey, HibernateLongIdKey, FundChange, HibernateFundChange> batchBaseDao;
+    private final HibernateEntireLookupDao<FundChange, HibernateFundChange> entireLookupDao;
+    private final HibernatePresetLookupDao<FundChange, HibernateFundChange> presetLookupDao;
+
+    public FundChangeDaoImpl(
+            HibernateBatchBaseDao<LongIdKey, HibernateLongIdKey, FundChange, HibernateFundChange> batchBaseDao,
+            HibernateEntireLookupDao<FundChange, HibernateFundChange> entireLookupDao,
+            HibernatePresetLookupDao<FundChange, HibernateFundChange> presetLookupDao
+    ) {
+        this.batchBaseDao = batchBaseDao;
+        this.entireLookupDao = entireLookupDao;
+        this.presetLookupDao = presetLookupDao;
+    }
 
     @Override
     @BehaviorAnalyse

@@ -8,7 +8,6 @@ import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.exception.CacheException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,8 +16,13 @@ import java.util.List;
 @Repository
 public class AccountBookCacheImpl implements AccountBookCache {
 
-    @Autowired
-    private RedisBatchBaseCache<LongIdKey, AccountBook, FastJsonAccountBook> accountBookBatchBaseDelegate;
+    private final RedisBatchBaseCache<LongIdKey, AccountBook, FastJsonAccountBook> accountBookBatchBaseDelegate;
+
+    public AccountBookCacheImpl(
+            RedisBatchBaseCache<LongIdKey, AccountBook, FastJsonAccountBook> accountBookBatchBaseDelegate
+    ) {
+        this.accountBookBatchBaseDelegate = accountBookBatchBaseDelegate;
+    }
 
     @Override
     @BehaviorAnalyse

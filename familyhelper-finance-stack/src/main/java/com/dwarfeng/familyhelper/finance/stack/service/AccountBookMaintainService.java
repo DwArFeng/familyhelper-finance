@@ -10,7 +10,7 @@ import com.dwarfeng.subgrade.stack.service.PresetLookupService;
  * 账本维护服务。
  *
  * @author DwArFeng
- * @since 0.0.1-alpha
+ * @since 1.0.0
  */
 public interface AccountBookMaintainService extends BatchCrudService<LongIdKey, AccountBook>,
         EntireLookupService<AccountBook>, PresetLookupService<AccountBook> {

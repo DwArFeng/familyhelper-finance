@@ -11,7 +11,6 @@ import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,12 +19,19 @@ import java.util.List;
 @Service
 public class AccountBookMaintainServiceImpl implements AccountBookMaintainService {
 
-    @Autowired
-    private CustomBatchCrudService<LongIdKey, AccountBook> crudService;
-    @Autowired
-    private DaoOnlyEntireLookupService<AccountBook> entireLookupService;
-    @Autowired
-    private DaoOnlyPresetLookupService<AccountBook> presetLookupService;
+    private final CustomBatchCrudService<LongIdKey, AccountBook> crudService;
+    private final DaoOnlyEntireLookupService<AccountBook> entireLookupService;
+    private final DaoOnlyPresetLookupService<AccountBook> presetLookupService;
+
+    public AccountBookMaintainServiceImpl(
+            CustomBatchCrudService<LongIdKey, AccountBook> crudService,
+            DaoOnlyEntireLookupService<AccountBook> entireLookupService,
+            DaoOnlyPresetLookupService<AccountBook> presetLookupService
+    ) {
+        this.crudService = crudService;
+        this.entireLookupService = entireLookupService;
+        this.presetLookupService = presetLookupService;
+    }
 
     @Override
     @BehaviorAnalyse

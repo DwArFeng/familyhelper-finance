@@ -8,7 +8,7 @@ import com.dwarfeng.subgrade.stack.cache.BatchBaseCache;
  * 资金变更指示器缓存。
  *
  * @author DwArFeng
- * @since 0.0.1-alpha
+ * @since 1.0.0
  */
 public interface FundChangeTypeIndicatorCache extends BatchBaseCache<StringIdKey, FundChangeTypeIndicator> {
 }

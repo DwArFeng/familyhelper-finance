@@ -24,6 +24,9 @@ public class HibernateFundChange implements Bean {
     @Column(name = "account_book_id")
     private Long accountBookLongId;
 
+    @Column(name = "bank_card_id")
+    private Long bankCardLongId;
+
     // -----------------------------------------------------------主属性字段-----------------------------------------------------------
     @Column(name = "change_type", length = Constraints.LENGTH_TYPE)
     private String changeType;
@@ -41,6 +44,12 @@ public class HibernateFundChange implements Bean {
             @JoinColumn(name = "account_book_id", referencedColumnName = "id", insertable = false, updatable = false), //
     })
     private HibernateAccountBook accountBook;
+
+    @ManyToOne(targetEntity = HibernateBankCard.class)
+    @JoinColumns({ //
+            @JoinColumn(name = "bank_card_id", referencedColumnName = "id", insertable = false, updatable = false), //
+    })
+    private HibernateBankCard bankCard;
 
     public HibernateFundChange() {
     }
@@ -62,6 +71,14 @@ public class HibernateFundChange implements Bean {
         this.accountBookLongId = Optional.ofNullable(idKey).map(HibernateLongIdKey::getLongId).orElse(null);
     }
 
+    public HibernateLongIdKey getBankCardKey() {
+        return Optional.ofNullable(bankCardLongId).map(HibernateLongIdKey::new).orElse(null);
+    }
+
+    public void setBankCardKey(HibernateLongIdKey idKey) {
+        this.bankCardLongId = Optional.ofNullable(idKey).map(HibernateLongIdKey::getLongId).orElse(null);
+    }
+
     // -----------------------------------------------------------常规属性区-----------------------------------------------------------
     public Long getLongId() {
         return longId;
@@ -77,6 +94,14 @@ public class HibernateFundChange implements Bean {
 
     public void setAccountBookLongId(Long accountBookLongId) {
         this.accountBookLongId = accountBookLongId;
+    }
+
+    public Long getBankCardLongId() {
+        return bankCardLongId;
+    }
+
+    public void setBankCardLongId(Long bankCardLongId) {
+        this.bankCardLongId = bankCardLongId;
     }
 
     public String getChangeType() {
@@ -111,14 +136,24 @@ public class HibernateFundChange implements Bean {
         this.accountBook = accountBook;
     }
 
+    public HibernateBankCard getBankCard() {
+        return bankCard;
+    }
+
+    public void setBankCard(HibernateBankCard bankCard) {
+        this.bankCard = bankCard;
+    }
+
     @Override
     public String toString() {
-        return "HibernateFundChange{" +
-                "longId=" + longId +
-                ", accountBookLongId=" + accountBookLongId +
-                ", changeType='" + changeType + '\'' +
-                ", happenedDate=" + happenedDate +
-                ", remark='" + remark + '\'' +
-                '}';
+        return getClass().getSimpleName() + "(" +
+                "longId = " + longId + ", " +
+                "accountBookLongId = " + accountBookLongId + ", " +
+                "bankCardLongId = " + bankCardLongId + ", " +
+                "changeType = " + changeType + ", " +
+                "happenedDate = " + happenedDate + ", " +
+                "remark = " + remark + ", " +
+                "accountBook = " + accountBook + ", " +
+                "bankCard = " + bankCard + ")";
     }
 }

@@ -11,7 +11,6 @@ import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,12 +19,19 @@ import java.util.List;
 @Service
 public class FundChangeMaintainServiceImpl implements FundChangeMaintainService {
 
-    @Autowired
-    private GeneralBatchCrudService<LongIdKey, FundChange> crudService;
-    @Autowired
-    private DaoOnlyEntireLookupService<FundChange> entireLookupService;
-    @Autowired
-    private DaoOnlyPresetLookupService<FundChange> presetLookupService;
+    private final GeneralBatchCrudService<LongIdKey, FundChange> crudService;
+    private final DaoOnlyEntireLookupService<FundChange> entireLookupService;
+    private final DaoOnlyPresetLookupService<FundChange> presetLookupService;
+
+    public FundChangeMaintainServiceImpl(
+            GeneralBatchCrudService<LongIdKey, FundChange> crudService,
+            DaoOnlyEntireLookupService<FundChange> entireLookupService,
+            DaoOnlyPresetLookupService<FundChange> presetLookupService
+    ) {
+        this.crudService = crudService;
+        this.entireLookupService = entireLookupService;
+        this.presetLookupService = presetLookupService;
+    }
 
     @Override
     @BehaviorAnalyse

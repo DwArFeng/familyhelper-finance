@@ -10,7 +10,6 @@ import com.dwarfeng.subgrade.stack.bean.dto.PagedData;
 import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,10 +18,16 @@ import java.util.List;
 @Service
 public class FundChangeTypeIndicatorMaintainServiceImpl implements FundChangeTypeIndicatorMaintainService {
 
-    @Autowired
-    private GeneralBatchCrudService<StringIdKey, FundChangeTypeIndicator> crudService;
-    @Autowired
-    private DaoOnlyEntireLookupService<FundChangeTypeIndicator> entireLookupService;
+    private final GeneralBatchCrudService<StringIdKey, FundChangeTypeIndicator> crudService;
+    private final DaoOnlyEntireLookupService<FundChangeTypeIndicator> entireLookupService;
+
+    public FundChangeTypeIndicatorMaintainServiceImpl(
+            GeneralBatchCrudService<StringIdKey, FundChangeTypeIndicator> crudService,
+            DaoOnlyEntireLookupService<FundChangeTypeIndicator> entireLookupService
+    ) {
+        this.crudService = crudService;
+        this.entireLookupService = entireLookupService;
+    }
 
     @Override
     @BehaviorAnalyse

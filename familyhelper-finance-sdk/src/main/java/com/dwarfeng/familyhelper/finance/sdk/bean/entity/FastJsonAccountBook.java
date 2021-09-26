@@ -5,6 +5,8 @@ import com.dwarfeng.familyhelper.finance.stack.bean.entity.AccountBook;
 import com.dwarfeng.subgrade.sdk.bean.key.FastJsonLongIdKey;
 import com.dwarfeng.subgrade.stack.bean.Bean;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -24,6 +26,8 @@ public class FastJsonAccountBook implements Bean {
             return new FastJsonAccountBook(
                     FastJsonLongIdKey.of(accountBook.getKey()),
                     accountBook.getName(),
+                    accountBook.getLastRecordedDate(),
+                    accountBook.getTotalValue(),
                     accountBook.getRemark()
             );
         }
@@ -35,15 +39,25 @@ public class FastJsonAccountBook implements Bean {
     @JSONField(name = "name", ordinal = 2)
     private String name;
 
-    @JSONField(name = "remark", ordinal = 3)
+    @JSONField(name = "last_recorded_date", ordinal = 3)
+    private Date lastRecordedDate;
+
+    @JSONField(name = "total_value", ordinal = 4)
+    private BigDecimal totalValue;
+
+    @JSONField(name = "remark", ordinal = 5)
     private String remark;
 
     public FastJsonAccountBook() {
     }
 
-    public FastJsonAccountBook(FastJsonLongIdKey key, String name, String remark) {
+    public FastJsonAccountBook(
+            FastJsonLongIdKey key, String name, Date lastRecordedDate, BigDecimal totalValue, String remark
+    ) {
         this.key = key;
         this.name = name;
+        this.lastRecordedDate = lastRecordedDate;
+        this.totalValue = totalValue;
         this.remark = remark;
     }
 
@@ -63,6 +77,22 @@ public class FastJsonAccountBook implements Bean {
         this.name = name;
     }
 
+    public Date getLastRecordedDate() {
+        return lastRecordedDate;
+    }
+
+    public void setLastRecordedDate(Date lastRecordedDate) {
+        this.lastRecordedDate = lastRecordedDate;
+    }
+
+    public BigDecimal getTotalValue() {
+        return totalValue;
+    }
+
+    public void setTotalValue(BigDecimal totalValue) {
+        this.totalValue = totalValue;
+    }
+
     public String getRemark() {
         return remark;
     }
@@ -76,6 +106,8 @@ public class FastJsonAccountBook implements Bean {
         return "FastJsonAccountBook{" +
                 "key=" + key +
                 ", name='" + name + '\'' +
+                ", lastRecordedDate=" + lastRecordedDate +
+                ", totalValue=" + totalValue +
                 ", remark='" + remark + '\'' +
                 '}';
     }

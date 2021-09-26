@@ -5,6 +5,12 @@
 #### 功能构建
 
 - 升级 `subgrade` 依赖至 `1.2.2.a`
+- 根据新的预想业务重新设计实体。
+  - com.dwarfeng.familyhelper.finance.stack.bean.entity.AccountBook。
+  - com.dwarfeng.familyhelper.finance.stack.bean.entity.BankCard。
+  - com.dwarfeng.familyhelper.finance.stack.bean.entity.BankCardTypeIndicator。
+  - com.dwarfeng.familyhelper.finance.stack.bean.entity.FundChange。
+  - com.dwarfeng.familyhelper.finance.stack.bean.entity.FundChangeTypeIndicator。
 
 #### Bug修复
 

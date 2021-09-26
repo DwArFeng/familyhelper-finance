@@ -16,7 +16,7 @@ import java.util.Objects;
  */
 public class FastJsonFundChange implements Bean {
 
-    private static final long serialVersionUID = 8117475101687452812L;
+    private static final long serialVersionUID = -3424321385051387453L;
 
     public static FastJsonFundChange of(FundChange fundChange) {
         if (Objects.isNull(fundChange)) {
@@ -25,6 +25,7 @@ public class FastJsonFundChange implements Bean {
             return new FastJsonFundChange(
                     FastJsonLongIdKey.of(fundChange.getKey()),
                     FastJsonLongIdKey.of(fundChange.getAccountBookKey()),
+                    FastJsonLongIdKey.of(fundChange.getBankCardKey()),
                     fundChange.getChangeType(),
                     fundChange.getHappenedDate(),
                     fundChange.getRemark()
@@ -38,24 +39,28 @@ public class FastJsonFundChange implements Bean {
     @JSONField(name = "account_book_key", ordinal = 2)
     private FastJsonLongIdKey accountBookKey;
 
-    @JSONField(name = "change_type", ordinal = 3)
+    @JSONField(name = "bank_card_key", ordinal = 3)
+    private FastJsonLongIdKey bankCardKey;
+
+    @JSONField(name = "change_type", ordinal = 4)
     private String changeType;
 
-    @JSONField(name = "happened_date", ordinal = 4)
+    @JSONField(name = "happened_date", ordinal = 5)
     private Date happenedDate;
 
-    @JSONField(name = "remark", ordinal = 5)
+    @JSONField(name = "remark", ordinal = 6)
     private String remark;
 
     public FastJsonFundChange() {
     }
 
     public FastJsonFundChange(
-            FastJsonLongIdKey key, FastJsonLongIdKey accountBookKey, String changeType, Date happenedDate,
-            String remark
+            FastJsonLongIdKey key, FastJsonLongIdKey accountBookKey, FastJsonLongIdKey bankCardKey, String changeType,
+            Date happenedDate, String remark
     ) {
         this.key = key;
         this.accountBookKey = accountBookKey;
+        this.bankCardKey = bankCardKey;
         this.changeType = changeType;
         this.happenedDate = happenedDate;
         this.remark = remark;
@@ -75,6 +80,14 @@ public class FastJsonFundChange implements Bean {
 
     public void setAccountBookKey(FastJsonLongIdKey accountBookKey) {
         this.accountBookKey = accountBookKey;
+    }
+
+    public FastJsonLongIdKey getBankCardKey() {
+        return bankCardKey;
+    }
+
+    public void setBankCardKey(FastJsonLongIdKey bankCardKey) {
+        this.bankCardKey = bankCardKey;
     }
 
     public String getChangeType() {
@@ -106,6 +119,7 @@ public class FastJsonFundChange implements Bean {
         return "FastJsonFundChange{" +
                 "key=" + key +
                 ", accountBookKey=" + accountBookKey +
+                ", bankCardKey=" + bankCardKey +
                 ", changeType='" + changeType + '\'' +
                 ", happenedDate=" + happenedDate +
                 ", remark='" + remark + '\'' +

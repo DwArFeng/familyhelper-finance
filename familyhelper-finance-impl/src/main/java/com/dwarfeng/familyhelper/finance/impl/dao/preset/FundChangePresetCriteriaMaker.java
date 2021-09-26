@@ -13,12 +13,14 @@ import java.util.Objects;
 @Component
 public class FundChangePresetCriteriaMaker implements PresetCriteriaMaker {
 
-    @SuppressWarnings("SwitchStatementWithTooFewBranches")
     @Override
     public void makeCriteria(DetachedCriteria detachedCriteria, String s, Object[] objects) {
         switch (s) {
             case FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK:
                 childForAccountBook(detachedCriteria, objects);
+                break;
+            case FundChangeMaintainService.CHILD_FOR_BANK_CARD:
+                childForBankCard(detachedCriteria, objects);
                 break;
             default:
                 throw new IllegalArgumentException("无法识别的预设: " + s);
@@ -34,6 +36,22 @@ public class FundChangePresetCriteriaMaker implements PresetCriteriaMaker {
                 LongIdKey longIdKey = (LongIdKey) objects[0];
                 detachedCriteria.add(
                         Restrictions.eqOrIsNull("accountBookLongId", longIdKey.getLongId())
+                );
+            }
+        } catch (Exception e) {
+            throw new IllegalArgumentException("非法的参数:" + Arrays.toString(objects));
+        }
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    private void childForBankCard(DetachedCriteria detachedCriteria, Object[] objects) {
+        try {
+            if (Objects.isNull(objects[0])) {
+                detachedCriteria.add(Restrictions.isNull("bankCardLongId"));
+            } else {
+                LongIdKey longIdKey = (LongIdKey) objects[0];
+                detachedCriteria.add(
+                        Restrictions.eqOrIsNull("bankCardLongId", longIdKey.getLongId())
                 );
             }
         } catch (Exception e) {

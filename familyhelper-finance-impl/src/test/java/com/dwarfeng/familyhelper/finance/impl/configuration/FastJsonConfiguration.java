@@ -15,11 +15,10 @@ public class FastJsonConfiguration {
         LOGGER.info("正在配置 FastJson autotype 白名单");
         //实体对象。
         ParserConfig.getGlobalInstance().addAccept(FastJsonAccountBook.class.getCanonicalName());
-        ParserConfig.getGlobalInstance().addAccept(FastJsonBalance.class.getCanonicalName());
-        ParserConfig.getGlobalInstance().addAccept(FastJsonBalanceItem.class.getCanonicalName());
+        ParserConfig.getGlobalInstance().addAccept(FastJsonBankCard.class.getCanonicalName());
+        ParserConfig.getGlobalInstance().addAccept(FastJsonBankCardTypeIndicator.class.getCanonicalName());
         ParserConfig.getGlobalInstance().addAccept(FastJsonFundChange.class.getCanonicalName());
         ParserConfig.getGlobalInstance().addAccept(FastJsonFundChangeTypeIndicator.class.getCanonicalName());
-        ParserConfig.getGlobalInstance().addAccept(FastJsonFundRepository.class.getCanonicalName());
         LOGGER.debug("FastJson autotype 白名单配置完毕");
     }
 }

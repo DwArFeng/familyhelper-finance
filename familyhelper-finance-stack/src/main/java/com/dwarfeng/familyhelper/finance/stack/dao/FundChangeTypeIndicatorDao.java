@@ -9,7 +9,7 @@ import com.dwarfeng.subgrade.stack.dao.EntireLookupDao;
  * 资金改变类型指示器数据访问层。
  *
  * @author DwArFeng
- * @since 0.0.1-alpha
+ * @since 1.0.0
  */
 public interface FundChangeTypeIndicatorDao extends BatchBaseDao<StringIdKey, FundChangeTypeIndicator>,
         EntireLookupDao<FundChangeTypeIndicator> {

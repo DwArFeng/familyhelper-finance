@@ -10,7 +10,7 @@ import com.dwarfeng.subgrade.stack.dao.PresetLookupDao;
  * 账本数据访问层。
  *
  * @author DwArFeng
- * @since 0.0.1-alpha
+ * @since 1.0.0
  */
 public interface AccountBookDao extends BatchBaseDao<LongIdKey, AccountBook>, EntireLookupDao<AccountBook>,
         PresetLookupDao<AccountBook> {

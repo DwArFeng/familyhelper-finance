@@ -9,7 +9,6 @@ import com.dwarfeng.subgrade.sdk.redis.formatter.StringIdStringKeyFormatter;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import org.dozer.Mapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,23 +17,24 @@ import org.springframework.data.redis.core.RedisTemplate;
 @Configuration
 public class CacheConfiguration {
 
-    @Autowired
-    private RedisTemplate<String, ?> template;
-    @Autowired
-    private Mapper mapper;
+    private final RedisTemplate<String, ?> template;
+    private final Mapper mapper;
 
     @Value("${cache.prefix.entity.account_book}")
     private String accountBookPrefix;
-    @Value("${cache.prefix.entity.balance}")
-    private String balancePrefix;
-    @Value("${cache.prefix.entity.balance_item}")
-    private String balanceItemPrefix;
+    @Value("${cache.prefix.entity.bank_card}")
+    private String bankCardPrefix;
+    @Value("${cache.prefix.entity.bank_card_type_indicator}")
+    private String bankCardTypeIndicatorPrefix;
     @Value("${cache.prefix.entity.fund_change}")
     private String fundChangePrefix;
     @Value("${cache.prefix.entity.fund_change_type_indicator}")
     private String fundChangeTypeIndicatorPrefix;
-    @Value("${cache.prefix.entity.fund_repository}")
-    private String fundRepositoryPrefix;
+
+    public CacheConfiguration(RedisTemplate<String, ?> template, Mapper mapper) {
+        this.template = template;
+        this.mapper = mapper;
+    }
 
     @Bean
     @SuppressWarnings("unchecked")
@@ -48,21 +48,22 @@ public class CacheConfiguration {
 
     @Bean
     @SuppressWarnings("unchecked")
-    public RedisBatchBaseCache<LongIdKey, Balance, FastJsonBalance> balanceRedisBatchBaseCache() {
+    public RedisBatchBaseCache<LongIdKey, BankCard, FastJsonBankCard> bankCardRedisBatchBaseCache() {
         return new RedisBatchBaseCache<>(
-                (RedisTemplate<String, FastJsonBalance>) template,
-                new LongIdStringKeyFormatter(balancePrefix),
-                new DozerBeanTransformer<>(Balance.class, FastJsonBalance.class, mapper)
+                (RedisTemplate<String, FastJsonBankCard>) template,
+                new LongIdStringKeyFormatter(bankCardPrefix),
+                new DozerBeanTransformer<>(BankCard.class, FastJsonBankCard.class, mapper)
         );
     }
 
     @Bean
     @SuppressWarnings("unchecked")
-    public RedisBatchBaseCache<LongIdKey, BalanceItem, FastJsonBalanceItem> balanceItemRedisBatchBaseCache() {
+    public RedisBatchBaseCache<StringIdKey, BankCardTypeIndicator, FastJsonBankCardTypeIndicator>
+    bankCardTypeIndicatorRedisBatchBaseCache() {
         return new RedisBatchBaseCache<>(
-                (RedisTemplate<String, FastJsonBalanceItem>) template,
-                new LongIdStringKeyFormatter(balanceItemPrefix),
-                new DozerBeanTransformer<>(BalanceItem.class, FastJsonBalanceItem.class, mapper)
+                (RedisTemplate<String, FastJsonBankCardTypeIndicator>) template,
+                new StringIdStringKeyFormatter(bankCardTypeIndicatorPrefix),
+                new DozerBeanTransformer<>(BankCardTypeIndicator.class, FastJsonBankCardTypeIndicator.class, mapper)
         );
     }
 
@@ -84,16 +85,6 @@ public class CacheConfiguration {
                 (RedisTemplate<String, FastJsonFundChangeTypeIndicator>) template,
                 new StringIdStringKeyFormatter(fundChangeTypeIndicatorPrefix),
                 new DozerBeanTransformer<>(FundChangeTypeIndicator.class, FastJsonFundChangeTypeIndicator.class, mapper)
-        );
-    }
-
-    @Bean
-    @SuppressWarnings("unchecked")
-    public RedisBatchBaseCache<LongIdKey, FundRepository, FastJsonFundRepository> fundRepositoryRedisBatchBaseCache() {
-        return new RedisBatchBaseCache<>(
-                (RedisTemplate<String, FastJsonFundRepository>) template,
-                new LongIdStringKeyFormatter(fundRepositoryPrefix),
-                new DozerBeanTransformer<>(FundRepository.class, FastJsonFundRepository.class, mapper)
         );
     }
 }

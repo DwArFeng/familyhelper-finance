@@ -25,6 +25,7 @@ public class JSFixedFastJsonFundChange implements Bean {
             return new JSFixedFastJsonFundChange(
                     JSFixedFastJsonLongIdKey.of(fundChange.getKey()),
                     JSFixedFastJsonLongIdKey.of(fundChange.getAccountBookKey()),
+                    JSFixedFastJsonLongIdKey.of(fundChange.getBankCardKey()),
                     fundChange.getChangeType(),
                     fundChange.getHappenedDate(),
                     fundChange.getRemark()
@@ -38,24 +39,28 @@ public class JSFixedFastJsonFundChange implements Bean {
     @JSONField(name = "account_book_key", ordinal = 2)
     private JSFixedFastJsonLongIdKey accountBookKey;
 
-    @JSONField(name = "change_type", ordinal = 3)
+    @JSONField(name = "bank_card_key", ordinal = 3)
+    private JSFixedFastJsonLongIdKey bankCardKey;
+
+    @JSONField(name = "change_type", ordinal = 4)
     private String changeType;
 
-    @JSONField(name = "happened_date", ordinal = 4)
+    @JSONField(name = "happened_date", ordinal = 5)
     private Date happenedDate;
 
-    @JSONField(name = "remark", ordinal = 5)
+    @JSONField(name = "remark", ordinal = 6)
     private String remark;
 
     public JSFixedFastJsonFundChange() {
     }
 
     public JSFixedFastJsonFundChange(
-            JSFixedFastJsonLongIdKey key, JSFixedFastJsonLongIdKey accountBookKey, String changeType,
-            Date happenedDate, String remark
+            JSFixedFastJsonLongIdKey key, JSFixedFastJsonLongIdKey accountBookKey, JSFixedFastJsonLongIdKey bankCardKey,
+            String changeType, Date happenedDate, String remark
     ) {
         this.key = key;
         this.accountBookKey = accountBookKey;
+        this.bankCardKey = bankCardKey;
         this.changeType = changeType;
         this.happenedDate = happenedDate;
         this.remark = remark;
@@ -75,6 +80,14 @@ public class JSFixedFastJsonFundChange implements Bean {
 
     public void setAccountBookKey(JSFixedFastJsonLongIdKey accountBookKey) {
         this.accountBookKey = accountBookKey;
+    }
+
+    public JSFixedFastJsonLongIdKey getBankCardKey() {
+        return bankCardKey;
+    }
+
+    public void setBankCardKey(JSFixedFastJsonLongIdKey bankCardKey) {
+        this.bankCardKey = bankCardKey;
     }
 
     public String getChangeType() {
@@ -106,6 +119,7 @@ public class JSFixedFastJsonFundChange implements Bean {
         return "JSFixedFastJsonFundChange{" +
                 "key=" + key +
                 ", accountBookKey=" + accountBookKey +
+                ", bankCardKey=" + bankCardKey +
                 ", changeType='" + changeType + '\'' +
                 ", happenedDate=" + happenedDate +
                 ", remark='" + remark + '\'' +
