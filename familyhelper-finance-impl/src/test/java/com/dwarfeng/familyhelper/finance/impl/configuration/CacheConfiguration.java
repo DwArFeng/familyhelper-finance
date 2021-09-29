@@ -1,7 +1,9 @@
 package com.dwarfeng.familyhelper.finance.impl.configuration;
 
 import com.dwarfeng.familyhelper.finance.sdk.bean.entity.*;
+import com.dwarfeng.familyhelper.finance.sdk.bean.key.formatter.PoabStringKeyFormatter;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.*;
+import com.dwarfeng.familyhelper.finance.stack.bean.key.PoabKey;
 import com.dwarfeng.subgrade.impl.bean.DozerBeanTransformer;
 import com.dwarfeng.subgrade.impl.cache.RedisBatchBaseCache;
 import com.dwarfeng.subgrade.sdk.redis.formatter.LongIdStringKeyFormatter;
@@ -30,6 +32,10 @@ public class CacheConfiguration {
     private String fundChangePrefix;
     @Value("${cache.prefix.entity.fund_change_type_indicator}")
     private String fundChangeTypeIndicatorPrefix;
+    @Value("${cache.prefix.entity.poab}")
+    private String poabPrefix;
+    @Value("${cache.prefix.entity.user}")
+    private String userPrefix;
 
     public CacheConfiguration(RedisTemplate<String, ?> template, Mapper mapper) {
         this.template = template;
@@ -85,6 +91,26 @@ public class CacheConfiguration {
                 (RedisTemplate<String, FastJsonFundChangeTypeIndicator>) template,
                 new StringIdStringKeyFormatter(fundChangeTypeIndicatorPrefix),
                 new DozerBeanTransformer<>(FundChangeTypeIndicator.class, FastJsonFundChangeTypeIndicator.class, mapper)
+        );
+    }
+
+    @Bean
+    @SuppressWarnings("unchecked")
+    public RedisBatchBaseCache<PoabKey, Poab, FastJsonPoab> poabRedisBatchBaseCache() {
+        return new RedisBatchBaseCache<>(
+                (RedisTemplate<String, FastJsonPoab>) template,
+                new PoabStringKeyFormatter(poabPrefix),
+                new DozerBeanTransformer<>(Poab.class, FastJsonPoab.class, mapper)
+        );
+    }
+
+    @Bean
+    @SuppressWarnings("unchecked")
+    public RedisBatchBaseCache<StringIdKey, User, FastJsonUser> userRedisBatchBaseCache() {
+        return new RedisBatchBaseCache<>(
+                (RedisTemplate<String, FastJsonUser>) template,
+                new StringIdStringKeyFormatter(userPrefix),
+                new DozerBeanTransformer<>(User.class, FastJsonUser.class, mapper)
         );
     }
 }

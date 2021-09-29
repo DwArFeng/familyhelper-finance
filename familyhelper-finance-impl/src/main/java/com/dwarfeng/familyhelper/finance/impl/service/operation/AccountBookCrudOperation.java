@@ -3,14 +3,19 @@ package com.dwarfeng.familyhelper.finance.impl.service.operation;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.AccountBook;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.BankCard;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.FundChange;
+import com.dwarfeng.familyhelper.finance.stack.bean.entity.Poab;
+import com.dwarfeng.familyhelper.finance.stack.bean.key.PoabKey;
 import com.dwarfeng.familyhelper.finance.stack.cache.AccountBookCache;
 import com.dwarfeng.familyhelper.finance.stack.cache.BankCardCache;
 import com.dwarfeng.familyhelper.finance.stack.cache.FundChangeCache;
+import com.dwarfeng.familyhelper.finance.stack.cache.PoabCache;
 import com.dwarfeng.familyhelper.finance.stack.dao.AccountBookDao;
 import com.dwarfeng.familyhelper.finance.stack.dao.BankCardDao;
 import com.dwarfeng.familyhelper.finance.stack.dao.FundChangeDao;
+import com.dwarfeng.familyhelper.finance.stack.dao.PoabDao;
 import com.dwarfeng.familyhelper.finance.stack.service.BankCardMaintainService;
 import com.dwarfeng.familyhelper.finance.stack.service.FundChangeMaintainService;
+import com.dwarfeng.familyhelper.finance.stack.service.PoabMaintainService;
 import com.dwarfeng.subgrade.sdk.exception.ServiceExceptionCodes;
 import com.dwarfeng.subgrade.sdk.service.custom.operation.BatchCrudOperation;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
@@ -27,24 +32,29 @@ public class AccountBookCrudOperation implements BatchCrudOperation<LongIdKey, A
     private final AccountBookDao accountBookDao;
     private final BankCardDao bankCardDao;
     private final FundChangeDao fundChangeDao;
+    private final PoabDao poabDao;
 
     private final AccountBookCache accountBookCache;
     private final BankCardCache bankCardCache;
     private final FundChangeCache fundChangeCache;
+    private final PoabCache poabCache;
 
     @Value("${cache.timeout.entity.account_book}")
     private long accountBookTimeout;
 
     public AccountBookCrudOperation(
-            AccountBookDao accountBookDao, BankCardDao bankCardDao, FundChangeDao fundChangeDao,
-            AccountBookCache accountBookCache, BankCardCache bankCardCache, FundChangeCache fundChangeCache
+            AccountBookDao accountBookDao, BankCardDao bankCardDao, FundChangeDao fundChangeDao, PoabDao poabDao,
+            AccountBookCache accountBookCache, BankCardCache bankCardCache, FundChangeCache fundChangeCache,
+            PoabCache poabCache
     ) {
         this.accountBookDao = accountBookDao;
         this.bankCardDao = bankCardDao;
         this.fundChangeDao = fundChangeDao;
+        this.poabDao = poabDao;
         this.accountBookCache = accountBookCache;
         this.bankCardCache = bankCardCache;
         this.fundChangeCache = fundChangeCache;
+        this.poabCache = poabCache;
     }
 
     @Override
@@ -94,6 +104,12 @@ public class AccountBookCrudOperation implements BatchCrudOperation<LongIdKey, A
         ).stream().map(FundChange::getKey).collect(Collectors.toList());
         fundChangeCache.batchDelete(fundChangeKeys);
         fundChangeDao.batchDelete(fundChangeKeys);
+
+        // 删除与账本相关的账本权限。
+        List<PoabKey> poabKeys = poabDao.lookup(PoabMaintainService.CHILD_FOR_ACCOUNT_BOOK, new Object[]{key})
+                .stream().map(Poab::getKey).collect(Collectors.toList());
+        poabCache.batchDelete(poabKeys);
+        poabDao.batchDelete(poabKeys);
 
         // 删除账本实体自身。
         accountBookDao.delete(key);

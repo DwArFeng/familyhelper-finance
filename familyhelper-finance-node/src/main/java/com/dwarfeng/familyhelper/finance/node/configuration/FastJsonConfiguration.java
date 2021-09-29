@@ -19,6 +19,8 @@ public class FastJsonConfiguration {
         ParserConfig.getGlobalInstance().addAccept(FastJsonBankCardTypeIndicator.class.getCanonicalName());
         ParserConfig.getGlobalInstance().addAccept(FastJsonFundChange.class.getCanonicalName());
         ParserConfig.getGlobalInstance().addAccept(FastJsonFundChangeTypeIndicator.class.getCanonicalName());
+        ParserConfig.getGlobalInstance().addAccept(FastJsonPoab.class.getCanonicalName());
+        ParserConfig.getGlobalInstance().addAccept(FastJsonUser.class.getCanonicalName());
         LOGGER.debug("FastJson autotype 白名单配置完毕");
     }
 }

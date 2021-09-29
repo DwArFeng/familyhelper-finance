@@ -1,10 +1,13 @@
 package com.dwarfeng.familyhelper.finance.node.configuration;
 
 import com.dwarfeng.familyhelper.finance.impl.bean.entity.*;
+import com.dwarfeng.familyhelper.finance.impl.bean.key.HibernatePoabKey;
 import com.dwarfeng.familyhelper.finance.impl.dao.preset.AccountBookPresetCriteriaMaker;
 import com.dwarfeng.familyhelper.finance.impl.dao.preset.BankCardPresetCriteriaMaker;
 import com.dwarfeng.familyhelper.finance.impl.dao.preset.FundChangePresetCriteriaMaker;
+import com.dwarfeng.familyhelper.finance.impl.dao.preset.PoabPresetCriteriaMaker;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.*;
+import com.dwarfeng.familyhelper.finance.stack.bean.key.PoabKey;
 import com.dwarfeng.subgrade.impl.bean.DozerBeanTransformer;
 import com.dwarfeng.subgrade.impl.dao.HibernateBatchBaseDao;
 import com.dwarfeng.subgrade.impl.dao.HibernateEntireLookupDao;
@@ -29,21 +32,23 @@ public class DaoConfiguration {
     private final AccountBookPresetCriteriaMaker accountBookPresetCriteriaMaker;
     private final BankCardPresetCriteriaMaker bankCardPresetCriteriaMaker;
     private final FundChangePresetCriteriaMaker fundChangePresetCriteriaMaker;
+    private final PoabPresetCriteriaMaker poabPresetCriteriaMaker;
 
     @Value("${hibernate.jdbc.batch_size}")
     private int batchSize;
 
     public DaoConfiguration(
-            HibernateTemplate template, Mapper mapper,
-            AccountBookPresetCriteriaMaker accountBookPresetCriteriaMaker,
+            HibernateTemplate template, Mapper mapper, AccountBookPresetCriteriaMaker accountBookPresetCriteriaMaker,
             BankCardPresetCriteriaMaker bankCardPresetCriteriaMaker,
-            FundChangePresetCriteriaMaker fundChangePresetCriteriaMaker
+            FundChangePresetCriteriaMaker fundChangePresetCriteriaMaker,
+            PoabPresetCriteriaMaker poabPresetCriteriaMaker
     ) {
         this.template = template;
         this.mapper = mapper;
         this.accountBookPresetCriteriaMaker = accountBookPresetCriteriaMaker;
         this.bankCardPresetCriteriaMaker = bankCardPresetCriteriaMaker;
         this.fundChangePresetCriteriaMaker = fundChangePresetCriteriaMaker;
+        this.poabPresetCriteriaMaker = poabPresetCriteriaMaker;
     }
 
     @Bean
@@ -193,6 +198,58 @@ public class DaoConfiguration {
                         FundChangeTypeIndicator.class, HibernateFundChangeTypeIndicator.class, mapper
                 ),
                 HibernateFundChangeTypeIndicator.class
+        );
+    }
+
+    @Bean
+    public HibernateBatchBaseDao<PoabKey, HibernatePoabKey, Poab, HibernatePoab> poabHibernateBatchBaseDao() {
+        return new HibernateBatchBaseDao<>(
+                template,
+                new DozerBeanTransformer<>(PoabKey.class, HibernatePoabKey.class, mapper),
+                new DozerBeanTransformer<>(Poab.class, HibernatePoab.class, mapper),
+                HibernatePoab.class,
+                new DefaultDeletionMod<>(),
+                batchSize
+        );
+    }
+
+    @Bean
+    public HibernateEntireLookupDao<Poab, HibernatePoab> poabHibernateEntireLookupDao() {
+        return new HibernateEntireLookupDao<>(
+                template,
+                new DozerBeanTransformer<>(Poab.class, HibernatePoab.class, mapper),
+                HibernatePoab.class
+        );
+    }
+
+    @Bean
+    public HibernatePresetLookupDao<Poab, HibernatePoab> poabHibernatePresetLookupDao() {
+        return new HibernatePresetLookupDao<>(
+                template,
+                new DozerBeanTransformer<>(Poab.class, HibernatePoab.class, mapper),
+                HibernatePoab.class,
+                poabPresetCriteriaMaker
+        );
+    }
+
+    @Bean
+    public HibernateBatchBaseDao<StringIdKey, HibernateStringIdKey, User, HibernateUser> userHibernateBatchBaseDao() {
+        return new HibernateBatchBaseDao<>(
+                template,
+                new DozerBeanTransformer<>(StringIdKey.class, HibernateStringIdKey.class, mapper),
+                new DozerBeanTransformer<>(User.class, HibernateUser.class, mapper),
+                HibernateUser.class,
+                new DefaultDeletionMod<>(),
+                batchSize
+        );
+    }
+
+    @Bean
+    public HibernateEntireLookupDao<User, HibernateUser> userHibernateEntireLookupDao() {
+        return new HibernateEntireLookupDao<>(
+                template,
+                new DozerBeanTransformer<>(User.class, HibernateUser.class, mapper),
+                HibernateUser.class
         );
     }
 }

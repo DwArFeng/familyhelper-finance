@@ -47,6 +47,9 @@ public class HibernateAccountBook implements Bean {
     @OneToMany(cascade = CascadeType.MERGE, targetEntity = HibernateFundChange.class, mappedBy = "accountBook")
     private Set<HibernateFundChange> fundChanges = new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.MERGE, targetEntity = HibernatePoab.class, mappedBy = "accountBook")
+    private Set<HibernatePoab> poabs = new HashSet<>();
+
     public HibernateAccountBook() {
     }
 
@@ -122,6 +125,14 @@ public class HibernateAccountBook implements Bean {
 
     public void setFundChanges(Set<HibernateFundChange> fundChanges) {
         this.fundChanges = fundChanges;
+    }
+
+    public Set<HibernatePoab> getPoabs() {
+        return poabs;
+    }
+
+    public void setPoabs(Set<HibernatePoab> poabs) {
+        this.poabs = poabs;
     }
 
     @Override

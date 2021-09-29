@@ -11,6 +11,9 @@
   - com.dwarfeng.familyhelper.finance.stack.bean.entity.BankCardTypeIndicator。
   - com.dwarfeng.familyhelper.finance.stack.bean.entity.FundChange。
   - com.dwarfeng.familyhelper.finance.stack.bean.entity.FundChangeTypeIndicator。
+- 根据业务设计新的实体。
+  - com.dwarfeng.familyhelper.finance.stack.bean.entity.Poab。
+  - com.dwarfeng.familyhelper.finance.stack.bean.entity.User。
 
 #### Bug修复
 
