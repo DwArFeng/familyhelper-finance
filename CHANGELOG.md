@@ -14,6 +14,8 @@
 - 根据业务设计新的实体。
   - com.dwarfeng.familyhelper.finance.stack.bean.entity.Poab。
   - com.dwarfeng.familyhelper.finance.stack.bean.entity.User。
+  - com.dwarfeng.familyhelper.finance.stack.bean.entity.TotalBalanceHistory。
+  - com.dwarfeng.familyhelper.finance.stack.bean.entity.BankCardBalanceHistory。
 
 #### Bug修复
 

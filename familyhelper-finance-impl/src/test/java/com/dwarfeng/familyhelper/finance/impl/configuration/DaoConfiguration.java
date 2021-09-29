@@ -2,10 +2,7 @@ package com.dwarfeng.familyhelper.finance.impl.configuration;
 
 import com.dwarfeng.familyhelper.finance.impl.bean.entity.*;
 import com.dwarfeng.familyhelper.finance.impl.bean.key.HibernatePoabKey;
-import com.dwarfeng.familyhelper.finance.impl.dao.preset.AccountBookPresetCriteriaMaker;
-import com.dwarfeng.familyhelper.finance.impl.dao.preset.BankCardPresetCriteriaMaker;
-import com.dwarfeng.familyhelper.finance.impl.dao.preset.FundChangePresetCriteriaMaker;
-import com.dwarfeng.familyhelper.finance.impl.dao.preset.PoabPresetCriteriaMaker;
+import com.dwarfeng.familyhelper.finance.impl.dao.preset.*;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.*;
 import com.dwarfeng.familyhelper.finance.stack.bean.key.PoabKey;
 import com.dwarfeng.subgrade.impl.bean.DozerBeanTransformer;
@@ -33,6 +30,8 @@ public class DaoConfiguration {
     private final BankCardPresetCriteriaMaker bankCardPresetCriteriaMaker;
     private final FundChangePresetCriteriaMaker fundChangePresetCriteriaMaker;
     private final PoabPresetCriteriaMaker poabPresetCriteriaMaker;
+    private final TotalBalanceHistoryPresetCriteriaMaker totalBalanceHistoryPresetCriteriaMaker;
+    private final BankCardBalanceHistoryPresetCriteriaMaker bankCardBalanceHistoryPresetCriteriaMaker;
 
     @Value("${hibernate.jdbc.batch_size}")
     private int batchSize;
@@ -41,7 +40,9 @@ public class DaoConfiguration {
             HibernateTemplate template, Mapper mapper, AccountBookPresetCriteriaMaker accountBookPresetCriteriaMaker,
             BankCardPresetCriteriaMaker bankCardPresetCriteriaMaker,
             FundChangePresetCriteriaMaker fundChangePresetCriteriaMaker,
-            PoabPresetCriteriaMaker poabPresetCriteriaMaker
+            PoabPresetCriteriaMaker poabPresetCriteriaMaker,
+            TotalBalanceHistoryPresetCriteriaMaker totalBalanceHistoryPresetCriteriaMaker,
+            BankCardBalanceHistoryPresetCriteriaMaker bankCardBalanceHistoryPresetCriteriaMaker
     ) {
         this.template = template;
         this.mapper = mapper;
@@ -49,6 +50,8 @@ public class DaoConfiguration {
         this.bankCardPresetCriteriaMaker = bankCardPresetCriteriaMaker;
         this.fundChangePresetCriteriaMaker = fundChangePresetCriteriaMaker;
         this.poabPresetCriteriaMaker = poabPresetCriteriaMaker;
+        this.totalBalanceHistoryPresetCriteriaMaker = totalBalanceHistoryPresetCriteriaMaker;
+        this.bankCardBalanceHistoryPresetCriteriaMaker = bankCardBalanceHistoryPresetCriteriaMaker;
     }
 
     @Bean
@@ -250,6 +253,74 @@ public class DaoConfiguration {
                 template,
                 new DozerBeanTransformer<>(User.class, HibernateUser.class, mapper),
                 HibernateUser.class
+        );
+    }
+
+    @Bean
+    public HibernateBatchBaseDao<LongIdKey, HibernateLongIdKey, TotalBalanceHistory, HibernateTotalBalanceHistory>
+    totalBalanceHistoryHibernateBatchBaseDao() {
+        return new HibernateBatchBaseDao<>(
+                template,
+                new DozerBeanTransformer<>(LongIdKey.class, HibernateLongIdKey.class, mapper),
+                new DozerBeanTransformer<>(TotalBalanceHistory.class, HibernateTotalBalanceHistory.class, mapper),
+                HibernateTotalBalanceHistory.class,
+                new DefaultDeletionMod<>(),
+                batchSize
+        );
+    }
+
+    @Bean
+    public HibernateEntireLookupDao<TotalBalanceHistory, HibernateTotalBalanceHistory>
+    totalBalanceHistoryHibernateEntireLookupDao() {
+        return new HibernateEntireLookupDao<>(
+                template,
+                new DozerBeanTransformer<>(TotalBalanceHistory.class, HibernateTotalBalanceHistory.class, mapper),
+                HibernateTotalBalanceHistory.class
+        );
+    }
+
+    @Bean
+    public HibernatePresetLookupDao<TotalBalanceHistory, HibernateTotalBalanceHistory>
+    totalBalanceHistoryHibernatePresetLookupDao() {
+        return new HibernatePresetLookupDao<>(
+                template,
+                new DozerBeanTransformer<>(TotalBalanceHistory.class, HibernateTotalBalanceHistory.class, mapper),
+                HibernateTotalBalanceHistory.class,
+                totalBalanceHistoryPresetCriteriaMaker
+        );
+    }
+
+    @Bean
+    public HibernateBatchBaseDao<LongIdKey, HibernateLongIdKey, BankCardBalanceHistory, HibernateBankCardBalanceHistory>
+    bankCardBalanceHistoryHibernateBatchBaseDao() {
+        return new HibernateBatchBaseDao<>(
+                template,
+                new DozerBeanTransformer<>(LongIdKey.class, HibernateLongIdKey.class, mapper),
+                new DozerBeanTransformer<>(BankCardBalanceHistory.class, HibernateBankCardBalanceHistory.class, mapper),
+                HibernateBankCardBalanceHistory.class,
+                new DefaultDeletionMod<>(),
+                batchSize
+        );
+    }
+
+    @Bean
+    public HibernateEntireLookupDao<BankCardBalanceHistory, HibernateBankCardBalanceHistory>
+    bankCardBalanceHistoryHibernateEntireLookupDao() {
+        return new HibernateEntireLookupDao<>(
+                template,
+                new DozerBeanTransformer<>(BankCardBalanceHistory.class, HibernateBankCardBalanceHistory.class, mapper),
+                HibernateBankCardBalanceHistory.class
+        );
+    }
+
+    @Bean
+    public HibernatePresetLookupDao<BankCardBalanceHistory, HibernateBankCardBalanceHistory>
+    bankCardBalanceHistoryHibernatePresetLookupDao() {
+        return new HibernatePresetLookupDao<>(
+                template,
+                new DozerBeanTransformer<>(BankCardBalanceHistory.class, HibernateBankCardBalanceHistory.class, mapper),
+                HibernateBankCardBalanceHistory.class,
+                bankCardBalanceHistoryPresetCriteriaMaker
         );
     }
 }

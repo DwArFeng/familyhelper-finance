@@ -5,10 +5,7 @@ import com.dwarfeng.familyhelper.finance.impl.service.operation.BankCardCrudOper
 import com.dwarfeng.familyhelper.finance.impl.service.operation.UserCrudOperation;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.*;
 import com.dwarfeng.familyhelper.finance.stack.bean.key.PoabKey;
-import com.dwarfeng.familyhelper.finance.stack.cache.BankCardTypeIndicatorCache;
-import com.dwarfeng.familyhelper.finance.stack.cache.FundChangeCache;
-import com.dwarfeng.familyhelper.finance.stack.cache.FundChangeTypeIndicatorCache;
-import com.dwarfeng.familyhelper.finance.stack.cache.PoabCache;
+import com.dwarfeng.familyhelper.finance.stack.cache.*;
 import com.dwarfeng.familyhelper.finance.stack.dao.*;
 import com.dwarfeng.sfds.api.integration.subgrade.SnowFlakeLongIdKeyFetcher;
 import com.dwarfeng.subgrade.impl.bean.key.ExceptionKeyFetcher;
@@ -48,6 +45,10 @@ public class ServiceConfiguration {
     private final PoabCache poabCache;
     private final UserCrudOperation userCrudOperation;
     private final UserDao userDao;
+    private final TotalBalanceHistoryDao totalBalanceHistoryDao;
+    private final TotalBalanceHistoryCache totalBalanceHistoryCache;
+    private final BankCardBalanceHistoryDao bankCardBalanceHistoryDao;
+    private final BankCardBalanceHistoryCache bankCardBalanceHistoryCache;
 
     @Value("${cache.timeout.entity.bank_card_type_indicator}")
     private long bankCardTypeIndicatorTimeout;
@@ -57,6 +58,10 @@ public class ServiceConfiguration {
     private long fundChangeTypeIndicatorTimeout;
     @Value("${cache.timeout.entity.poab}")
     private long poabTimeout;
+    @Value("${cache.timeout.entity.total_balance_history}")
+    private long totalBalanceHistoryTimeout;
+    @Value("${cache.timeout.entity.bank_card_balance_history}")
+    private long bankCardBalanceHistoryTimeout;
 
     public ServiceConfiguration(
             ServiceExceptionMapperConfiguration serviceExceptionMapperConfiguration,
@@ -66,7 +71,10 @@ public class ServiceConfiguration {
             FundChangeDao fundChangeDao, FundChangeCache fundChangeCache,
             FundChangeTypeIndicatorDao fundChangeTypeIndicatorDao,
             FundChangeTypeIndicatorCache fundChangeTypeIndicatorCache, PoabDao poabDao, PoabCache poabCache,
-            UserCrudOperation userCrudOperation, UserDao userDao
+            UserCrudOperation userCrudOperation, UserDao userDao,
+            TotalBalanceHistoryDao totalBalanceHistoryDao, TotalBalanceHistoryCache totalBalanceHistoryCache,
+            BankCardBalanceHistoryDao bankCardBalanceHistoryDao,
+            BankCardBalanceHistoryCache bankCardBalanceHistoryCache
     ) {
         this.serviceExceptionMapperConfiguration = serviceExceptionMapperConfiguration;
         this.accountBookCrudOperation = accountBookCrudOperation;
@@ -83,6 +91,10 @@ public class ServiceConfiguration {
         this.poabCache = poabCache;
         this.userCrudOperation = userCrudOperation;
         this.userDao = userDao;
+        this.totalBalanceHistoryDao = totalBalanceHistoryDao;
+        this.totalBalanceHistoryCache = totalBalanceHistoryCache;
+        this.bankCardBalanceHistoryDao = bankCardBalanceHistoryDao;
+        this.bankCardBalanceHistoryCache = bankCardBalanceHistoryCache;
     }
 
     @Bean
@@ -261,6 +273,66 @@ public class ServiceConfiguration {
     public DaoOnlyEntireLookupService<User> userDaoOnlyEntireLookupService() {
         return new DaoOnlyEntireLookupService<>(
                 userDao,
+                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
+                LogLevel.WARN
+        );
+    }
+
+    @Bean
+    public GeneralBatchCrudService<LongIdKey, TotalBalanceHistory> totalBalanceHistoryGeneralBatchCrudService() {
+        return new GeneralBatchCrudService<>(
+                totalBalanceHistoryDao,
+                totalBalanceHistoryCache,
+                longIdKeyKeyFetcher(),
+                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
+                LogLevel.WARN,
+                totalBalanceHistoryTimeout
+        );
+    }
+
+    @Bean
+    public DaoOnlyEntireLookupService<TotalBalanceHistory> totalBalanceHistoryDaoOnlyEntireLookupService() {
+        return new DaoOnlyEntireLookupService<>(
+                totalBalanceHistoryDao,
+                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
+                LogLevel.WARN
+        );
+    }
+
+    @Bean
+    public DaoOnlyPresetLookupService<TotalBalanceHistory> totalBalanceHistoryDaoOnlyPresetLookupService() {
+        return new DaoOnlyPresetLookupService<>(
+                totalBalanceHistoryDao,
+                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
+                LogLevel.WARN
+        );
+    }
+
+    @Bean
+    public GeneralBatchCrudService<LongIdKey, BankCardBalanceHistory> bankCardBalanceHistoryGeneralBatchCrudService() {
+        return new GeneralBatchCrudService<>(
+                bankCardBalanceHistoryDao,
+                bankCardBalanceHistoryCache,
+                longIdKeyKeyFetcher(),
+                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
+                LogLevel.WARN,
+                bankCardBalanceHistoryTimeout
+        );
+    }
+
+    @Bean
+    public DaoOnlyEntireLookupService<BankCardBalanceHistory> bankCardBalanceHistoryDaoOnlyEntireLookupService() {
+        return new DaoOnlyEntireLookupService<>(
+                bankCardBalanceHistoryDao,
+                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
+                LogLevel.WARN
+        );
+    }
+
+    @Bean
+    public DaoOnlyPresetLookupService<BankCardBalanceHistory> bankCardBalanceHistoryDaoOnlyPresetLookupService() {
+        return new DaoOnlyPresetLookupService<>(
+                bankCardBalanceHistoryDao,
                 serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
                 LogLevel.WARN
         );
