@@ -17,13 +17,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class TotalBalanceMaintainServiceImpl implements TotalBalanceHistoryMaintainService {
+public class TotalBalanceHistoryMaintainServiceImpl implements TotalBalanceHistoryMaintainService {
 
     private final GeneralBatchCrudService<LongIdKey, TotalBalanceHistory> crudService;
     private final DaoOnlyEntireLookupService<TotalBalanceHistory> entireLookupService;
     private final DaoOnlyPresetLookupService<TotalBalanceHistory> presetLookupService;
 
-    public TotalBalanceMaintainServiceImpl(
+    public TotalBalanceHistoryMaintainServiceImpl(
             GeneralBatchCrudService<LongIdKey, TotalBalanceHistory> crudService,
             DaoOnlyEntireLookupService<TotalBalanceHistory> entireLookupService,
             DaoOnlyPresetLookupService<TotalBalanceHistory> presetLookupService
