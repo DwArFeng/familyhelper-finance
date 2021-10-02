@@ -215,6 +215,7 @@ public class BalanceOperateHandlerImpl implements BalanceOperateHandler {
         }
     }
 
+    @SuppressWarnings("DuplicatedCode")
     private void makeSureUserPermittedForAccountBook(StringIdKey userKey, LongIdKey accountBookKey)
             throws HandlerException {
         try {

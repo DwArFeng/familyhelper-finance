@@ -1,6 +1,7 @@
 package com.dwarfeng.familyhelper.finance.stack.exception;
 
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
+import com.dwarfeng.subgrade.stack.exception.HandlerException;
 
 /**
  * 银行卡状态非法异常。
@@ -8,9 +9,9 @@ import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
  * @author DwArFeng
  * @since 1.1.0
  */
-public class IllegalBankCardStateException extends BalanceOperateException {
+public class IllegalBankCardStateException extends HandlerException {
 
-    private static final long serialVersionUID = -5066454985579730219L;
+    private static final long serialVersionUID = 3893534174983903068L;
 
     private final LongIdKey bankCardKey;
 

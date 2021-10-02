@@ -1,6 +1,7 @@
 package com.dwarfeng.familyhelper.finance.stack.exception;
 
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
+import com.dwarfeng.subgrade.stack.exception.HandlerException;
 
 /**
  * 银行卡不存在异常。
@@ -8,7 +9,7 @@ import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
  * @author DwArFeng
  * @since 1.1.0
  */
-public class BankCardNotExistsException extends BalanceOperateException {
+public class BankCardNotExistsException extends HandlerException {
 
     private static final long serialVersionUID = 8825928203635627021L;
 

@@ -38,6 +38,10 @@
                    ref="userMaintainServiceImpl"/>
     <dubbo:service interface="com.dwarfeng.familyhelper.finance.stack.service.BalanceOperateService"
                    ref="balanceOperateServiceImpl"/>
+    <dubbo:service interface="com.dwarfeng.familyhelper.finance.stack.service.AccountBookOperateService"
+                   ref="accountBookOperateServiceImpl"/>
+    <dubbo:service interface="com.dwarfeng.familyhelper.finance.stack.service.BankCardOperateService"
+                   ref="bankCardOperateServiceImpl"/>
 
     <!-- 向注册中心注册暴露服务地址,注册消费者服务 -->
     <dubbo:reference id="longIdService" interface="com.dwarfeng.sfds.stack.service.LongIdService"/>

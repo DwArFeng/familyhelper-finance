@@ -16,8 +16,10 @@
   - com.dwarfeng.familyhelper.finance.stack.bean.entity.User。
   - com.dwarfeng.familyhelper.finance.stack.bean.entity.TotalBalanceHistory。
   - com.dwarfeng.familyhelper.finance.stack.bean.entity.BankCardBalanceHistory。
-- 创建余额操作服务。
+- 创建操作服务。
   - com.dwarfeng.familyhelper.finance.stack.service.BalanceOperateService。
+  - com.dwarfeng.familyhelper.finance.stack.service.AccountBookOperateService。
+  - com.dwarfeng.familyhelper.finance.stack.service.BankCardOperateService。
 
 #### Bug修复
 
