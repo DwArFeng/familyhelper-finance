@@ -20,6 +20,7 @@
   - com.dwarfeng.familyhelper.finance.stack.service.BalanceOperateService。
   - com.dwarfeng.familyhelper.finance.stack.service.AccountBookOperateService。
   - com.dwarfeng.familyhelper.finance.stack.service.BankCardOperateService。
+- 异常与异常代码映射实现。
 
 #### Bug修复
 

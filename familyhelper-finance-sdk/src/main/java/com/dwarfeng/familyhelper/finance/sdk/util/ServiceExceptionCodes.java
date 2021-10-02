@@ -12,34 +12,16 @@ public final class ServiceExceptionCodes {
 
     private static int EXCEPTION_CODE_OFFSET = 5000;
 
-    public static final ServiceException.Code FILTER_FAILED =
-            new ServiceException.Code(offset(0), "filter failed");
-    public static final ServiceException.Code FILTER_MAKE_FAILED =
-            new ServiceException.Code(offset(1), "filter make failed");
-    public static final ServiceException.Code FILTER_TYPE_UNSUPPORTED =
-            new ServiceException.Code(offset(2), "filter type unsupported");
-    public static final ServiceException.Code TRIGGER_FAILED =
-            new ServiceException.Code(offset(10), "trigger failed");
-    public static final ServiceException.Code TRIGGER_MAKE_FAILED =
-            new ServiceException.Code(offset(11), "trigger make failed");
-    public static final ServiceException.Code TRIGGER_TYPE_UNSUPPORTED =
-            new ServiceException.Code(offset(12), "trigger type unsupported");
-    public static final ServiceException.Code POINT_NOT_EXISTS =
-            new ServiceException.Code(offset(20), "point not exists");
-    public static final ServiceException.Code RECORD_HANDLER_STOPPED =
-            new ServiceException.Code(offset(30), "record handler stopped");
-    public static final ServiceException.Code CONSUME_HANDLER_STOPPED =
-            new ServiceException.Code(offset(31), "consume handler stopped");
-    public static final ServiceException.Code MAPPER_FAILED =
-            new ServiceException.Code(offset(40), "mapper failed");
-    public static final ServiceException.Code MAPPER_MAKE_FAILED =
-            new ServiceException.Code(offset(41), "mapper make failed");
-    public static final ServiceException.Code MAPPER_TYPE_UNSUPPORTED =
-            new ServiceException.Code(offset(42), "mapper type unsupported");
-    public static final ServiceException.Code PERSISTENCE_DISABLED =
-            new ServiceException.Code(offset(50), "persistence disabled");
-    public static final ServiceException.Code REALTIME_DISABLED =
-            new ServiceException.Code(offset(51), "realtime disabled");
+    public static final ServiceException.Code ACCOUNT_BOOK_NOT_EXISTS =
+            new ServiceException.Code(offset(0), "account book not exists");
+    public static final ServiceException.Code BANK_CARD_NOT_EXISTS =
+            new ServiceException.Code(offset(10), "bank card not exists");
+    public static final ServiceException.Code ILLEGAL_BANK_CARD_STATE =
+            new ServiceException.Code(offset(20), "illegal bank card state");
+    public static final ServiceException.Code USER_NOT_EXISTS =
+            new ServiceException.Code(offset(30), "user not exists");
+    public static final ServiceException.Code USER_NOT_PERMITTED =
+            new ServiceException.Code(offset(40), "user not permitted");
 
     private static int offset(int i) {
         return EXCEPTION_CODE_OFFSET + i;

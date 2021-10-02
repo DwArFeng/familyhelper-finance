@@ -1,5 +1,7 @@
 package com.dwarfeng.familyhelper.finance.node.configuration;
 
+import com.dwarfeng.familyhelper.finance.sdk.util.ServiceExceptionCodes;
+import com.dwarfeng.familyhelper.finance.stack.exception.*;
 import com.dwarfeng.subgrade.impl.exception.MapServiceExceptionMapper;
 import com.dwarfeng.subgrade.sdk.exception.ServiceExceptionHelper;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
@@ -14,6 +16,11 @@ public class ServiceExceptionMapperConfiguration {
     @Bean
     public MapServiceExceptionMapper mapServiceExceptionMapper() {
         Map<Class<? extends Exception>, ServiceException.Code> destination = ServiceExceptionHelper.putDefaultDestination(null);
+        destination.put(AccountBookNotExistsException.class, ServiceExceptionCodes.ACCOUNT_BOOK_NOT_EXISTS);
+        destination.put(BankCardNotExistsException.class, ServiceExceptionCodes.BANK_CARD_NOT_EXISTS);
+        destination.put(IllegalBankCardStateException.class, ServiceExceptionCodes.ILLEGAL_BANK_CARD_STATE);
+        destination.put(UserNotExistsException.class, ServiceExceptionCodes.USER_NOT_EXISTS);
+        destination.put(UserNotPermittedException.class, ServiceExceptionCodes.USER_NOT_PERMITTED);
         return new MapServiceExceptionMapper(destination, com.dwarfeng.subgrade.sdk.exception.ServiceExceptionCodes.UNDEFINE);
     }
 }
