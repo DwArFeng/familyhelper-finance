@@ -11,6 +11,10 @@
 - 为 BankCardOperateService 增加方法。
   - BankCardOperateService#updateBankCard。
 
+- 为 PoabMaintainService 增加预设查询。
+  - PoabMaintainService.CHILD_FOR_ACCOUNT_BOOK_PERMISSION_LEVEL_EQUALS。
+  - PoabMaintainService.CHILD_FOR_USER_PERMISSION_LEVEL_EQUALS。
+
 #### Bug修复
 
 - (无)
