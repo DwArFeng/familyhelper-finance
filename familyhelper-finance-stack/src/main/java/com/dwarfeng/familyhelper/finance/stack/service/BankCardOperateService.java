@@ -1,6 +1,7 @@
 package com.dwarfeng.familyhelper.finance.stack.service;
 
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.BankCardCreateInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.BankCardUpdateInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
@@ -24,6 +25,17 @@ public interface BankCardOperateService extends Handler {
      * @throws ServiceException 服务异常。
      */
     LongIdKey createBankCard(StringIdKey userKey, LongIdKey accountBookKey, BankCardCreateInfo bankCardCreateInfo)
+            throws ServiceException;
+
+    /**
+     * 更新银行卡。
+     *
+     * @param userKey            银行卡的所有者的主键。
+     * @param bankCardKey        银行卡的主键。
+     * @param bankCardUpdateInfo 银行卡的更新信息。
+     * @throws ServiceException 服务异常。
+     */
+    void updateBankCard(StringIdKey userKey, LongIdKey bankCardKey, BankCardUpdateInfo bankCardUpdateInfo)
             throws ServiceException;
 
     /**

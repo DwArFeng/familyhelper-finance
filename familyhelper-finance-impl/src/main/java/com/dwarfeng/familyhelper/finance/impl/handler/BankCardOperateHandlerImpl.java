@@ -1,6 +1,7 @@
 package com.dwarfeng.familyhelper.finance.impl.handler;
 
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.BankCardCreateInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.BankCardUpdateInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.AccountBook;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.BankCard;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.Poab;
@@ -57,6 +58,34 @@ public class BankCardOperateHandlerImpl implements BankCardOperateHandler {
 
             // 4. 插入银行卡实体，并返回生成的主键。
             return bankCardMaintainService.insert(bankCard);
+        } catch (HandlerException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new HandlerException(e);
+        }
+    }
+
+    @Override
+    public void updateBankCard(StringIdKey userKey, LongIdKey bankCardKey, BankCardUpdateInfo bankCardUpdateInfo)
+            throws HandlerException {
+        try {
+            // 1. 确认用户存在。
+            makeSureUserExists(userKey);
+
+            // 2. 确认银行卡存在。
+            makeSureBankCardExists(bankCardKey);
+
+            // 3. 确认用户有权限操作指定的银行卡。
+            makeSureUserPermittedForBankCard(userKey, bankCardKey);
+
+            // 4. 根据 bankCardUpdateInfo 以及更新的规则设置 银行卡 实体。
+            BankCard bankCard = bankCardMaintainService.get(bankCardKey);
+            bankCard.setName(bankCardUpdateInfo.getName());
+            bankCard.setCardType(bankCardUpdateInfo.getCardType());
+            bankCard.setRemark(bankCardUpdateInfo.getRemark());
+
+            // 5. 更新银行卡实体。
+            bankCardMaintainService.update(bankCard);
         } catch (HandlerException e) {
             throw e;
         } catch (Exception e) {

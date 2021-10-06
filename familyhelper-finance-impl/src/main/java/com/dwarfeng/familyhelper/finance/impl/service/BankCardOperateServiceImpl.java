@@ -1,6 +1,7 @@
 package com.dwarfeng.familyhelper.finance.impl.service;
 
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.BankCardCreateInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.BankCardUpdateInfo;
 import com.dwarfeng.familyhelper.finance.stack.handler.BankCardOperateHandler;
 import com.dwarfeng.familyhelper.finance.stack.service.BankCardOperateService;
 import com.dwarfeng.subgrade.sdk.exception.ServiceExceptionHelper;
@@ -29,6 +30,16 @@ public class BankCardOperateServiceImpl implements BankCardOperateService {
     ) throws ServiceException {
         try {
             return bankCardOperateHandler.createBankCard(userKey, accountBookKey, bankCardCreateInfo);
+        } catch (Exception e) {
+            throw ServiceExceptionHelper.logAndThrow("创建银行卡时发生异常", LogLevel.WARN, sem, e);
+        }
+    }
+
+    @Override
+    public void updateBankCard(StringIdKey userKey, LongIdKey bankCardKey, BankCardUpdateInfo bankCardUpdateInfo)
+            throws ServiceException {
+        try {
+            bankCardOperateHandler.updateBankCard(userKey, bankCardKey, bankCardUpdateInfo);
         } catch (Exception e) {
             throw ServiceExceptionHelper.logAndThrow("创建银行卡时发生异常", LogLevel.WARN, sem, e);
         }

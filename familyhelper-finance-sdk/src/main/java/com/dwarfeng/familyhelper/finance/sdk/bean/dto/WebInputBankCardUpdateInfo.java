@@ -1,7 +1,7 @@
 package com.dwarfeng.familyhelper.finance.sdk.bean.dto;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.dwarfeng.familyhelper.finance.stack.bean.dto.BankCardCreateInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.BankCardUpdateInfo;
 import com.dwarfeng.subgrade.stack.bean.dto.Dto;
 
 import javax.validation.constraints.NotEmpty;
@@ -9,23 +9,23 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * WebInput 银行卡创建信息。
+ * WebInput 银行卡更新信息。
  *
  * @author DwArFeng
- * @since 1.1.0
+ * @since 1.1.1
  */
-public class WebInputBankCardCreateInfo implements Dto {
+public class WebInputBankCardUpdateInfo implements Dto {
 
-    private static final long serialVersionUID = -9199994504833105204L;
+    private static final long serialVersionUID = -179624777937957204L;
 
-    public static BankCardCreateInfo toStackBean(WebInputBankCardCreateInfo webInputBankCardCreateInfo) {
-        if (Objects.isNull(webInputBankCardCreateInfo)) {
+    public static BankCardUpdateInfo toStackBean(WebInputBankCardUpdateInfo webInputBankCardUpdateInfo) {
+        if (Objects.isNull(webInputBankCardUpdateInfo)) {
             return null;
         } else {
-            return new BankCardCreateInfo(
-                    webInputBankCardCreateInfo.getName(),
-                    webInputBankCardCreateInfo.getCardType(),
-                    webInputBankCardCreateInfo.getRemark()
+            return new BankCardUpdateInfo(
+                    webInputBankCardUpdateInfo.getName(),
+                    webInputBankCardUpdateInfo.getCardType(),
+                    webInputBankCardUpdateInfo.getRemark()
             );
         }
     }
@@ -41,7 +41,7 @@ public class WebInputBankCardCreateInfo implements Dto {
     @JSONField(name = "remark")
     private String remark;
 
-    public WebInputBankCardCreateInfo() {
+    public WebInputBankCardUpdateInfo() {
     }
 
     public String getName() {
@@ -70,7 +70,7 @@ public class WebInputBankCardCreateInfo implements Dto {
 
     @Override
     public String toString() {
-        return "WebInputBankCardCreateInfo{" +
+        return "WebInputBankCardUpdateInfo{" +
                 "name='" + name + '\'' +
                 ", cardType='" + cardType + '\'' +
                 ", remark='" + remark + '\'' +

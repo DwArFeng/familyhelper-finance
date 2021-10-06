@@ -6,7 +6,10 @@
 
 - 为 AccountBookOperateService 增加方法。
   - AccountBookOperateService#updateAccountBook。
-  - AccountBookOperateService#deleteAccountBook。
+  - AccountBookOperateService#removeAccountBook。
+
+- 为 BankCardOperateService 增加方法。
+  - BankCardOperateService#updateBankCard。
 
 #### Bug修复
 
