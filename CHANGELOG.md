@@ -4,7 +4,9 @@
 
 #### 功能构建
 
-- (无)
+- 为 AccountBookOperateService 增加方法。
+  - AccountBookOperateService#updateAccountBook。
+  - AccountBookOperateService#deleteAccountBook。
 
 #### Bug修复
 

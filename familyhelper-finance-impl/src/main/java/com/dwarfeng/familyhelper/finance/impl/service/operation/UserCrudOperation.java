@@ -37,7 +37,6 @@ public class UserCrudOperation implements BatchCrudOperation<StringIdKey, User> 
         this.poabCache = poabCache;
     }
 
-
     @Override
     public boolean exists(StringIdKey key) throws Exception {
         return userCache.exists(key) || userDao.exists(key);

@@ -1,6 +1,7 @@
 package com.dwarfeng.familyhelper.finance.impl.handler;
 
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookCreateInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookUpdateInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.AccountBook;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.Poab;
 import com.dwarfeng.familyhelper.finance.stack.bean.key.PoabKey;
@@ -63,6 +64,55 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
 
             // 5. 返回生成的主键。
             return accountBookKey;
+        } catch (HandlerException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new HandlerException(e);
+        }
+    }
+
+    @Override
+    public void updateAccountBook(
+            StringIdKey userKey, LongIdKey accountBookKey, AccountBookUpdateInfo accountBookUpdateInfo
+    ) throws HandlerException {
+        try {
+            // 1. 确认用户存在。
+            makeSureUserExists(userKey);
+
+            // 2. 确认账本存在。
+            makeSureAccountBookExists(accountBookKey);
+
+            // 3. 确认用户有权限操作指定的账本。
+            makeSureUserPermittedForAccountBook(userKey, accountBookKey);
+
+            // 4. 根据 accountBookUpdateInfo 以及更新的规则设置 账本 实体。
+            AccountBook accountBook = accountBookMaintainService.get(accountBookKey);
+            accountBook.setName(accountBookUpdateInfo.getName());
+            accountBook.setRemark(accountBookUpdateInfo.getRemark());
+
+            // 5. 更新账本实体。
+            accountBookMaintainService.update(accountBook);
+        } catch (HandlerException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new HandlerException(e);
+        }
+    }
+
+    @Override
+    public void removeAccountBook(StringIdKey userKey, LongIdKey accountBookKey) throws HandlerException {
+        try {
+            // 1. 确认用户存在。
+            makeSureUserExists(userKey);
+
+            // 2. 确认账本存在。
+            makeSureAccountBookExists(accountBookKey);
+
+            // 3. 确认用户有权限操作指定的账本。
+            makeSureUserPermittedForAccountBook(userKey, accountBookKey);
+
+            // 4. 删除指定主键的账本。
+            accountBookMaintainService.delete(accountBookKey);
         } catch (HandlerException e) {
             throw e;
         } catch (Exception e) {

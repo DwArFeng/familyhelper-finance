@@ -1,6 +1,7 @@
 package com.dwarfeng.familyhelper.finance.stack.handler;
 
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookCreateInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookUpdateInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.HandlerException;
@@ -24,6 +25,27 @@ public interface AccountBookOperateHandler extends Handler {
      */
     LongIdKey createAccountBook(StringIdKey userKey, AccountBookCreateInfo accountBookCreateInfo)
             throws HandlerException;
+
+    /**
+     * 更新账本。
+     *
+     * @param userKey               账本的所有者的主键。
+     * @param accountBookKey        账本的主键。
+     * @param accountBookUpdateInfo 账本的更新信息。
+     * @throws HandlerException 处理器异常。
+     */
+    void updateAccountBook(
+            StringIdKey userKey, LongIdKey accountBookKey, AccountBookUpdateInfo accountBookUpdateInfo
+    ) throws HandlerException;
+
+    /**
+     * 删除账本。
+     *
+     * @param userKey        账本的所有者的主键。
+     * @param accountBookKey 账本的主键。
+     * @throws HandlerException 处理器异常。
+     */
+    void removeAccountBook(StringIdKey userKey, LongIdKey accountBookKey) throws HandlerException;
 
     /**
      * 添加账本的访客权限。

@@ -1,6 +1,7 @@
 package com.dwarfeng.familyhelper.finance.impl.service;
 
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookCreateInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookUpdateInfo;
 import com.dwarfeng.familyhelper.finance.stack.handler.AccountBookOperateHandler;
 import com.dwarfeng.familyhelper.finance.stack.service.AccountBookOperateService;
 import com.dwarfeng.subgrade.sdk.exception.ServiceExceptionHelper;
@@ -32,6 +33,26 @@ public class AccountBookOperateServiceImpl implements AccountBookOperateService 
             return accountBookOperateHandler.createAccountBook(userKey, accountBookCreateInfo);
         } catch (Exception e) {
             throw ServiceExceptionHelper.logAndThrow("创建账本时发生异常", LogLevel.WARN, sem, e);
+        }
+    }
+
+    @Override
+    public void updateAccountBook(
+            StringIdKey userKey, LongIdKey accountBookKey, AccountBookUpdateInfo accountBookUpdateInfo
+    ) throws ServiceException {
+        try {
+            accountBookOperateHandler.updateAccountBook(userKey, accountBookKey, accountBookUpdateInfo);
+        } catch (Exception e) {
+            throw ServiceExceptionHelper.logAndThrow("更新账本时发生异常", LogLevel.WARN, sem, e);
+        }
+    }
+
+    @Override
+    public void removeAccountBook(StringIdKey userKey, LongIdKey accountBookKey) throws ServiceException {
+        try {
+            accountBookOperateHandler.removeAccountBook(userKey, accountBookKey);
+        } catch (Exception e) {
+            throw ServiceExceptionHelper.logAndThrow("删除账本时发生异常", LogLevel.WARN, sem, e);
         }
     }
 

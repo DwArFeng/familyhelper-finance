@@ -227,7 +227,6 @@ public class ServiceConfiguration {
         );
     }
 
-
     @Bean
     public GeneralBatchCrudService<PoabKey, Poab> poabGeneralBatchCrudService() {
         return new GeneralBatchCrudService<>(
@@ -257,7 +256,6 @@ public class ServiceConfiguration {
                 LogLevel.WARN
         );
     }
-
 
     @Bean
     public CustomBatchCrudService<StringIdKey, User> userBatchCustomCrudService() {
