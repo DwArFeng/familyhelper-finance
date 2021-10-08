@@ -12,7 +12,12 @@
 
 #### 功能移除
 
-- (无)
+- 删除异常包中个异常类不正确的构造器函数。
+  - com.dwarfeng.familyhelper.finance.stack.exception.AccountBookNotExistsException。
+  - com.dwarfeng.familyhelper.finance.stack.exception.BankCardNotExistsException。
+  - com.dwarfeng.familyhelper.finance.stack.exception.IllegalBankCardStateException。
+  - com.dwarfeng.familyhelper.finance.stack.exception.UserNotExistsException。
+  - com.dwarfeng.familyhelper.finance.stack.exception.UserNotPermittedException。
 
 ---
 

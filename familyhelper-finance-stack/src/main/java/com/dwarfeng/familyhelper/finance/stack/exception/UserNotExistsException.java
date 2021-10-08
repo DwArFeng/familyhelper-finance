@@ -19,16 +19,6 @@ public class UserNotExistsException extends HandlerException {
         this.userKey = userKey;
     }
 
-    public UserNotExistsException(String message, StringIdKey userKey) {
-        super(message);
-        this.userKey = userKey;
-    }
-
-    public UserNotExistsException(String message, Throwable cause, StringIdKey userKey) {
-        super(message, cause);
-        this.userKey = userKey;
-    }
-
     public UserNotExistsException(Throwable cause, StringIdKey userKey) {
         super(cause);
         this.userKey = userKey;

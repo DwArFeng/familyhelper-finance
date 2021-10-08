@@ -19,16 +19,6 @@ public class AccountBookNotExistsException extends HandlerException {
         this.accountBookKey = accountBookKey;
     }
 
-    public AccountBookNotExistsException(String message, LongIdKey accountBookKey) {
-        super(message);
-        this.accountBookKey = accountBookKey;
-    }
-
-    public AccountBookNotExistsException(String message, Throwable cause, LongIdKey accountBookKey) {
-        super(message, cause);
-        this.accountBookKey = accountBookKey;
-    }
-
     public AccountBookNotExistsException(Throwable cause, LongIdKey accountBookKey) {
         super(cause);
         this.accountBookKey = accountBookKey;

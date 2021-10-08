@@ -19,16 +19,6 @@ public class BankCardNotExistsException extends HandlerException {
         this.bankCardKey = bankCardKey;
     }
 
-    public BankCardNotExistsException(String message, LongIdKey bankCardKey) {
-        super(message);
-        this.bankCardKey = bankCardKey;
-    }
-
-    public BankCardNotExistsException(String message, Throwable cause, LongIdKey bankCardKey) {
-        super(message, cause);
-        this.bankCardKey = bankCardKey;
-    }
-
     public BankCardNotExistsException(Throwable cause, LongIdKey bankCardKey) {
         super(cause);
         this.bankCardKey = bankCardKey;

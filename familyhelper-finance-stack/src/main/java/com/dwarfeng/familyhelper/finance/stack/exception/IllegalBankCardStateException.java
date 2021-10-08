@@ -19,16 +19,6 @@ public class IllegalBankCardStateException extends HandlerException {
         this.bankCardKey = bankCardKey;
     }
 
-    public IllegalBankCardStateException(String message, LongIdKey bankCardKey) {
-        super(message);
-        this.bankCardKey = bankCardKey;
-    }
-
-    public IllegalBankCardStateException(String message, Throwable cause, LongIdKey bankCardKey) {
-        super(message, cause);
-        this.bankCardKey = bankCardKey;
-    }
-
     public IllegalBankCardStateException(Throwable cause, LongIdKey bankCardKey) {
         super(cause);
         this.bankCardKey = bankCardKey;

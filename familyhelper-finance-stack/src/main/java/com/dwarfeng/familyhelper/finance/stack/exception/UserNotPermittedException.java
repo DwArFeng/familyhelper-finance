@@ -22,18 +22,6 @@ public class UserNotPermittedException extends HandlerException {
         this.accountBookKey = accountBookKey;
     }
 
-    public UserNotPermittedException(String message, StringIdKey userKey, LongIdKey accountBookKey) {
-        super(message);
-        this.userKey = userKey;
-        this.accountBookKey = accountBookKey;
-    }
-
-    public UserNotPermittedException(String message, Throwable cause, StringIdKey userKey, LongIdKey accountBookKey) {
-        super(message, cause);
-        this.userKey = userKey;
-        this.accountBookKey = accountBookKey;
-    }
-
     public UserNotPermittedException(Throwable cause, StringIdKey userKey, LongIdKey accountBookKey) {
         super(cause);
         this.userKey = userKey;
