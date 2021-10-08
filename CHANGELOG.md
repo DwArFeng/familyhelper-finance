@@ -19,6 +19,9 @@
   - com.dwarfeng.familyhelper.finance.stack.exception.UserNotExistsException。
   - com.dwarfeng.familyhelper.finance.stack.exception.UserNotPermittedException。
 
+- 补全 HibernateBankCard 缺失的字段。
+  - HibernateBankCard.cardType。
+
 ---
 
 ### Release_1.1.1_20211006_build_A

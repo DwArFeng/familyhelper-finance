@@ -28,6 +28,9 @@ public class HibernateBankCard implements Bean {
     private Long accountBookLongId;
 
     // -----------------------------------------------------------主属性字段-----------------------------------------------------------
+    @Column(name = "card_type")
+    private String cardType;
+
     @Column(name = "name", length = Constraints.LENGTH_NAME, nullable = false)
     private String name;
 
@@ -107,6 +110,14 @@ public class HibernateBankCard implements Bean {
         this.name = name;
     }
 
+    public String getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(String cardType) {
+        this.cardType = cardType;
+    }
+
     public Date getLastRecordedDate() {
         return lastRecordedDate;
     }
@@ -176,6 +187,7 @@ public class HibernateBankCard implements Bean {
         return getClass().getSimpleName() + "(" +
                 "longId = " + longId + ", " +
                 "accountBookLongId = " + accountBookLongId + ", " +
+                "cardType = " + cardType + ", " +
                 "name = " + name + ", " +
                 "lastRecordedDate = " + lastRecordedDate + ", " +
                 "balanceValue = " + balanceValue + ", " +
