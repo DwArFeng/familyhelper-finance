@@ -85,10 +85,11 @@ public class BalanceOperateHandlerImpl implements BalanceOperateHandler {
 
             // 5. 将每个银行卡的临时区的余额写入到正式区，并将每个银行卡设置临时使能为 false。
             for (BankCard bankCard : bankCards) {
-                bankCard.setBalanceValue(bankCard.getBalanceValue());
-                bankCard.setLastRecordedDate(bankCard.getLastRecordedDate());
+                bankCard.setBalanceValue(bankCard.getTempBalanceValue());
+                bankCard.setLastRecordedDate(bankCard.getTempLastRecordedDate());
                 bankCard.setTempFlag(false);
             }
+            bankCardMaintainService.batchUpdate(bankCards);
 
             // 6. 累加所有的银行卡的余额, 算出总余额，记录到账本的总余额中。
             AccountBook accountBook = accountBookMaintainService.get(accountBookKey);

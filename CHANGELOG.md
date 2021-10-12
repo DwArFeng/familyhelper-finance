@@ -8,7 +8,7 @@
 
 #### Bug修复
 
-- (无)
+- 修正 `BalanceOperateHandlerImpl.recordCommit` 方法执行时行为不正常的 bug。
 
 #### 功能移除
 
