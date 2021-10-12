@@ -1,6 +1,6 @@
 # ChangeLog
 
-### Release_1.1.2_20211008_build_A
+### Release_1.1.3_20211012_build_A
 
 #### 功能构建
 
@@ -12,15 +12,29 @@
 
 #### 功能移除
 
+- (无)
+
+---
+
+### Release_1.1.2_20211008_build_A
+
+#### 功能构建
+
+- (无)
+
+#### Bug修复
+
+- 补全 HibernateBankCard 缺失的字段。
+  - HibernateBankCard.cardType。
+
+#### 功能移除
+
 - 删除异常包中个异常类不正确的构造器函数。
   - com.dwarfeng.familyhelper.finance.stack.exception.AccountBookNotExistsException。
   - com.dwarfeng.familyhelper.finance.stack.exception.BankCardNotExistsException。
   - com.dwarfeng.familyhelper.finance.stack.exception.IllegalBankCardStateException。
   - com.dwarfeng.familyhelper.finance.stack.exception.UserNotExistsException。
   - com.dwarfeng.familyhelper.finance.stack.exception.UserNotPermittedException。
-
-- 补全 HibernateBankCard 缺失的字段。
-  - HibernateBankCard.cardType。
 
 ---
 
