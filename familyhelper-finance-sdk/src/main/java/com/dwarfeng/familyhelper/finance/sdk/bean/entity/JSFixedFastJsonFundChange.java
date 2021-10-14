@@ -5,6 +5,7 @@ import com.dwarfeng.familyhelper.finance.stack.bean.entity.FundChange;
 import com.dwarfeng.subgrade.sdk.bean.key.JSFixedFastJsonLongIdKey;
 import com.dwarfeng.subgrade.stack.bean.Bean;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
@@ -12,11 +13,11 @@ import java.util.Objects;
  * JSFixed FastJson 资金变更。
  *
  * @author DwArFeng
- * @since 1.0.0
+ * @since 1.2.0
  */
 public class JSFixedFastJsonFundChange implements Bean {
 
-    private static final long serialVersionUID = -8809932051340567003L;
+    private static final long serialVersionUID = 425011182159130846L;
 
     public static JSFixedFastJsonFundChange of(FundChange fundChange) {
         if (Objects.isNull(fundChange)) {
@@ -25,7 +26,7 @@ public class JSFixedFastJsonFundChange implements Bean {
             return new JSFixedFastJsonFundChange(
                     JSFixedFastJsonLongIdKey.of(fundChange.getKey()),
                     JSFixedFastJsonLongIdKey.of(fundChange.getAccountBookKey()),
-                    JSFixedFastJsonLongIdKey.of(fundChange.getBankCardKey()),
+                    fundChange.getDelta(),
                     fundChange.getChangeType(),
                     fundChange.getHappenedDate(),
                     fundChange.getRemark()
@@ -39,8 +40,8 @@ public class JSFixedFastJsonFundChange implements Bean {
     @JSONField(name = "account_book_key", ordinal = 2)
     private JSFixedFastJsonLongIdKey accountBookKey;
 
-    @JSONField(name = "bank_card_key", ordinal = 3)
-    private JSFixedFastJsonLongIdKey bankCardKey;
+    @JSONField(name = "delta", ordinal = 3)
+    private BigDecimal delta;
 
     @JSONField(name = "change_type", ordinal = 4)
     private String changeType;
@@ -55,12 +56,12 @@ public class JSFixedFastJsonFundChange implements Bean {
     }
 
     public JSFixedFastJsonFundChange(
-            JSFixedFastJsonLongIdKey key, JSFixedFastJsonLongIdKey accountBookKey, JSFixedFastJsonLongIdKey bankCardKey,
+            JSFixedFastJsonLongIdKey key, JSFixedFastJsonLongIdKey accountBookKey, BigDecimal delta,
             String changeType, Date happenedDate, String remark
     ) {
         this.key = key;
         this.accountBookKey = accountBookKey;
-        this.bankCardKey = bankCardKey;
+        this.delta = delta;
         this.changeType = changeType;
         this.happenedDate = happenedDate;
         this.remark = remark;
@@ -82,12 +83,12 @@ public class JSFixedFastJsonFundChange implements Bean {
         this.accountBookKey = accountBookKey;
     }
 
-    public JSFixedFastJsonLongIdKey getBankCardKey() {
-        return bankCardKey;
+    public BigDecimal getDelta() {
+        return delta;
     }
 
-    public void setBankCardKey(JSFixedFastJsonLongIdKey bankCardKey) {
-        this.bankCardKey = bankCardKey;
+    public void setDelta(BigDecimal delta) {
+        this.delta = delta;
     }
 
     public String getChangeType() {
@@ -119,7 +120,7 @@ public class JSFixedFastJsonFundChange implements Bean {
         return "JSFixedFastJsonFundChange{" +
                 "key=" + key +
                 ", accountBookKey=" + accountBookKey +
-                ", bankCardKey=" + bankCardKey +
+                ", delta=" + delta +
                 ", changeType='" + changeType + '\'' +
                 ", happenedDate=" + happenedDate +
                 ", remark='" + remark + '\'' +

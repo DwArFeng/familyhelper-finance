@@ -2,15 +2,11 @@ package com.dwarfeng.familyhelper.finance.impl.service.operation;
 
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.BankCard;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.BankCardBalanceHistory;
-import com.dwarfeng.familyhelper.finance.stack.bean.entity.FundChange;
 import com.dwarfeng.familyhelper.finance.stack.cache.BankCardBalanceHistoryCache;
 import com.dwarfeng.familyhelper.finance.stack.cache.BankCardCache;
-import com.dwarfeng.familyhelper.finance.stack.cache.FundChangeCache;
 import com.dwarfeng.familyhelper.finance.stack.dao.BankCardBalanceHistoryDao;
 import com.dwarfeng.familyhelper.finance.stack.dao.BankCardDao;
-import com.dwarfeng.familyhelper.finance.stack.dao.FundChangeDao;
 import com.dwarfeng.familyhelper.finance.stack.service.BankCardBalanceHistoryMaintainService;
-import com.dwarfeng.familyhelper.finance.stack.service.FundChangeMaintainService;
 import com.dwarfeng.subgrade.sdk.exception.ServiceExceptionCodes;
 import com.dwarfeng.subgrade.sdk.service.custom.operation.BatchCrudOperation;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
@@ -25,26 +21,21 @@ import java.util.stream.Collectors;
 public class BankCardCrudOperation implements BatchCrudOperation<LongIdKey, BankCard> {
 
     private final BankCardDao bankCardDao;
-    private final FundChangeDao fundChangeDao;
     private final BankCardBalanceHistoryDao bankCardBalanceHistoryDao;
 
     private final BankCardCache bankCardCache;
-    private final FundChangeCache fundChangeCache;
     private final BankCardBalanceHistoryCache bankCardBalanceHistoryCache;
 
     @Value("${cache.timeout.entity.account_book}")
     private long bankCardTimeout;
 
     public BankCardCrudOperation(
-            BankCardDao bankCardDao, FundChangeDao fundChangeDao, BankCardBalanceHistoryDao bankCardBalanceHistoryDao,
-            BankCardCache bankCardCache, FundChangeCache fundChangeCache,
+            BankCardDao bankCardDao, BankCardBalanceHistoryDao bankCardBalanceHistoryDao, BankCardCache bankCardCache,
             BankCardBalanceHistoryCache bankCardBalanceHistoryCache
     ) {
         this.bankCardDao = bankCardDao;
-        this.fundChangeDao = fundChangeDao;
         this.bankCardBalanceHistoryDao = bankCardBalanceHistoryDao;
         this.bankCardCache = bankCardCache;
-        this.fundChangeCache = fundChangeCache;
         this.bankCardBalanceHistoryCache = bankCardBalanceHistoryCache;
     }
 
@@ -82,13 +73,6 @@ public class BankCardCrudOperation implements BatchCrudOperation<LongIdKey, Bank
     @SuppressWarnings("DuplicatedCode")
     @Override
     public void delete(LongIdKey key) throws Exception {
-        // 查询与账本相关的资金变更。
-        List<LongIdKey> fundChangeKeys = fundChangeDao.lookup(
-                FundChangeMaintainService.CHILD_FOR_BANK_CARD, new Object[]{key}
-        ).stream().map(FundChange::getKey).collect(Collectors.toList());
-        fundChangeCache.batchDelete(fundChangeKeys);
-        fundChangeDao.batchDelete(fundChangeKeys);
-
         // 查询与账本相关的银行卡余额历史。
         List<LongIdKey> bankCardBalanceHistoryKeys = bankCardBalanceHistoryDao.lookup(
                 BankCardBalanceHistoryMaintainService.CHILD_FOR_BANK_CARD, new Object[]{key}

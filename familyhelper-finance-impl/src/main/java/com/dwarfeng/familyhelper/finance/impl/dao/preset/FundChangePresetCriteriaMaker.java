@@ -4,10 +4,12 @@ import com.dwarfeng.familyhelper.finance.stack.service.FundChangeMaintainService
 import com.dwarfeng.subgrade.sdk.hibernate.criteria.PresetCriteriaMaker;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Objects;
 
 @Component
@@ -19,8 +21,11 @@ public class FundChangePresetCriteriaMaker implements PresetCriteriaMaker {
             case FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK:
                 childForAccountBook(detachedCriteria, objects);
                 break;
-            case FundChangeMaintainService.CHILD_FOR_BANK_CARD:
-                childForBankCard(detachedCriteria, objects);
+            case FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK_DESC:
+                childForAccountBookDesc(detachedCriteria, objects);
+                break;
+            case FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK_BETWEEN_DESC:
+                childForAccountBookBetweenDesc(detachedCriteria, objects);
                 break;
             default:
                 throw new IllegalArgumentException("无法识别的预设: " + s);
@@ -43,17 +48,38 @@ public class FundChangePresetCriteriaMaker implements PresetCriteriaMaker {
         }
     }
 
-    @SuppressWarnings("DuplicatedCode")
-    private void childForBankCard(DetachedCriteria detachedCriteria, Object[] objects) {
+    private void childForAccountBookDesc(DetachedCriteria detachedCriteria, Object[] objects) {
         try {
             if (Objects.isNull(objects[0])) {
-                detachedCriteria.add(Restrictions.isNull("bankCardLongId"));
+                detachedCriteria.add(Restrictions.isNull("accountBookLongId"));
             } else {
                 LongIdKey longIdKey = (LongIdKey) objects[0];
                 detachedCriteria.add(
-                        Restrictions.eqOrIsNull("bankCardLongId", longIdKey.getLongId())
+                        Restrictions.eqOrIsNull("accountBookLongId", longIdKey.getLongId())
                 );
             }
+            detachedCriteria.addOrder(Order.desc("happenedDate"));
+        } catch (Exception e) {
+            throw new IllegalArgumentException("非法的参数:" + Arrays.toString(objects));
+        }
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    private void childForAccountBookBetweenDesc(DetachedCriteria detachedCriteria, Object[] objects) {
+        try {
+            if (Objects.isNull(objects[0])) {
+                detachedCriteria.add(Restrictions.isNull("accountBookLongId"));
+            } else {
+                LongIdKey longIdKey = (LongIdKey) objects[0];
+                detachedCriteria.add(
+                        Restrictions.eqOrIsNull("accountBookLongId", longIdKey.getLongId())
+                );
+            }
+            Date startDate = (Date) objects[1];
+            Date endDate = (Date) objects[2];
+            detachedCriteria.add(Restrictions.ge("happenedDate", startDate));
+            detachedCriteria.add(Restrictions.lt("happenedDate", endDate));
+            detachedCriteria.addOrder(Order.desc("happenedDate"));
         } catch (Exception e) {
             throw new IllegalArgumentException("非法的参数:" + Arrays.toString(objects));
         }

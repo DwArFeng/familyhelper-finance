@@ -4,7 +4,8 @@
 
 #### 功能构建
 
-- (无)
+- 根据业务要求变更实体。
+  - com.dwarfeng.familyhelper.finance.stack.bean.entity.FundChange。
 
 #### Bug修复
 

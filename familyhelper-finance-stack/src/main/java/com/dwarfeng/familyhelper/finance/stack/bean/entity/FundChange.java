@@ -3,21 +3,22 @@ package com.dwarfeng.familyhelper.finance.stack.bean.entity;
 import com.dwarfeng.subgrade.stack.bean.entity.Entity;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
  * 资金变更。
  *
  * @author DwArFeng
- * @since 1.0.0
+ * @since 1.2.0
  */
 public class FundChange implements Entity<LongIdKey> {
 
-    private static final long serialVersionUID = 8614309127549157400L;
+    private static final long serialVersionUID = -306278124499756731L;
 
     private LongIdKey key;
     private LongIdKey accountBookKey;
-    private LongIdKey bankCardKey;
+    private BigDecimal delta;
     private String changeType;
     private Date happenedDate;
     private String remark;
@@ -26,12 +27,12 @@ public class FundChange implements Entity<LongIdKey> {
     }
 
     public FundChange(
-            LongIdKey key, LongIdKey accountBookKey, LongIdKey bankCardKey, String changeType, Date happenedDate,
+            LongIdKey key, LongIdKey accountBookKey, BigDecimal delta, String changeType, Date happenedDate,
             String remark
     ) {
         this.key = key;
         this.accountBookKey = accountBookKey;
-        this.bankCardKey = bankCardKey;
+        this.delta = delta;
         this.changeType = changeType;
         this.happenedDate = happenedDate;
         this.remark = remark;
@@ -55,12 +56,12 @@ public class FundChange implements Entity<LongIdKey> {
         this.accountBookKey = accountBookKey;
     }
 
-    public LongIdKey getBankCardKey() {
-        return bankCardKey;
+    public BigDecimal getDelta() {
+        return delta;
     }
 
-    public void setBankCardKey(LongIdKey bankCardKey) {
-        this.bankCardKey = bankCardKey;
+    public void setDelta(BigDecimal delta) {
+        this.delta = delta;
     }
 
     public String getChangeType() {
@@ -92,7 +93,7 @@ public class FundChange implements Entity<LongIdKey> {
         return "FundChange{" +
                 "key=" + key +
                 ", accountBookKey=" + accountBookKey +
-                ", bankCardKey=" + bankCardKey +
+                ", delta=" + delta +
                 ", changeType='" + changeType + '\'' +
                 ", happenedDate=" + happenedDate +
                 ", remark='" + remark + '\'' +

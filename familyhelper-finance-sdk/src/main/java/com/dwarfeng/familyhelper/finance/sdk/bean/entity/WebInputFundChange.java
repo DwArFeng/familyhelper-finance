@@ -6,23 +6,25 @@ import com.dwarfeng.subgrade.sdk.bean.key.WebInputLongIdKey;
 import com.dwarfeng.subgrade.stack.bean.Bean;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
  * WebInput 资金变更。
  *
  * @author DwArFeng
- * @since 1.0.0
+ * @since 1.2.0
  */
 public class WebInputFundChange implements Bean {
 
-    private static final long serialVersionUID = 9148528013414554756L;
+    private static final long serialVersionUID = -8550815589001548982L;
 
     public static FundChange toStackBean(WebInputFundChange webInputFundChange) {
         return new FundChange(
                 WebInputLongIdKey.toStackBean(webInputFundChange.getKey()),
                 WebInputLongIdKey.toStackBean(webInputFundChange.getAccountBookKey()),
-                WebInputLongIdKey.toStackBean(webInputFundChange.getBankCardKey()),
+                webInputFundChange.getDelta(),
                 webInputFundChange.getChangeType(),
                 webInputFundChange.getHappenedDate(),
                 webInputFundChange.getRemark()
@@ -37,9 +39,9 @@ public class WebInputFundChange implements Bean {
     @Valid
     private WebInputLongIdKey accountBookKey;
 
-    @JSONField(name = "bank_card_key")
-    @Valid
-    private WebInputLongIdKey bankCardKey;
+    @JSONField(name = "delta")
+    @NotNull
+    private BigDecimal delta;
 
     @JSONField(name = "change_type")
     private String changeType;
@@ -69,12 +71,12 @@ public class WebInputFundChange implements Bean {
         this.accountBookKey = accountBookKey;
     }
 
-    public WebInputLongIdKey getBankCardKey() {
-        return bankCardKey;
+    public BigDecimal getDelta() {
+        return delta;
     }
 
-    public void setBankCardKey(WebInputLongIdKey bankCardKey) {
-        this.bankCardKey = bankCardKey;
+    public void setDelta(BigDecimal delta) {
+        this.delta = delta;
     }
 
     public String getChangeType() {
@@ -106,7 +108,7 @@ public class WebInputFundChange implements Bean {
         return "WebInputFundChange{" +
                 "key=" + key +
                 ", accountBookKey=" + accountBookKey +
-                ", bankCardKey=" + bankCardKey +
+                ", delta=" + delta +
                 ", changeType='" + changeType + '\'' +
                 ", happenedDate=" + happenedDate +
                 ", remark='" + remark + '\'' +

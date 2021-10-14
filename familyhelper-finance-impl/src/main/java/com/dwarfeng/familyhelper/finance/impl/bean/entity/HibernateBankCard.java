@@ -7,9 +7,7 @@ import com.dwarfeng.subgrade.stack.bean.Bean;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 
 @Entity
 @IdClass(HibernateLongIdKey.class)
@@ -60,10 +58,6 @@ public class HibernateBankCard implements Bean {
             @JoinColumn(name = "account_book_id", referencedColumnName = "id", insertable = false, updatable = false), //
     })
     private HibernateAccountBook accountBook;
-
-    // -----------------------------------------------------------一对多-----------------------------------------------------------
-    @OneToMany(cascade = CascadeType.MERGE, targetEntity = HibernateFundChange.class, mappedBy = "bankCard")
-    private Set<HibernateFundChange> fundChanges = new HashSet<>();
 
     public HibernateBankCard() {
     }
@@ -172,14 +166,6 @@ public class HibernateBankCard implements Bean {
 
     public void setAccountBook(HibernateAccountBook accountBook) {
         this.accountBook = accountBook;
-    }
-
-    public Set<HibernateFundChange> getFundChanges() {
-        return fundChanges;
-    }
-
-    public void setFundChanges(Set<HibernateFundChange> fundChanges) {
-        this.fundChanges = fundChanges;
     }
 
     @Override

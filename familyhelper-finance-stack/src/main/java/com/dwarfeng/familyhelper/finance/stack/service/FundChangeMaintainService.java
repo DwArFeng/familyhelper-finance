@@ -16,5 +16,6 @@ public interface FundChangeMaintainService extends BatchCrudService<LongIdKey, F
         EntireLookupService<FundChange>, PresetLookupService<FundChange> {
 
     String CHILD_FOR_ACCOUNT_BOOK = "child_for_account_book";
-    String CHILD_FOR_BANK_CARD = "child_for_bank_card";
+    String CHILD_FOR_ACCOUNT_BOOK_DESC = "child_for_account_book_desc";
+    String CHILD_FOR_ACCOUNT_BOOK_BETWEEN_DESC = "child_for_account_book_between_desc";
 }
