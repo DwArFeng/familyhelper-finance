@@ -49,8 +49,12 @@ public class FundChangeTypeIndicatorMaintainServiceImplTest {
         try {
             for (FundChangeTypeIndicator fundChangeTypeIndicator : fundChangeTypeIndicators) {
                 fundChangeTypeIndicator.setKey(fundChangeTypeIndicatorMaintainService.insert(fundChangeTypeIndicator));
+
+                FundChangeTypeIndicator testFundChangeTypeIndicator = fundChangeTypeIndicatorMaintainService.get(
+                        fundChangeTypeIndicator.getKey());
+                assertEquals(BeanUtils.describe(fundChangeTypeIndicator), BeanUtils.describe(testFundChangeTypeIndicator));
                 fundChangeTypeIndicatorMaintainService.update(fundChangeTypeIndicator);
-                FundChangeTypeIndicator testFundChangeTypeIndicator = fundChangeTypeIndicatorMaintainService.get(fundChangeTypeIndicator.getKey());
+                testFundChangeTypeIndicator = fundChangeTypeIndicatorMaintainService.get(fundChangeTypeIndicator.getKey());
                 assertEquals(BeanUtils.describe(fundChangeTypeIndicator), BeanUtils.describe(testFundChangeTypeIndicator));
             }
         } finally {

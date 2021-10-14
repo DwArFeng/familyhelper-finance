@@ -7,6 +7,8 @@
 - 根据业务要求变更实体。
   - com.dwarfeng.familyhelper.finance.stack.bean.entity.FundChange。
 
+- 优化单元测试代码，使得实体增删改查潜在的错误被漏过的可能性进一步降低。
+
 #### Bug修复
 
 - (无)

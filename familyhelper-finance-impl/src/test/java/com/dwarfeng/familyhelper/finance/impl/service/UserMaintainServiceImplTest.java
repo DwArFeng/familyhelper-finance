@@ -45,8 +45,11 @@ public class UserMaintainServiceImplTest {
         try {
             for (User user : users) {
                 userMaintainService.insertOrUpdate(user);
-                userMaintainService.update(user);
+
                 User testUser = userMaintainService.get(user.getKey());
+                assertEquals(BeanUtils.describe(user), BeanUtils.describe(testUser));
+                userMaintainService.update(user);
+                testUser = userMaintainService.get(user.getKey());
                 assertEquals(BeanUtils.describe(user), BeanUtils.describe(testUser));
             }
         } finally {

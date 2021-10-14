@@ -66,8 +66,11 @@ public class FundChangeMaintainServiceImplTest {
         try {
             for (FundChange fundChange : fundChanges) {
                 fundChange.setKey(fundChangeMaintainService.insert(fundChange));
-                fundChangeMaintainService.update(fundChange);
+
                 FundChange testFundChange = fundChangeMaintainService.get(fundChange.getKey());
+                assertEquals(BeanUtils.describe(fundChange), BeanUtils.describe(testFundChange));
+                fundChangeMaintainService.update(fundChange);
+                testFundChange = fundChangeMaintainService.get(fundChange.getKey());
                 assertEquals(BeanUtils.describe(fundChange), BeanUtils.describe(testFundChange));
             }
         } finally {

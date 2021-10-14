@@ -65,8 +65,12 @@ public class TotalBalanceHistoryMaintainServiceImplTest {
         try {
             for (TotalBalanceHistory totalBalanceHistory : accountBookBalanceHistories) {
                 totalBalanceHistory.setKey(totalBalanceHistoryMaintainService.insert(totalBalanceHistory));
+
+                TotalBalanceHistory testTotalBalanceHistory = totalBalanceHistoryMaintainService.get(
+                        totalBalanceHistory.getKey());
+                assertEquals(BeanUtils.describe(totalBalanceHistory), BeanUtils.describe(testTotalBalanceHistory));
                 totalBalanceHistoryMaintainService.update(totalBalanceHistory);
-                TotalBalanceHistory testTotalBalanceHistory = totalBalanceHistoryMaintainService.get(totalBalanceHistory.getKey());
+                testTotalBalanceHistory = totalBalanceHistoryMaintainService.get(totalBalanceHistory.getKey());
                 assertEquals(BeanUtils.describe(totalBalanceHistory), BeanUtils.describe(testTotalBalanceHistory));
             }
         } finally {

@@ -49,8 +49,12 @@ public class BankCardTypeIndicatorMaintainServiceImplTest {
         try {
             for (BankCardTypeIndicator bankCardTypeIndicator : bankCardTypeIndicators) {
                 bankCardTypeIndicator.setKey(bankCardTypeIndicatorMaintainService.insert(bankCardTypeIndicator));
+
+                BankCardTypeIndicator testBankCardTypeIndicator = bankCardTypeIndicatorMaintainService.get(
+                        bankCardTypeIndicator.getKey());
+                assertEquals(BeanUtils.describe(bankCardTypeIndicator), BeanUtils.describe(testBankCardTypeIndicator));
                 bankCardTypeIndicatorMaintainService.update(bankCardTypeIndicator);
-                BankCardTypeIndicator testBankCardTypeIndicator = bankCardTypeIndicatorMaintainService.get(bankCardTypeIndicator.getKey());
+                testBankCardTypeIndicator = bankCardTypeIndicatorMaintainService.get(bankCardTypeIndicator.getKey());
                 assertEquals(BeanUtils.describe(bankCardTypeIndicator), BeanUtils.describe(testBankCardTypeIndicator));
             }
         } finally {

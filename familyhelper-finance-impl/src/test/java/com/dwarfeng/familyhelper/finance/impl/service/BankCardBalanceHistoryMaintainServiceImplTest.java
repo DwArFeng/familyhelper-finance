@@ -83,8 +83,12 @@ public class BankCardBalanceHistoryMaintainServiceImplTest {
         try {
             for (BankCardBalanceHistory bankCardBalanceHistory : bankCardBalanceHistories) {
                 bankCardBalanceHistory.setKey(bankCardBalanceHistoryMaintainService.insert(bankCardBalanceHistory));
+
+                BankCardBalanceHistory testBankCardBalanceHistory = bankCardBalanceHistoryMaintainService.get(
+                        bankCardBalanceHistory.getKey());
+                assertEquals(BeanUtils.describe(bankCardBalanceHistory), BeanUtils.describe(testBankCardBalanceHistory));
                 bankCardBalanceHistoryMaintainService.update(bankCardBalanceHistory);
-                BankCardBalanceHistory testBankCardBalanceHistory = bankCardBalanceHistoryMaintainService.get(bankCardBalanceHistory.getKey());
+                testBankCardBalanceHistory = bankCardBalanceHistoryMaintainService.get(bankCardBalanceHistory.getKey());
                 assertEquals(BeanUtils.describe(bankCardBalanceHistory), BeanUtils.describe(testBankCardBalanceHistory));
             }
         } finally {

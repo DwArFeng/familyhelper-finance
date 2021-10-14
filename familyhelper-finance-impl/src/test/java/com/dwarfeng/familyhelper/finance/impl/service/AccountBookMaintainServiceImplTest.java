@@ -52,8 +52,11 @@ public class AccountBookMaintainServiceImplTest {
         try {
             for (AccountBook accountBook : accountBooks) {
                 accountBook.setKey(accountBookMaintainService.insert(accountBook));
-                accountBookMaintainService.update(accountBook);
+
                 AccountBook testAccountBook = accountBookMaintainService.get(accountBook.getKey());
+                assertEquals(BeanUtils.describe(accountBook), BeanUtils.describe(testAccountBook));
+                accountBookMaintainService.update(accountBook);
+                testAccountBook = accountBookMaintainService.get(accountBook.getKey());
                 assertEquals(BeanUtils.describe(accountBook), BeanUtils.describe(testAccountBook));
             }
         } finally {

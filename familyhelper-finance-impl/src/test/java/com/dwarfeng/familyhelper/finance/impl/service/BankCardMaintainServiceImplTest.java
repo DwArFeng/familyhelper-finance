@@ -71,8 +71,11 @@ public class BankCardMaintainServiceImplTest {
         try {
             for (BankCard bankCard : bankCards) {
                 bankCard.setKey(bankCardMaintainService.insert(bankCard));
-                bankCardMaintainService.update(bankCard);
+
                 BankCard testBankCard = bankCardMaintainService.get(bankCard.getKey());
+                assertEquals(BeanUtils.describe(bankCard), BeanUtils.describe(testBankCard));
+                bankCardMaintainService.update(bankCard);
+                testBankCard = bankCardMaintainService.get(bankCard.getKey());
                 assertEquals(BeanUtils.describe(bankCard), BeanUtils.describe(testBankCard));
             }
         } finally {

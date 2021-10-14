@@ -69,7 +69,10 @@ public class PoabMaintainServiceImplTest {
             userMaintainService.insertOrUpdate(user);
             poabMaintainService.insert(poab);
             poabMaintainService.update(poab);
+
             Poab testPoab = poabMaintainService.get(poab.getKey());
+            assertEquals(BeanUtils.describe(poab), BeanUtils.describe(testPoab));
+            testPoab = poabMaintainService.get(poab.getKey());
             assertEquals(BeanUtils.describe(poab), BeanUtils.describe(testPoab));
         } finally {
             accountBookMaintainService.deleteIfExists(accountBook.getKey());
