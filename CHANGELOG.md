@@ -9,6 +9,9 @@
 
 - 优化单元测试代码，使得实体增删改查潜在的错误被漏过的可能性进一步降低。
 
+- 增加操作服务。
+  - com.dwarfeng.familyhelper.finance.stack.service.FundChangeOperateService。
+
 #### Bug修复
 
 - 修复部分服务错误的继承了处理器接口的 bug。

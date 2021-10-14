@@ -1,15 +1,14 @@
 package com.dwarfeng.familyhelper.finance.impl.handler;
 
-import com.dwarfeng.familyhelper.finance.stack.bean.dto.BankCardCreateInfo;
-import com.dwarfeng.familyhelper.finance.stack.bean.dto.BankCardUpdateInfo;
-import com.dwarfeng.familyhelper.finance.stack.bean.entity.AccountBook;
-import com.dwarfeng.familyhelper.finance.stack.bean.entity.BankCard;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.FundChangeRecordInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.FundChangeUpdateInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.entity.FundChange;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.Poab;
 import com.dwarfeng.familyhelper.finance.stack.bean.key.PoabKey;
 import com.dwarfeng.familyhelper.finance.stack.exception.*;
-import com.dwarfeng.familyhelper.finance.stack.handler.BankCardOperateHandler;
+import com.dwarfeng.familyhelper.finance.stack.handler.FundChangeOperateHandler;
 import com.dwarfeng.familyhelper.finance.stack.service.AccountBookMaintainService;
-import com.dwarfeng.familyhelper.finance.stack.service.BankCardMaintainService;
+import com.dwarfeng.familyhelper.finance.stack.service.FundChangeMaintainService;
 import com.dwarfeng.familyhelper.finance.stack.service.PoabMaintainService;
 import com.dwarfeng.familyhelper.finance.stack.service.UserMaintainService;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
@@ -18,31 +17,30 @@ import com.dwarfeng.subgrade.stack.exception.HandlerException;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
 @Component
-public class BankCardOperateHandlerImpl implements BankCardOperateHandler {
+public class FundChangeOperateHandlerImpl implements FundChangeOperateHandler {
 
     private final UserMaintainService userMaintainService;
-    private final BankCardMaintainService bankCardMaintainService;
+    private final FundChangeMaintainService fundChangeMaintainService;
     private final AccountBookMaintainService accountBookMaintainService;
     private final PoabMaintainService poabMaintainService;
 
-    public BankCardOperateHandlerImpl(
-            UserMaintainService userMaintainService, BankCardMaintainService bankCardMaintainService,
+    public FundChangeOperateHandlerImpl(
+            UserMaintainService userMaintainService, FundChangeMaintainService fundChangeMaintainService,
             AccountBookMaintainService accountBookMaintainService, PoabMaintainService poabMaintainService
     ) {
         this.userMaintainService = userMaintainService;
-        this.bankCardMaintainService = bankCardMaintainService;
+        this.fundChangeMaintainService = fundChangeMaintainService;
         this.accountBookMaintainService = accountBookMaintainService;
         this.poabMaintainService = poabMaintainService;
     }
 
     @Override
-    public LongIdKey createBankCard(
-            StringIdKey userKey, LongIdKey accountBookKey, BankCardCreateInfo bankCardCreateInfo
+    public LongIdKey recordFundChange(
+            StringIdKey userKey, LongIdKey accountBookKey, FundChangeRecordInfo fundChangeRecordInfo
     ) throws HandlerException {
         try {
             // 1. 确认用户存在。
@@ -51,14 +49,17 @@ public class BankCardOperateHandlerImpl implements BankCardOperateHandler {
             // 2. 确认账本存在。
             makeSureAccountBookExists(accountBookKey);
 
-            // 3. 根据 bankCardCreateInfo 以及创建的规则组合 银行卡 实体。
-            BankCard bankCard = new BankCard(
-                    null, accountBookKey, bankCardCreateInfo.getName(), bankCardCreateInfo.getCardType(), new Date(),
-                    BigDecimal.ZERO, false, new Date(), BigDecimal.ZERO, bankCardCreateInfo.getRemark()
+            // 3. 确认用户有权限操作指定的账本。
+            makeSureUserPermittedForAccountBook(userKey, accountBookKey);
+
+            // 4. 根据 fundChangeRecordInfo 以及创建的规则组合 资金变更 实体。
+            FundChange fundChange = new FundChange(
+                    null, accountBookKey, fundChangeRecordInfo.getDelta(), fundChangeRecordInfo.getChangeType(),
+                    new Date(), fundChangeRecordInfo.getRemark()
             );
 
-            // 4. 插入银行卡实体，并返回生成的主键。
-            return bankCardMaintainService.insert(bankCard);
+            // 4. 插入资金变更实体，并返回生成的主键。
+            return fundChangeMaintainService.insert(fundChange);
         } catch (HandlerException e) {
             throw e;
         } catch (Exception e) {
@@ -67,26 +68,27 @@ public class BankCardOperateHandlerImpl implements BankCardOperateHandler {
     }
 
     @Override
-    public void updateBankCard(StringIdKey userKey, LongIdKey bankCardKey, BankCardUpdateInfo bankCardUpdateInfo)
+    public void updateFundChange(StringIdKey userKey, LongIdKey fundChangeKey, FundChangeUpdateInfo fundChangeUpdateInfo)
             throws HandlerException {
         try {
             // 1. 确认用户存在。
             makeSureUserExists(userKey);
 
-            // 2. 确认银行卡存在。
-            makeSureBankCardExists(bankCardKey);
+            // 2. 确认资金变更存在。
+            makeSureFundChangeExists(fundChangeKey);
 
-            // 3. 确认用户有权限操作指定的银行卡。
-            makeSureUserPermittedForBankCard(userKey, bankCardKey);
+            // 3. 确认用户有权限操作指定的资金变更记录。
+            makeSureUserPermittedForFundChange(userKey, fundChangeKey);
 
-            // 4. 根据 bankCardUpdateInfo 以及更新的规则设置 银行卡 实体。
-            BankCard bankCard = bankCardMaintainService.get(bankCardKey);
-            bankCard.setName(bankCardUpdateInfo.getName());
-            bankCard.setCardType(bankCardUpdateInfo.getCardType());
-            bankCard.setRemark(bankCardUpdateInfo.getRemark());
+            // 4. 根据 fundChangeUpdateInfo 以及更新的规则设置 资金变更 实体。
+            FundChange fundChange = fundChangeMaintainService.get(fundChangeKey);
+            fundChange.setDelta(fundChangeUpdateInfo.getDelta());
+            fundChange.setChangeType(fundChangeUpdateInfo.getChangeType());
+            fundChange.setHappenedDate(new Date());
+            fundChange.setRemark(fundChangeUpdateInfo.getRemark());
 
-            // 5. 更新银行卡实体。
-            bankCardMaintainService.update(bankCard);
+            // 5. 更新资金变更实体。
+            fundChangeMaintainService.update(fundChange);
         } catch (HandlerException e) {
             throw e;
         } catch (Exception e) {
@@ -95,30 +97,19 @@ public class BankCardOperateHandlerImpl implements BankCardOperateHandler {
     }
 
     @Override
-    public void removeBankCard(StringIdKey userKey, LongIdKey bankCardKey) throws HandlerException {
+    public void removeFundChange(StringIdKey userKey, LongIdKey fundChangeKey) throws HandlerException {
         try {
             // 1. 确认用户存在。
             makeSureUserExists(userKey);
 
-            // 2. 确认银行卡存在。
-            makeSureBankCardExists(bankCardKey);
+            // 2. 确认资金变更存在。
+            makeSureFundChangeExists(fundChangeKey);
 
-            // 3. 确认用户有权限操作指定的银行卡。
-            makeSureUserPermittedForBankCard(userKey, bankCardKey);
+            // 3. 确认用户有权限操作指定的资金变更。
+            makeSureUserPermittedForFundChange(userKey, fundChangeKey);
 
-            // 4. 获取银行卡所属的账本。
-            BankCard bankCard = bankCardMaintainService.get(bankCardKey);
-            AccountBook accountBook = accountBookMaintainService.get(bankCard.getAccountBookKey());
-
-            // 5. 存在删除指定的银行卡。
-            bankCardMaintainService.deleteIfExists(bankCardKey);
-
-            // 6. 重新统计银行卡的总余额，并更新。
-            BigDecimal totalBalance = bankCardMaintainService.lookup(
-                    BankCardMaintainService.CHILD_FOR_ACCOUNT_BOOK, new Object[]{accountBook.getKey()}
-            ).getData().stream().map(BankCard::getBalanceValue).reduce(BigDecimal.ZERO, BigDecimal::add);
-            accountBook.setTotalValue(totalBalance);
-            accountBookMaintainService.update(accountBook);
+            // 4. 存在删除指定的资金变更。
+            fundChangeMaintainService.deleteIfExists(fundChangeKey);
         } catch (HandlerException e) {
             throw e;
         } catch (Exception e) {
@@ -146,26 +137,27 @@ public class BankCardOperateHandlerImpl implements BankCardOperateHandler {
         }
     }
 
-    private void makeSureBankCardExists(LongIdKey bankCardKey) throws HandlerException {
+    private void makeSureFundChangeExists(LongIdKey fundChangeKey) throws HandlerException {
         try {
-            if (!bankCardMaintainService.exists(bankCardKey)) {
-                throw new BankCardNotExistsException(bankCardKey);
+            if (!fundChangeMaintainService.exists(fundChangeKey)) {
+                throw new FundChangeNotExistsException(fundChangeKey);
             }
         } catch (ServiceException e) {
             throw new HandlerException(e);
         }
     }
 
-    private void makeSureUserPermittedForBankCard(StringIdKey userKey, LongIdKey bankCardKey) throws HandlerException {
+    private void makeSureUserPermittedForFundChange(StringIdKey userKey, LongIdKey fundChangeKey)
+            throws HandlerException {
         try {
-            // 1. 查找指定的银行卡是否绑定账本，如果不绑定账本，则抛出银行卡状态异常。
-            BankCard bankCard = bankCardMaintainService.get(bankCardKey);
-            if (Objects.isNull(bankCard.getAccountBookKey())) {
-                throw new IllegalBankCardStateException(bankCardKey);
+            // 1. 查找指定的资金变更是否绑定账本，如果不绑定账本，则抛出资金变更状态异常。
+            FundChange fundChange = fundChangeMaintainService.get(fundChangeKey);
+            if (Objects.isNull(fundChange.getAccountBookKey())) {
+                throw new IllegalFundChangeStateException(fundChangeKey);
             }
 
-            // 2. 取出银行卡的账本外键，判断用户是否拥有该账本的权限。
-            makeSureUserPermittedForAccountBook(userKey, bankCard.getAccountBookKey());
+            // 2. 取出资金变更的账本外键，判断用户是否拥有该账本的权限。
+            makeSureUserPermittedForAccountBook(userKey, fundChange.getAccountBookKey());
         } catch (ServiceException e) {
             throw new HandlerException(e);
         }

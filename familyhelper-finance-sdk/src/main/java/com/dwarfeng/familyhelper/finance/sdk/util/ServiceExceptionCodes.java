@@ -22,6 +22,10 @@ public final class ServiceExceptionCodes {
             new ServiceException.Code(offset(30), "user not exists");
     public static final ServiceException.Code USER_NOT_PERMITTED =
             new ServiceException.Code(offset(40), "user not permitted");
+    public static final ServiceException.Code FUND_CHANGE_NOT_EXISTS =
+            new ServiceException.Code(offset(50), "fund change not exists");
+    public static final ServiceException.Code ILLEGAL_FUND_CHANGE_STATE =
+            new ServiceException.Code(offset(60), "illegal fund change state");
 
     private static int offset(int i) {
         return EXCEPTION_CODE_OFFSET + i;

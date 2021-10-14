@@ -21,6 +21,8 @@ public class ServiceExceptionMapperConfiguration {
         destination.put(IllegalBankCardStateException.class, ServiceExceptionCodes.ILLEGAL_BANK_CARD_STATE);
         destination.put(UserNotExistsException.class, ServiceExceptionCodes.USER_NOT_EXISTS);
         destination.put(UserNotPermittedException.class, ServiceExceptionCodes.USER_NOT_PERMITTED);
+        destination.put(FundChangeNotExistsException.class, ServiceExceptionCodes.FUND_CHANGE_NOT_EXISTS);
+        destination.put(IllegalFundChangeStateException.class, ServiceExceptionCodes.ILLEGAL_FUND_CHANGE_STATE);
         return new MapServiceExceptionMapper(destination, com.dwarfeng.subgrade.sdk.exception.ServiceExceptionCodes.UNDEFINE);
     }
 }
