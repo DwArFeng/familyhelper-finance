@@ -5,7 +5,7 @@ import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookUpdateInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
-import com.dwarfeng.subgrade.stack.handler.Handler;
+import com.dwarfeng.subgrade.stack.service.Service;
 
 /**
  * 账本操作服务。
@@ -13,7 +13,7 @@ import com.dwarfeng.subgrade.stack.handler.Handler;
  * @author DwArFeng
  * @since 1.1.0
  */
-public interface AccountBookOperateService extends Handler {
+public interface AccountBookOperateService extends Service {
 
     /**
      * 创建账本。

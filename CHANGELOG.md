@@ -11,7 +11,9 @@
 
 #### Bug修复
 
-- (无)
+- 修复部分服务错误的继承了处理器接口的 bug。
+  - com.dwarfeng.familyhelper.finance.stack.service.AccountBookOperateService。
+  - com.dwarfeng.familyhelper.finance.stack.service.BankCardOperateService。
 
 #### 功能移除
 

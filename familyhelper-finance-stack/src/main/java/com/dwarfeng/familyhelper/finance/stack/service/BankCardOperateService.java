@@ -5,7 +5,7 @@ import com.dwarfeng.familyhelper.finance.stack.bean.dto.BankCardUpdateInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
-import com.dwarfeng.subgrade.stack.handler.Handler;
+import com.dwarfeng.subgrade.stack.service.Service;
 
 /**
  * 银行卡操作服务。
@@ -13,7 +13,7 @@ import com.dwarfeng.subgrade.stack.handler.Handler;
  * @author DwArFeng
  * @since 1.1.0
  */
-public interface BankCardOperateService extends Handler {
+public interface BankCardOperateService extends Service {
 
     /**
      * 创建银行卡。
