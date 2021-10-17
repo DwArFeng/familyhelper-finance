@@ -83,11 +83,14 @@ public class BalanceOperateHandlerImpl implements BalanceOperateHandler {
                     BankCardMaintainService.CHILD_FOR_ACCOUNT_BOOK, new Object[]{accountBookKey}
             ).getData();
 
-            // 5. 将每个银行卡的临时区的余额写入到正式区，并将每个银行卡设置临时使能为 false。
+            // 5. 如果银行可的临时设置使能是 true，则将每个银行卡的临时区的余额写入到正式区，
+            // 并将每个银行卡设置临时使能为 false。
             for (BankCard bankCard : bankCards) {
-                bankCard.setBalanceValue(bankCard.getTempBalanceValue());
-                bankCard.setLastRecordedDate(bankCard.getTempLastRecordedDate());
-                bankCard.setTempFlag(false);
+                if (bankCard.isTempFlag()) {
+                    bankCard.setBalanceValue(bankCard.getTempBalanceValue());
+                    bankCard.setLastRecordedDate(bankCard.getTempLastRecordedDate());
+                    bankCard.setTempFlag(false);
+                }
             }
             bankCardMaintainService.batchUpdate(bankCards);
 
