@@ -4,7 +4,9 @@
 
 #### 功能构建
 
-- (无)
+- 增加维护服务的预设查询。
+  - TotalBalanceHistoryMaintainService.CHILD_FOR_ACCOUNT_BOOK_DESC。
+  - BankCardBalanceHistoryMaintainService.CHILD_FOR_BANK_CARD_DESC。
 
 #### Bug修复
 

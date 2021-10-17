@@ -16,8 +16,9 @@ public interface TotalBalanceHistoryMaintainService extends BatchCrudService<Lon
         EntireLookupService<TotalBalanceHistory>, PresetLookupService<TotalBalanceHistory> {
 
     String CHILD_FOR_ACCOUNT_BOOK = "child_for_account_book";
+    String CHILD_FOR_ACCOUNT_BOOK_DESC = "child_for_account_book_desc";
     String BETWEEN = "between";
-    String CHILD_FOR_ACCOUNT_BOOK_BETWEEN = "child_for_account_book_between";
     String BETWEEN_DESC = "between_desc";
+    String CHILD_FOR_ACCOUNT_BOOK_BETWEEN = "child_for_account_book_between";
     String CHILD_FOR_ACCOUNT_BOOK_BETWEEN_DESC = "child_for_account_book_between_desc";
 }

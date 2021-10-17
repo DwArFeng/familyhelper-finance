@@ -21,14 +21,17 @@ public class TotalBalanceHistoryPresetCriteriaMaker implements PresetCriteriaMak
             case TotalBalanceHistoryMaintainService.CHILD_FOR_ACCOUNT_BOOK:
                 childForAccountBook(detachedCriteria, objects);
                 break;
+            case TotalBalanceHistoryMaintainService.CHILD_FOR_ACCOUNT_BOOK_DESC:
+                childForAccountBookDesc(detachedCriteria, objects);
+                break;
             case TotalBalanceHistoryMaintainService.BETWEEN:
                 between(detachedCriteria, objects);
                 break;
-            case TotalBalanceHistoryMaintainService.CHILD_FOR_ACCOUNT_BOOK_BETWEEN:
-                childForAccountBookBetween(detachedCriteria, objects);
-                break;
             case TotalBalanceHistoryMaintainService.BETWEEN_DESC:
                 betweenDesc(detachedCriteria, objects);
+                break;
+            case TotalBalanceHistoryMaintainService.CHILD_FOR_ACCOUNT_BOOK_BETWEEN:
+                childForAccountBookBetween(detachedCriteria, objects);
                 break;
             case TotalBalanceHistoryMaintainService.CHILD_FOR_ACCOUNT_BOOK_BETWEEN_DESC:
                 childForAccountBookBetweenDesc(detachedCriteria, objects);
@@ -55,6 +58,23 @@ public class TotalBalanceHistoryPresetCriteriaMaker implements PresetCriteriaMak
     }
 
     @SuppressWarnings("DuplicatedCode")
+    private void childForAccountBookDesc(DetachedCriteria detachedCriteria, Object[] objects) {
+        try {
+            if (Objects.isNull(objects[0])) {
+                detachedCriteria.add(Restrictions.isNull("accountBookLongId"));
+            } else {
+                LongIdKey longIdKey = (LongIdKey) objects[0];
+                detachedCriteria.add(
+                        Restrictions.eqOrIsNull("accountBookLongId", longIdKey.getLongId())
+                );
+            }
+            detachedCriteria.addOrder(Order.desc("happenedDate"));
+        } catch (Exception e) {
+            throw new IllegalArgumentException("非法的参数:" + Arrays.toString(objects));
+        }
+    }
+
+    @SuppressWarnings("DuplicatedCode")
     private void between(DetachedCriteria detachedCriteria, Object[] objects) {
         try {
             Date startDate = (Date) objects[0];
@@ -62,6 +82,19 @@ public class TotalBalanceHistoryPresetCriteriaMaker implements PresetCriteriaMak
             detachedCriteria.add(Restrictions.ge("happenedDate", startDate));
             detachedCriteria.add(Restrictions.lt("happenedDate", endDate));
             detachedCriteria.addOrder(Order.asc("happenedDate"));
+        } catch (Exception e) {
+            throw new IllegalArgumentException("非法的参数:" + Arrays.toString(objects));
+        }
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    private void betweenDesc(DetachedCriteria detachedCriteria, Object[] objects) {
+        try {
+            Date startDate = (Date) objects[0];
+            Date endDate = (Date) objects[1];
+            detachedCriteria.add(Restrictions.ge("happenedDate", startDate));
+            detachedCriteria.add(Restrictions.lt("happenedDate", endDate));
+            detachedCriteria.addOrder(Order.desc("happenedDate"));
         } catch (Exception e) {
             throw new IllegalArgumentException("非法的参数:" + Arrays.toString(objects));
         }
@@ -81,19 +114,6 @@ public class TotalBalanceHistoryPresetCriteriaMaker implements PresetCriteriaMak
             detachedCriteria.add(Restrictions.ge("happenedDate", startDate));
             detachedCriteria.add(Restrictions.lt("happenedDate", endDate));
             detachedCriteria.addOrder(Order.asc("happenedDate"));
-        } catch (Exception e) {
-            throw new IllegalArgumentException("非法的参数:" + Arrays.toString(objects));
-        }
-    }
-
-    @SuppressWarnings("DuplicatedCode")
-    private void betweenDesc(DetachedCriteria detachedCriteria, Object[] objects) {
-        try {
-            Date startDate = (Date) objects[0];
-            Date endDate = (Date) objects[1];
-            detachedCriteria.add(Restrictions.ge("happenedDate", startDate));
-            detachedCriteria.add(Restrictions.lt("happenedDate", endDate));
-            detachedCriteria.addOrder(Order.desc("happenedDate"));
         } catch (Exception e) {
             throw new IllegalArgumentException("非法的参数:" + Arrays.toString(objects));
         }

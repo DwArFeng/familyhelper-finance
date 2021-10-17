@@ -16,9 +16,10 @@ public interface BankCardBalanceHistoryMaintainService extends BatchCrudService<
         EntireLookupService<BankCardBalanceHistory>, PresetLookupService<BankCardBalanceHistory> {
 
     String CHILD_FOR_BANK_CARD = "child_for_bank_card";
+    String CHILD_FOR_BANK_CARD_DESC = "child_for_bank_card_desc";
     String BETWEEN = "between";
-    String CHILD_FOR_BANK_CARD_BETWEEN = "child_for_bank_card_between";
     String BETWEEN_DESC = "between_desc";
+    String CHILD_FOR_BANK_CARD_BETWEEN = "child_for_bank_card_between";
     String CHILD_FOR_BANK_CARD_BETWEEN_DESC = "child_for_bank_card_between_desc";
     String CHILD_FOR_BANK_CARD_SET = "child_for_bank_card_set";
 }
