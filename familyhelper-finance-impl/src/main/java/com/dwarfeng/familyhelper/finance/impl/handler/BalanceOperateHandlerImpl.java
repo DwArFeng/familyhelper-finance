@@ -12,6 +12,7 @@ import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -83,10 +84,12 @@ public class BalanceOperateHandlerImpl implements BalanceOperateHandler {
                     BankCardMaintainService.CHILD_FOR_ACCOUNT_BOOK, new Object[]{accountBookKey}
             ).getData();
 
-            // 5. 如果银行可的临时设置使能是 true，则将每个银行卡的临时区的余额写入到正式区，
-            // 并将每个银行卡设置临时使能为 false。
+            // 5. 如果银行的临时设置使能是 true，则将每个银行卡的临时区的余额写入到正式区，
+            // 并将每个银行卡设置临时使能为 false，并且将这些临时设置使能是 true 的银行卡记录在一个列表中，供记录历史使用。
+            List<BankCard> bankCardToRecordHistory = new ArrayList<>();
             for (BankCard bankCard : bankCards) {
                 if (bankCard.isTempFlag()) {
+                    bankCardToRecordHistory.add(bankCard);
                     bankCard.setBalanceValue(bankCard.getTempBalanceValue());
                     bankCard.setLastRecordedDate(bankCard.getTempLastRecordedDate());
                     bankCard.setTempFlag(false);
@@ -105,7 +108,7 @@ public class BalanceOperateHandlerImpl implements BalanceOperateHandler {
             accountBookMaintainService.update(accountBook);
 
             // 7. 创建余额记录历史。
-            List<BankCardBalanceHistory> bankCardBalanceHistories = bankCards.stream().map(
+            List<BankCardBalanceHistory> bankCardBalanceHistories = bankCardToRecordHistory.stream().map(
                     b -> new BankCardBalanceHistory(
                             null, b.getKey(), b.getBalanceValue(), b.getLastRecordedDate(),
                             "记录提交时自动创建的银行卡余额历史"
