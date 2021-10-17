@@ -4,7 +4,9 @@
 
 #### 功能构建
 
-- (无)
+- 增加维护服务的预设查询。
+  - FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK_TYPE_EQUALS。
+  - FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK_TYPE_EQUALS_DESC。
 
 #### Bug修复
 
