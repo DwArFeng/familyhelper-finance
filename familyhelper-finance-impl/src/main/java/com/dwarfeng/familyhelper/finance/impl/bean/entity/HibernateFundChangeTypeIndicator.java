@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Entity
 @IdClass(HibernateStringIdKey.class)
-@Table(name = "tbl_fund_type_change_indicator")
+@Table(name = "tbl_fund_change_type_indicator")
 public class HibernateFundChangeTypeIndicator implements Bean {
 
     private static final long serialVersionUID = -3671036246871422269L;

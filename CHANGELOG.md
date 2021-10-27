@@ -8,7 +8,9 @@
 
 #### Bug修复
 
-- (无)
+- 更正部分实体对应的表名错误。
+  - com.dwarfeng.familyhelper.finance.impl.bean.entity.HibernateBankCardTypeIndicator。
+  - com.dwarfeng.familyhelper.finance.impl.bean.entity.HibernateFundChangeTypeIndicator。
 
 #### 功能移除
 

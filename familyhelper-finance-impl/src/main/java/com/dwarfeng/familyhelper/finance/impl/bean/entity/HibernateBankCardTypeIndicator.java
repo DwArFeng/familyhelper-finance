@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Entity
 @IdClass(HibernateStringIdKey.class)
-@Table(name = "tbl_bank_card_change_indicator")
+@Table(name = "tbl_bank_card_type_indicator")
 public class HibernateBankCardTypeIndicator implements Bean {
 
     private static final long serialVersionUID = 6179389319504714281L;
