@@ -12,6 +12,8 @@
   - com.dwarfeng.familyhelper.finance.impl.bean.entity.HibernateBankCardTypeIndicator。
   - com.dwarfeng.familyhelper.finance.impl.bean.entity.HibernateFundChangeTypeIndicator。
 
+- 修正数据库连接默认配置不规范的 schema 名称。
+
 #### 功能移除
 
 - (无)
