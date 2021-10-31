@@ -248,15 +248,6 @@ public class DaoConfiguration {
     }
 
     @Bean
-    public HibernateEntireLookupDao<User, HibernateUser> userHibernateEntireLookupDao() {
-        return new HibernateEntireLookupDao<>(
-                template,
-                new DozerBeanTransformer<>(User.class, HibernateUser.class, mapper),
-                HibernateUser.class
-        );
-    }
-
-    @Bean
     public HibernateBatchBaseDao<LongIdKey, HibernateLongIdKey, TotalBalanceHistory, HibernateTotalBalanceHistory>
     totalBalanceHistoryHibernateBatchBaseDao() {
         return new HibernateBatchBaseDao<>(

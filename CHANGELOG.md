@@ -13,6 +13,8 @@
   - com.dwarfeng.familyhelper.finance.impl.service.operation.BankCardCrudOperation。
   - com.dwarfeng.familyhelper.finance.impl.service.operation.UserCrudOperation。
 
+- 去除用户实体维护服务以及数据访问层的多余实现。
+
 #### 功能移除
 
 - (无)

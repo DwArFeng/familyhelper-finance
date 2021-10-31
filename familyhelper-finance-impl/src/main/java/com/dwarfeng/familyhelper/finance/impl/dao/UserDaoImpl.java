@@ -4,11 +4,9 @@ import com.dwarfeng.familyhelper.finance.impl.bean.entity.HibernateUser;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.User;
 import com.dwarfeng.familyhelper.finance.stack.dao.UserDao;
 import com.dwarfeng.subgrade.impl.dao.HibernateBatchBaseDao;
-import com.dwarfeng.subgrade.impl.dao.HibernateEntireLookupDao;
 import com.dwarfeng.subgrade.sdk.bean.key.HibernateStringIdKey;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
-import com.dwarfeng.subgrade.stack.bean.dto.PagingInfo;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.DaoException;
 import org.springframework.stereotype.Repository;
@@ -20,14 +18,11 @@ import java.util.List;
 public class UserDaoImpl implements UserDao {
 
     private final HibernateBatchBaseDao<StringIdKey, HibernateStringIdKey, User, HibernateUser> batchBaseDao;
-    private final HibernateEntireLookupDao<User, HibernateUser> entireLookupDao;
 
     public UserDaoImpl(
-            HibernateBatchBaseDao<StringIdKey, HibernateStringIdKey, User, HibernateUser> batchBaseDao,
-            HibernateEntireLookupDao<User, HibernateUser> entireLookupDao
+            HibernateBatchBaseDao<StringIdKey, HibernateStringIdKey, User, HibernateUser> batchBaseDao
     ) {
         this.batchBaseDao = batchBaseDao;
-        this.entireLookupDao = entireLookupDao;
     }
 
     @Override
@@ -107,28 +102,5 @@ public class UserDaoImpl implements UserDao {
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public List<User> batchGet(@SkipRecord List<StringIdKey> keys) throws DaoException {
         return batchBaseDao.batchGet(keys);
-    }
-
-    @Override
-    @BehaviorAnalyse
-    @SkipRecord
-    @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public List<User> lookup() throws DaoException {
-        return entireLookupDao.lookup();
-    }
-
-    @Override
-    @BehaviorAnalyse
-    @SkipRecord
-    @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public List<User> lookup(PagingInfo pagingInfo) throws DaoException {
-        return entireLookupDao.lookup(pagingInfo);
-    }
-
-    @Override
-    @BehaviorAnalyse
-    @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public int lookupCount() throws DaoException {
-        return entireLookupDao.lookupCount();
     }
 }

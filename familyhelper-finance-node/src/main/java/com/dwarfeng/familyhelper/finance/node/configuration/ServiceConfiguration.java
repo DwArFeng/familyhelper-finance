@@ -44,7 +44,6 @@ public class ServiceConfiguration {
     private final PoabDao poabDao;
     private final PoabCache poabCache;
     private final UserCrudOperation userCrudOperation;
-    private final UserDao userDao;
     private final TotalBalanceHistoryDao totalBalanceHistoryDao;
     private final TotalBalanceHistoryCache totalBalanceHistoryCache;
     private final BankCardBalanceHistoryDao bankCardBalanceHistoryDao;
@@ -65,14 +64,21 @@ public class ServiceConfiguration {
 
     public ServiceConfiguration(
             ServiceExceptionMapperConfiguration serviceExceptionMapperConfiguration,
-            AccountBookCrudOperation accountBookCrudOperation, AccountBookDao accountBookDao,
-            BankCardCrudOperation bankCardCrudOperation, BankCardDao bankCardDao,
-            BankCardTypeIndicatorDao bankCardTypeIndicatorDao, BankCardTypeIndicatorCache bankCardTypeIndicatorCache,
-            FundChangeDao fundChangeDao, FundChangeCache fundChangeCache,
+            AccountBookCrudOperation accountBookCrudOperation,
+            AccountBookDao accountBookDao,
+            BankCardCrudOperation bankCardCrudOperation,
+            BankCardDao bankCardDao,
+            BankCardTypeIndicatorDao bankCardTypeIndicatorDao,
+            BankCardTypeIndicatorCache bankCardTypeIndicatorCache,
+            FundChangeDao fundChangeDao,
+            FundChangeCache fundChangeCache,
             FundChangeTypeIndicatorDao fundChangeTypeIndicatorDao,
-            FundChangeTypeIndicatorCache fundChangeTypeIndicatorCache, PoabDao poabDao, PoabCache poabCache,
-            UserCrudOperation userCrudOperation, UserDao userDao,
-            TotalBalanceHistoryDao totalBalanceHistoryDao, TotalBalanceHistoryCache totalBalanceHistoryCache,
+            FundChangeTypeIndicatorCache fundChangeTypeIndicatorCache,
+            PoabDao poabDao,
+            PoabCache poabCache,
+            UserCrudOperation userCrudOperation,
+            TotalBalanceHistoryDao totalBalanceHistoryDao,
+            TotalBalanceHistoryCache totalBalanceHistoryCache,
             BankCardBalanceHistoryDao bankCardBalanceHistoryDao,
             BankCardBalanceHistoryCache bankCardBalanceHistoryCache
     ) {
@@ -90,7 +96,6 @@ public class ServiceConfiguration {
         this.poabDao = poabDao;
         this.poabCache = poabCache;
         this.userCrudOperation = userCrudOperation;
-        this.userDao = userDao;
         this.totalBalanceHistoryDao = totalBalanceHistoryDao;
         this.totalBalanceHistoryCache = totalBalanceHistoryCache;
         this.bankCardBalanceHistoryDao = bankCardBalanceHistoryDao;
@@ -262,15 +267,6 @@ public class ServiceConfiguration {
         return new CustomBatchCrudService<>(
                 userCrudOperation,
                 new ExceptionKeyFetcher<>(),
-                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
-                LogLevel.WARN
-        );
-    }
-
-    @Bean
-    public DaoOnlyEntireLookupService<User> userDaoOnlyEntireLookupService() {
-        return new DaoOnlyEntireLookupService<>(
-                userDao,
                 serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
                 LogLevel.WARN
         );
