@@ -136,7 +136,7 @@ public class AccountBookCrudOperation implements BatchCrudOperation<LongIdKey, A
 
     @Override
     public boolean nonExists(List<LongIdKey> keys) throws Exception {
-        return accountBookCache.nonExists(keys) && accountBookCache.nonExists(keys);
+        return accountBookCache.nonExists(keys) && accountBookDao.nonExists(keys);
     }
 
     @Override

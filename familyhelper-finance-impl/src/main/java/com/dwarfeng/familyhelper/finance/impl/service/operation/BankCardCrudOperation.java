@@ -92,7 +92,7 @@ public class BankCardCrudOperation implements BatchCrudOperation<LongIdKey, Bank
 
     @Override
     public boolean nonExists(List<LongIdKey> keys) throws Exception {
-        return bankCardCache.nonExists(keys) && bankCardCache.nonExists(keys);
+        return bankCardCache.nonExists(keys) && bankCardDao.nonExists(keys);
     }
 
     @Override

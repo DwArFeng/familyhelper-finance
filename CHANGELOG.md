@@ -8,7 +8,10 @@
 
 #### Bug修复
 
-- (无)
+- 修正实体的 CrudOperation 类中的错误代码。
+  - com.dwarfeng.familyhelper.finance.impl.service.operation.AccountBookCrudOperation。
+  - com.dwarfeng.familyhelper.finance.impl.service.operation.BankCardCrudOperation。
+  - com.dwarfeng.familyhelper.finance.impl.service.operation.UserCrudOperation。
 
 #### 功能移除
 
