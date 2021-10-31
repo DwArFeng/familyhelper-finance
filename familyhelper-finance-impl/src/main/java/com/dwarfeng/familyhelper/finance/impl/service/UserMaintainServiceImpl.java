@@ -3,7 +3,6 @@ package com.dwarfeng.familyhelper.finance.impl.service;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.User;
 import com.dwarfeng.familyhelper.finance.stack.service.UserMaintainService;
 import com.dwarfeng.subgrade.impl.service.CustomBatchCrudService;
-import com.dwarfeng.subgrade.impl.service.DaoOnlyEntireLookupService;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
@@ -17,14 +16,11 @@ import java.util.List;
 public class UserMaintainServiceImpl implements UserMaintainService {
 
     private final CustomBatchCrudService<StringIdKey, User> crudService;
-    private final DaoOnlyEntireLookupService<User> entireLookupService;
 
     public UserMaintainServiceImpl(
-            CustomBatchCrudService<StringIdKey, User> crudService,
-            DaoOnlyEntireLookupService<User> entireLookupService
+            CustomBatchCrudService<StringIdKey, User> crudService
     ) {
         this.crudService = crudService;
-        this.entireLookupService = entireLookupService;
     }
 
     @Override
