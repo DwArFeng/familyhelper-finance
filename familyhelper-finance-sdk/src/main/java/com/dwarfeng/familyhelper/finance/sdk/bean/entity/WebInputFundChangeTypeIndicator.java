@@ -1,9 +1,15 @@
 package com.dwarfeng.familyhelper.finance.sdk.bean.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.dwarfeng.familyhelper.finance.sdk.util.Constraints;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.FundChangeTypeIndicator;
 import com.dwarfeng.subgrade.sdk.bean.key.WebInputStringIdKey;
 import com.dwarfeng.subgrade.stack.bean.Bean;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 /**
  * WebInput 资金变更类型指示器。
@@ -24,12 +30,19 @@ public class WebInputFundChangeTypeIndicator implements Bean {
     }
 
     @JSONField(name = "key")
+    @Valid
     private WebInputStringIdKey key;
 
     @JSONField(name = "label")
+    @NotNull
+    @NotEmpty
+    @Length(max = Constraints.LENGTH_LABEL)
     private String label;
 
     @JSONField(name = "remark")
+    @NotNull
+    @NotEmpty
+    @Length(max = Constraints.LENGTH_REMARK)
     private String remark;
 
     public WebInputFundChangeTypeIndicator() {

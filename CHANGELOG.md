@@ -4,7 +4,9 @@
 
 #### 功能构建
 
-- (无)
+- 完善实体的验证注解。
+  - com.dwarfeng.familyhelper.finance.sdk.bean.entity.WebInputBankCardTypeIndicator。
+  - com.dwarfeng.familyhelper.finance.sdk.bean.entity.WebInputFundChangeTypeIndicator。
 
 #### Bug修复
 
