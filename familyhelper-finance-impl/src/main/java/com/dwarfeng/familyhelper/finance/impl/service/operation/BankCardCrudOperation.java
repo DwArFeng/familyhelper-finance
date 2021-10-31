@@ -26,7 +26,7 @@ public class BankCardCrudOperation implements BatchCrudOperation<LongIdKey, Bank
     private final BankCardCache bankCardCache;
     private final BankCardBalanceHistoryCache bankCardBalanceHistoryCache;
 
-    @Value("${cache.timeout.entity.account_book}")
+    @Value("${cache.timeout.entity.bank_card}")
     private long bankCardTimeout;
 
     public BankCardCrudOperation(

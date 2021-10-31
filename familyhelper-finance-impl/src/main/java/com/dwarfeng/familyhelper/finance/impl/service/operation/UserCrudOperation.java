@@ -27,7 +27,7 @@ public class UserCrudOperation implements BatchCrudOperation<StringIdKey, User> 
     private final UserCache userCache;
     private final PoabCache poabCache;
 
-    @Value("${cache.timeout.entity.account_book}")
+    @Value("${cache.timeout.entity.user}")
     private long userTimeout;
 
     public UserCrudOperation(UserDao userDao, PoabDao poabDao, UserCache userCache, PoabCache poabCache) {
