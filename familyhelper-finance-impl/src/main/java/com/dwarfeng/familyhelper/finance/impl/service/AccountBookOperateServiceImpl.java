@@ -12,6 +12,8 @@ import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
 import com.dwarfeng.subgrade.stack.log.LogLevel;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+
 @Service
 public class AccountBookOperateServiceImpl implements AccountBookOperateService {
 
@@ -57,20 +59,31 @@ public class AccountBookOperateServiceImpl implements AccountBookOperateService 
     }
 
     @Override
-    public void addGuestPermission(StringIdKey ownerUserKey, StringIdKey guestUserKey, LongIdKey accountBookKey)
+    public void addGuestPermission(StringIdKey ownerUserKey, LongIdKey accountBookKey, StringIdKey guestUserKey)
             throws ServiceException {
         try {
-            accountBookOperateHandler.addGuestPermission(ownerUserKey, guestUserKey, accountBookKey);
+            accountBookOperateHandler.addGuestPermission(ownerUserKey, accountBookKey, guestUserKey);
         } catch (Exception e) {
             throw ServiceExceptionHelper.logAndThrow("添加账本的访客权限时发生异常", LogLevel.WARN, sem, e);
         }
     }
 
     @Override
-    public void removeGuestPermission(StringIdKey ownerUserKey, StringIdKey guestUserKey, LongIdKey accountBookKey)
+    public void removeGuestPermission(StringIdKey ownerUserKey, LongIdKey accountBookKey, StringIdKey guestUserKey)
             throws ServiceException {
         try {
-            accountBookOperateHandler.removeGuestPermission(ownerUserKey, guestUserKey, accountBookKey);
+            accountBookOperateHandler.removeGuestPermission(ownerUserKey, accountBookKey, guestUserKey);
+        } catch (Exception e) {
+            throw ServiceExceptionHelper.logAndThrow("移除账本的访客权限时发生异常", LogLevel.WARN, sem, e);
+        }
+    }
+
+    @Override
+    public void resetGuestPermission(
+            StringIdKey ownerUserKey, LongIdKey accountBookKey, Collection<StringIdKey> guestUserKeys
+    ) throws ServiceException {
+        try {
+            accountBookOperateHandler.resetGuestPermission(ownerUserKey, accountBookKey, guestUserKeys);
         } catch (Exception e) {
             throw ServiceExceptionHelper.logAndThrow("移除账本的访客权限时发生异常", LogLevel.WARN, sem, e);
         }

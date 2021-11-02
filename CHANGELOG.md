@@ -10,6 +10,9 @@
 
 - 将程序自身的异常代码偏移加入配置项。
 
+- 新增服务方法。
+  - AccountBookOperateService.resetGuestPermission。
+
 #### Bug修复
 
 - 修正实体的 CrudOperation 类中的错误代码。
