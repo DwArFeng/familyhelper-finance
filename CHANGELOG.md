@@ -8,6 +8,8 @@
   - com.dwarfeng.familyhelper.finance.sdk.bean.entity.WebInputBankCardTypeIndicator。
   - com.dwarfeng.familyhelper.finance.sdk.bean.entity.WebInputFundChangeTypeIndicator。
 
+- 将程序自身的异常代码偏移加入配置项。
+
 #### Bug修复
 
 - 修正实体的 CrudOperation 类中的错误代码。

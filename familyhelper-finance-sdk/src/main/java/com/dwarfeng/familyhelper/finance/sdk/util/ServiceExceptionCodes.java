@@ -10,7 +10,7 @@ import com.dwarfeng.subgrade.stack.exception.ServiceException;
  */
 public final class ServiceExceptionCodes {
 
-    private static int EXCEPTION_CODE_OFFSET = 5000;
+    private static int EXCEPTION_CODE_OFFSET = 11000;
 
     public static final ServiceException.Code ACCOUNT_BOOK_NOT_EXISTS =
             new ServiceException.Code(offset(0), "account book not exists");
