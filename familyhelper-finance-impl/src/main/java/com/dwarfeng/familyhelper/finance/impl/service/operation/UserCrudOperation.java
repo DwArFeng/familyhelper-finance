@@ -78,8 +78,8 @@ public class UserCrudOperation implements BatchCrudOperation<StringIdKey, User> 
         poabDao.batchDelete(poabKeys);
 
         // 删除账本实体自身。
-        userDao.delete(key);
         userCache.delete(key);
+        userDao.delete(key);
     }
 
     @Override

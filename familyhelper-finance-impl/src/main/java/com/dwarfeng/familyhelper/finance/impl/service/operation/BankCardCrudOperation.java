@@ -81,8 +81,8 @@ public class BankCardCrudOperation implements BatchCrudOperation<LongIdKey, Bank
         bankCardBalanceHistoryDao.batchDelete(bankCardBalanceHistoryKeys);
 
         // 删除账本实体自身。
-        bankCardDao.delete(key);
         bankCardCache.delete(key);
+        bankCardDao.delete(key);
     }
 
     @Override

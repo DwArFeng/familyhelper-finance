@@ -10,6 +10,8 @@
 
 - 修正调用 ServiceExceptionCodes.setExceptionCodeOffset 后，报警代码不更新的 bug。
 
+- 修正 CrudOperation 实现中的 bug。
+
 #### 功能移除
 
 - (无)

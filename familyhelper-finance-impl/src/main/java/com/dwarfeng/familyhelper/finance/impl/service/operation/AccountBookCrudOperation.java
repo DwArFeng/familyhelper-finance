@@ -125,8 +125,8 @@ public class AccountBookCrudOperation implements BatchCrudOperation<LongIdKey, A
         totalBalanceHistoryDao.batchDelete(totalBalanceHistoryKeys);
 
         // 删除账本实体自身。
-        accountBookDao.delete(key);
         accountBookCache.delete(key);
+        accountBookDao.delete(key);
     }
 
     @Override
