@@ -8,7 +8,7 @@
 
 #### Bug修复
 
-- (无)
+- 修正调用 ServiceExceptionCodes.setExceptionCodeOffset 后，报警代码不更新的 bug。
 
 #### 功能移除
 
