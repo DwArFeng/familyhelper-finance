@@ -84,7 +84,6 @@ public class FundChangeOperateHandlerImpl implements FundChangeOperateHandler {
             FundChange fundChange = fundChangeMaintainService.get(fundChangeKey);
             fundChange.setDelta(fundChangeUpdateInfo.getDelta());
             fundChange.setChangeType(fundChangeUpdateInfo.getChangeType());
-            fundChange.setHappenedDate(new Date());
             fundChange.setRemark(fundChangeUpdateInfo.getRemark());
 
             // 5. 更新资金变更实体。
