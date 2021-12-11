@@ -31,7 +31,6 @@ public class BankCardMaintainServiceImplTest {
 
     private List<BankCard> bankCards;
     private AccountBook accountBook;
-    private BankCard bankCard;
 
     @Before
     public void setUp() {
