@@ -2,8 +2,10 @@ package com.dwarfeng.familyhelper.finance.sdk.bean.dto;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookUpdateInfo;
+import com.dwarfeng.subgrade.sdk.bean.key.WebInputLongIdKey;
 import com.dwarfeng.subgrade.stack.bean.dto.Dto;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
@@ -16,18 +18,23 @@ import java.util.Objects;
  */
 public class WebInputAccountBookUpdateInfo implements Dto {
 
-    private static final long serialVersionUID = 3075340741632950467L;
+    private static final long serialVersionUID = 7908441560987806241L;
 
     public static AccountBookUpdateInfo toStackBean(WebInputAccountBookUpdateInfo webInputAccountBookUpdateInfo) {
         if (Objects.isNull(webInputAccountBookUpdateInfo)) {
             return null;
         } else {
             return new AccountBookUpdateInfo(
+                    WebInputLongIdKey.toStackBean(webInputAccountBookUpdateInfo.getAccountBookKey()),
                     webInputAccountBookUpdateInfo.getName(),
                     webInputAccountBookUpdateInfo.getRemark()
             );
         }
     }
+
+    @JSONField(name = "account_book_key")
+    @Valid
+    private WebInputLongIdKey accountBookKey;
 
     @JSONField(name = "name")
     @NotNull
@@ -38,6 +45,14 @@ public class WebInputAccountBookUpdateInfo implements Dto {
     private String remark;
 
     public WebInputAccountBookUpdateInfo() {
+    }
+
+    public WebInputLongIdKey getAccountBookKey() {
+        return accountBookKey;
+    }
+
+    public void setAccountBookKey(WebInputLongIdKey accountBookKey) {
+        this.accountBookKey = accountBookKey;
     }
 
     public String getName() {
@@ -59,7 +74,8 @@ public class WebInputAccountBookUpdateInfo implements Dto {
     @Override
     public String toString() {
         return "WebInputAccountBookUpdateInfo{" +
-                "name='" + name + '\'' +
+                "accountBookKey=" + accountBookKey +
+                ", name='" + name + '\'' +
                 ", remark='" + remark + '\'' +
                 '}';
     }

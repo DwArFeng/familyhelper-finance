@@ -6,6 +6,9 @@
 
 - 升级 `log4j2` 依赖版本为 `2.15.0` 以规避 `CVE-2021-44228` 漏洞。
 
+- 优化部分 OperateService 的运行逻辑。
+  - com.dwarfeng.familyhelper.finance.stack.service.AccountBookOperateService。
+
 #### Bug修复
 
 - 清理单元测试代码中部分无用的字段。

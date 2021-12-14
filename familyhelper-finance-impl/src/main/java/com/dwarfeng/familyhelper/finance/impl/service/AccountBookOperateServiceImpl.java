@@ -2,6 +2,8 @@ package com.dwarfeng.familyhelper.finance.impl.service;
 
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookCreateInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookUpdateInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionCreateInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionRemoveInfo;
 import com.dwarfeng.familyhelper.finance.stack.handler.AccountBookOperateHandler;
 import com.dwarfeng.familyhelper.finance.stack.service.AccountBookOperateService;
 import com.dwarfeng.subgrade.sdk.exception.ServiceExceptionHelper;
@@ -11,8 +13,6 @@ import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
 import com.dwarfeng.subgrade.stack.log.LogLevel;
 import org.springframework.stereotype.Service;
-
-import java.util.Collection;
 
 @Service
 public class AccountBookOperateServiceImpl implements AccountBookOperateService {
@@ -39,11 +39,10 @@ public class AccountBookOperateServiceImpl implements AccountBookOperateService 
     }
 
     @Override
-    public void updateAccountBook(
-            StringIdKey userKey, LongIdKey accountBookKey, AccountBookUpdateInfo accountBookUpdateInfo
-    ) throws ServiceException {
+    public void updateAccountBook(StringIdKey userKey, AccountBookUpdateInfo accountBookUpdateInfo)
+            throws ServiceException {
         try {
-            accountBookOperateHandler.updateAccountBook(userKey, accountBookKey, accountBookUpdateInfo);
+            accountBookOperateHandler.updateAccountBook(userKey, accountBookUpdateInfo);
         } catch (Exception e) {
             throw ServiceExceptionHelper.logAndThrow("更新账本时发生异常", LogLevel.WARN, sem, e);
         }
@@ -59,31 +58,20 @@ public class AccountBookOperateServiceImpl implements AccountBookOperateService 
     }
 
     @Override
-    public void addGuestPermission(StringIdKey ownerUserKey, LongIdKey accountBookKey, StringIdKey guestUserKey)
+    public void addPermission(StringIdKey ownerUserKey, PermissionCreateInfo permissionCreateInfo)
             throws ServiceException {
         try {
-            accountBookOperateHandler.addGuestPermission(ownerUserKey, accountBookKey, guestUserKey);
+            accountBookOperateHandler.addPermission(ownerUserKey, permissionCreateInfo);
         } catch (Exception e) {
             throw ServiceExceptionHelper.logAndThrow("添加账本的访客权限时发生异常", LogLevel.WARN, sem, e);
         }
     }
 
     @Override
-    public void removeGuestPermission(StringIdKey ownerUserKey, LongIdKey accountBookKey, StringIdKey guestUserKey)
+    public void removePermission(StringIdKey ownerUserKey, PermissionRemoveInfo permissionRemoveInfo)
             throws ServiceException {
         try {
-            accountBookOperateHandler.removeGuestPermission(ownerUserKey, accountBookKey, guestUserKey);
-        } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("移除账本的访客权限时发生异常", LogLevel.WARN, sem, e);
-        }
-    }
-
-    @Override
-    public void resetGuestPermission(
-            StringIdKey ownerUserKey, LongIdKey accountBookKey, Collection<StringIdKey> guestUserKeys
-    ) throws ServiceException {
-        try {
-            accountBookOperateHandler.resetGuestPermission(ownerUserKey, accountBookKey, guestUserKeys);
+            accountBookOperateHandler.removePermission(ownerUserKey, permissionRemoveInfo);
         } catch (Exception e) {
             throw ServiceExceptionHelper.logAndThrow("移除账本的访客权限时发生异常", LogLevel.WARN, sem, e);
         }

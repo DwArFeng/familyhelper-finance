@@ -2,10 +2,13 @@ package com.dwarfeng.familyhelper.finance.impl.handler;
 
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookCreateInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookUpdateInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionCreateInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionRemoveInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.AccountBook;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.Poab;
 import com.dwarfeng.familyhelper.finance.stack.bean.key.PoabKey;
 import com.dwarfeng.familyhelper.finance.stack.exception.AccountBookNotExistsException;
+import com.dwarfeng.familyhelper.finance.stack.exception.InvalidPermissionLevelException;
 import com.dwarfeng.familyhelper.finance.stack.exception.UserNotExistsException;
 import com.dwarfeng.familyhelper.finance.stack.exception.UserNotPermittedException;
 import com.dwarfeng.familyhelper.finance.stack.handler.AccountBookOperateHandler;
@@ -17,11 +20,8 @@ import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Component
 public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler {
@@ -75,10 +75,11 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
     }
 
     @Override
-    public void updateAccountBook(
-            StringIdKey userKey, LongIdKey accountBookKey, AccountBookUpdateInfo accountBookUpdateInfo
-    ) throws HandlerException {
+    public void updateAccountBook(StringIdKey userKey, AccountBookUpdateInfo accountBookUpdateInfo)
+            throws HandlerException {
         try {
+            LongIdKey accountBookKey = accountBookUpdateInfo.getAccountBookKey();
+
             // 1. 确认用户存在。
             makeSureUserExists(userKey);
 
@@ -124,29 +125,47 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
     }
 
     @Override
-    public void addGuestPermission(StringIdKey ownerUserKey, LongIdKey accountBookKey, StringIdKey guestUserKey)
+    public void addPermission(StringIdKey ownerUserKey, PermissionCreateInfo permissionCreateInfo)
             throws HandlerException {
         try {
+            LongIdKey accountBookKey = permissionCreateInfo.getAccountBookKey();
+            StringIdKey targetUserKey = permissionCreateInfo.getUserKey();
+            int permissionLevel = permissionCreateInfo.getPermissionLevel();
+
             // 1. 如果用户主键与访客主键一致，则什么也不做。
-            if (Objects.equals(ownerUserKey, guestUserKey)) {
+            if (Objects.equals(ownerUserKey, targetUserKey)) {
                 return;
             }
 
-            // 2. 确认用户存在。
-            makeSureUserExists(ownerUserKey);
-            makeSureUserExists(guestUserKey);
+            // 2. 确认 permissionLevel 有效。
+            makeSurePermissionLevelValid(permissionLevel);
 
-            // 3. 确认账本存在。
+            // 3. 确认用户存在。
+            makeSureUserExists(ownerUserKey);
+            makeSureUserExists(targetUserKey);
+
+            // 4. 确认账本存在。
             makeSureAccountBookExists(accountBookKey);
 
-            // 4. 确认用户有权限操作指定的账本。
+            // 5. 确认用户有权限操作指定的账本。
             makeSureUserPermittedForAccountBook(ownerUserKey, accountBookKey);
 
-            // 5. 通过入口信息组合权限实体，并进行插入或更新操作。
+            // 6. 通过入口信息组合权限实体，并进行插入或更新操作。
+            String permissionLabel;
+            switch (permissionLevel) {
+                case Poab.PERMISSION_LEVEL_GUEST:
+                    permissionLabel = "访客";
+                    break;
+                case Poab.PERMISSION_LEVEL_OWNER:
+                    permissionLabel = "所有者";
+                    break;
+                default:
+                    permissionLabel = "（未知）";
+            }
             Poab poab = new Poab(
-                    new PoabKey(accountBookKey.getLongId(), guestUserKey.getStringId()),
-                    Poab.PERMISSION_LEVEL_GUEST,
-                    "赋予用户 " + guestUserKey.getStringId() + " 访客权限"
+                    new PoabKey(accountBookKey.getLongId(), targetUserKey.getStringId()),
+                    permissionLevel,
+                    "赋予用户 " + targetUserKey.getStringId() + " " + permissionLabel + "权限"
             );
             poabMaintainService.insertOrUpdate(poab);
         } catch (HandlerException e) {
@@ -157,17 +176,20 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
     }
 
     @Override
-    public void removeGuestPermission(StringIdKey ownerUserKey, LongIdKey accountBookKey, StringIdKey guestUserKey)
+    public void removePermission(StringIdKey ownerUserKey, PermissionRemoveInfo permissionRemoveInfo)
             throws HandlerException {
         try {
+            LongIdKey accountBookKey = permissionRemoveInfo.getAccountBookKey();
+            StringIdKey targetUserKey = permissionRemoveInfo.getUserKey();
+
             // 1. 如果用户主键与访客主键一致，则什么也不做。
-            if (Objects.equals(ownerUserKey, guestUserKey)) {
+            if (Objects.equals(ownerUserKey, targetUserKey)) {
                 return;
             }
 
             // 2. 确认用户存在。
             makeSureUserExists(ownerUserKey);
-            makeSureUserExists(guestUserKey);
+            makeSureUserExists(targetUserKey);
 
             // 3. 确认账本存在。
             makeSureAccountBookExists(accountBookKey);
@@ -176,53 +198,8 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
             makeSureUserPermittedForAccountBook(ownerUserKey, accountBookKey);
 
             // 5. 通过入口信息组合权限实体主键，并进行存在删除操作。
-            PoabKey poabKey = new PoabKey(accountBookKey.getLongId(), guestUserKey.getStringId());
+            PoabKey poabKey = new PoabKey(accountBookKey.getLongId(), targetUserKey.getStringId());
             poabMaintainService.deleteIfExists(poabKey);
-        } catch (HandlerException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new HandlerException(e);
-        }
-    }
-
-    @Override
-    public void resetGuestPermission(
-            StringIdKey ownerUserKey, LongIdKey accountBookKey, Collection<StringIdKey> guestUserKeys
-    ) throws HandlerException {
-        try {
-            // 1. 确认用户存在。
-            makeSureUserExists(ownerUserKey);
-            for (StringIdKey guestUserKey : guestUserKeys) {
-                makeSureUserExists(guestUserKey);
-            }
-
-            // 2. 确认账本存在。
-            makeSureAccountBookExists(accountBookKey);
-
-            // 3. 确认用户有权限操作指定的账本。
-            makeSureUserPermittedForAccountBook(ownerUserKey, accountBookKey);
-
-            // 4. 查询并删除个人简介对应的所有权限。
-            List<PoabKey> poabKeys = poabMaintainService.lookup(
-                    PoabMaintainService.CHILD_FOR_ACCOUNT_BOOK_PERMISSION_LEVEL_EQUALS,
-                    new Object[]{accountBookKey, Poab.PERMISSION_LEVEL_GUEST}
-            ).getData().stream().map(Poab::getKey).collect(Collectors.toList());
-            poabMaintainService.batchDeleteIfExists(poabKeys);
-
-            // 4. 遍历集合，组合权限实体列表。
-            List<Poab> poabs = guestUserKeys.stream().distinct().filter(
-                    key -> !Objects.equals(ownerUserKey, key)
-            ).map(
-                    key -> new Poab(
-                            new PoabKey(accountBookKey.getLongId(), key.getStringId()),
-                            Poab.PERMISSION_LEVEL_GUEST,
-                            "赋予用户 " + key.getStringId() + " 访客权限"
-                    )
-            ).collect(Collectors.toList());
-            if (poabs.isEmpty()) {
-                return;
-            }
-            poabMaintainService.batchInsert(poabs);
         } catch (HandlerException e) {
             throw e;
         } catch (Exception e) {
@@ -270,5 +247,12 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
         } catch (ServiceException e) {
             throw new HandlerException(e);
         }
+    }
+
+    private void makeSurePermissionLevelValid(int permissionLevel) throws HandlerException {
+        if (permissionLevel == Poab.PERMISSION_LEVEL_GUEST) {
+            return;
+        }
+        throw new InvalidPermissionLevelException(permissionLevel);
     }
 }
