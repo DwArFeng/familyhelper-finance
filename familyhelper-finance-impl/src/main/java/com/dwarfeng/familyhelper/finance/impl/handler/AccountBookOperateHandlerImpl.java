@@ -2,8 +2,8 @@ package com.dwarfeng.familyhelper.finance.impl.handler;
 
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookCreateInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookUpdateInfo;
-import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionCreateInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionRemoveInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionUpsertInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.AccountBook;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.Poab;
 import com.dwarfeng.familyhelper.finance.stack.bean.key.PoabKey;
@@ -125,14 +125,14 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
     }
 
     @Override
-    public void addPermission(StringIdKey ownerUserKey, PermissionCreateInfo permissionCreateInfo)
+    public void upsertPermission(StringIdKey ownerUserKey, PermissionUpsertInfo permissionUpsertInfo)
             throws HandlerException {
         try {
-            LongIdKey accountBookKey = permissionCreateInfo.getAccountBookKey();
-            StringIdKey targetUserKey = permissionCreateInfo.getUserKey();
-            int permissionLevel = permissionCreateInfo.getPermissionLevel();
+            LongIdKey accountBookKey = permissionUpsertInfo.getAccountBookKey();
+            StringIdKey targetUserKey = permissionUpsertInfo.getUserKey();
+            int permissionLevel = permissionUpsertInfo.getPermissionLevel();
 
-            // 1. 如果用户主键与访客主键一致，则什么也不做。
+            // 1. 如果用户主键与目标主键一致，则什么也不做。
             if (Objects.equals(ownerUserKey, targetUserKey)) {
                 return;
             }
@@ -154,7 +154,7 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
             String permissionLabel;
             switch (permissionLevel) {
                 case Poab.PERMISSION_LEVEL_GUEST:
-                    permissionLabel = "访客";
+                    permissionLabel = "目标";
                     break;
                 case Poab.PERMISSION_LEVEL_OWNER:
                     permissionLabel = "所有者";
@@ -182,7 +182,7 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
             LongIdKey accountBookKey = permissionRemoveInfo.getAccountBookKey();
             StringIdKey targetUserKey = permissionRemoveInfo.getUserKey();
 
-            // 1. 如果用户主键与访客主键一致，则什么也不做。
+            // 1. 如果用户主键与目标主键一致，则什么也不做。
             if (Objects.equals(ownerUserKey, targetUserKey)) {
                 return;
             }

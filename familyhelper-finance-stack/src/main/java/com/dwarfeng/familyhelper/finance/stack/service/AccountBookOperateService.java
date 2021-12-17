@@ -2,8 +2,8 @@ package com.dwarfeng.familyhelper.finance.stack.service;
 
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookCreateInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookUpdateInfo;
-import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionCreateInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionRemoveInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionUpsertInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
@@ -47,13 +47,13 @@ public interface AccountBookOperateService extends Service {
     void removeAccountBook(StringIdKey userKey, LongIdKey accountBookKey) throws ServiceException;
 
     /**
-     * 添加账本的访客权限。
+     * 添加或更新账本的访客权限。
      *
      * @param ownerUserKey         操作者的主键。
-     * @param permissionCreateInfo 权限添加信息。
+     * @param permissionUpsertInfo 权限添加信息。
      * @throws ServiceException 服务异常。
      */
-    void addPermission(StringIdKey ownerUserKey, PermissionCreateInfo permissionCreateInfo) throws ServiceException;
+    void upsertPermission(StringIdKey ownerUserKey, PermissionUpsertInfo permissionUpsertInfo) throws ServiceException;
 
     /**
      * 移除账本的访客权限。

@@ -1,7 +1,7 @@
 package com.dwarfeng.familyhelper.finance.sdk.bean.dto;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionCreateInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionUpsertInfo;
 import com.dwarfeng.subgrade.sdk.bean.key.WebInputLongIdKey;
 import com.dwarfeng.subgrade.sdk.bean.key.WebInputStringIdKey;
 import com.dwarfeng.subgrade.stack.bean.dto.Dto;
@@ -15,18 +15,18 @@ import java.util.Objects;
  * @author DwArFeng
  * @since 1.3.0
  */
-public class WebInputPermissionCreateInfo implements Dto {
+public class WebInputPermissionUpsertInfo implements Dto {
 
-    private static final long serialVersionUID = -5578414687611754052L;
+    private static final long serialVersionUID = 4283072725215086005L;
 
-    public static PermissionCreateInfo toStackBean(WebInputPermissionCreateInfo webInputPermissionCreateInfo) {
-        if (Objects.isNull(webInputPermissionCreateInfo)) {
+    public static PermissionUpsertInfo toStackBean(WebInputPermissionUpsertInfo webInputPermissionUpsertInfo) {
+        if (Objects.isNull(webInputPermissionUpsertInfo)) {
             return null;
         } else {
-            return new PermissionCreateInfo(
-                    WebInputLongIdKey.toStackBean(webInputPermissionCreateInfo.getAccountBookKey()),
-                    WebInputStringIdKey.toStackBean(webInputPermissionCreateInfo.getUserKey()),
-                    webInputPermissionCreateInfo.getPermissionLevel()
+            return new PermissionUpsertInfo(
+                    WebInputLongIdKey.toStackBean(webInputPermissionUpsertInfo.getAccountBookKey()),
+                    WebInputStringIdKey.toStackBean(webInputPermissionUpsertInfo.getUserKey()),
+                    webInputPermissionUpsertInfo.getPermissionLevel()
             );
         }
     }
@@ -42,7 +42,7 @@ public class WebInputPermissionCreateInfo implements Dto {
     @JSONField(name = "permission_level")
     private int permissionLevel;
 
-    public WebInputPermissionCreateInfo() {
+    public WebInputPermissionUpsertInfo() {
     }
 
     public WebInputLongIdKey getAccountBookKey() {
@@ -71,7 +71,7 @@ public class WebInputPermissionCreateInfo implements Dto {
 
     @Override
     public String toString() {
-        return "WebInputPermissionCreateInfo{" +
+        return "WebInputPermissionUpsertInfo{" +
                 "accountBookKey=" + accountBookKey +
                 ", userKey=" + userKey +
                 ", permissionLevel=" + permissionLevel +

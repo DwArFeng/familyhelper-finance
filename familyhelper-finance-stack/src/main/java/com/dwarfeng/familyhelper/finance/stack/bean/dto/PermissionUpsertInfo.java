@@ -10,18 +10,18 @@ import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
  * @author DwArFeng
  * @since 1.3.0
  */
-public class PermissionCreateInfo implements Dto {
+public class PermissionUpsertInfo implements Dto {
 
-    private static final long serialVersionUID = -6327653953179188409L;
+    private static final long serialVersionUID = -5344694933985365220L;
 
     private LongIdKey accountBookKey;
     private StringIdKey userKey;
     private int permissionLevel;
 
-    public PermissionCreateInfo() {
+    public PermissionUpsertInfo() {
     }
 
-    public PermissionCreateInfo(LongIdKey AccountBookKey, StringIdKey userKey, int permissionLevel) {
+    public PermissionUpsertInfo(LongIdKey AccountBookKey, StringIdKey userKey, int permissionLevel) {
         this.accountBookKey = AccountBookKey;
         this.userKey = userKey;
         this.permissionLevel = permissionLevel;
@@ -53,7 +53,7 @@ public class PermissionCreateInfo implements Dto {
 
     @Override
     public String toString() {
-        return "PermissionCreateInfo{" +
+        return "PermissionUpsertInfo{" +
                 "accountBookKey=" + accountBookKey +
                 ", userKey=" + userKey +
                 ", permissionLevel=" + permissionLevel +

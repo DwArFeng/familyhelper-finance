@@ -2,8 +2,8 @@ package com.dwarfeng.familyhelper.finance.impl.service;
 
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookCreateInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookUpdateInfo;
-import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionCreateInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionRemoveInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionUpsertInfo;
 import com.dwarfeng.familyhelper.finance.stack.handler.AccountBookOperateHandler;
 import com.dwarfeng.familyhelper.finance.stack.service.AccountBookOperateService;
 import com.dwarfeng.subgrade.sdk.exception.ServiceExceptionHelper;
@@ -58,10 +58,10 @@ public class AccountBookOperateServiceImpl implements AccountBookOperateService 
     }
 
     @Override
-    public void addPermission(StringIdKey ownerUserKey, PermissionCreateInfo permissionCreateInfo)
+    public void upsertPermission(StringIdKey ownerUserKey, PermissionUpsertInfo permissionUpsertInfo)
             throws ServiceException {
         try {
-            accountBookOperateHandler.addPermission(ownerUserKey, permissionCreateInfo);
+            accountBookOperateHandler.upsertPermission(ownerUserKey, permissionUpsertInfo);
         } catch (Exception e) {
             throw ServiceExceptionHelper.logAndThrow("添加账本的访客权限时发生异常", LogLevel.WARN, sem, e);
         }
