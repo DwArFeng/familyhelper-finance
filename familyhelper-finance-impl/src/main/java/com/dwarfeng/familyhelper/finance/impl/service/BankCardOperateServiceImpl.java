@@ -25,21 +25,19 @@ public class BankCardOperateServiceImpl implements BankCardOperateService {
     }
 
     @Override
-    public LongIdKey createBankCard(
-            StringIdKey userKey, LongIdKey accountBookKey, BankCardCreateInfo bankCardCreateInfo
-    ) throws ServiceException {
+    public LongIdKey createBankCard(StringIdKey userKey, BankCardCreateInfo bankCardCreateInfo)
+            throws ServiceException {
         try {
-            return bankCardOperateHandler.createBankCard(userKey, accountBookKey, bankCardCreateInfo);
+            return bankCardOperateHandler.createBankCard(userKey, bankCardCreateInfo);
         } catch (Exception e) {
             throw ServiceExceptionHelper.logAndThrow("创建银行卡时发生异常", LogLevel.WARN, sem, e);
         }
     }
 
     @Override
-    public void updateBankCard(StringIdKey userKey, LongIdKey bankCardKey, BankCardUpdateInfo bankCardUpdateInfo)
-            throws ServiceException {
+    public void updateBankCard(StringIdKey userKey, BankCardUpdateInfo bankCardUpdateInfo) throws ServiceException {
         try {
-            bankCardOperateHandler.updateBankCard(userKey, bankCardKey, bankCardUpdateInfo);
+            bankCardOperateHandler.updateBankCard(userKey, bankCardUpdateInfo);
         } catch (Exception e) {
             throw ServiceExceptionHelper.logAndThrow("创建银行卡时发生异常", LogLevel.WARN, sem, e);
         }

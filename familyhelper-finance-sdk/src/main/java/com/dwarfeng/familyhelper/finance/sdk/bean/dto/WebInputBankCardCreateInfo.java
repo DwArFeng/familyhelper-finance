@@ -2,8 +2,10 @@ package com.dwarfeng.familyhelper.finance.sdk.bean.dto;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.BankCardCreateInfo;
+import com.dwarfeng.subgrade.sdk.bean.key.WebInputLongIdKey;
 import com.dwarfeng.subgrade.stack.bean.dto.Dto;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
@@ -16,19 +18,25 @@ import java.util.Objects;
  */
 public class WebInputBankCardCreateInfo implements Dto {
 
-    private static final long serialVersionUID = -9199994504833105204L;
+    private static final long serialVersionUID = -8378109328163794082L;
 
     public static BankCardCreateInfo toStackBean(WebInputBankCardCreateInfo webInputBankCardCreateInfo) {
         if (Objects.isNull(webInputBankCardCreateInfo)) {
             return null;
         } else {
             return new BankCardCreateInfo(
+                    WebInputLongIdKey.toStackBean(webInputBankCardCreateInfo.getAccountBookKey()),
                     webInputBankCardCreateInfo.getName(),
                     webInputBankCardCreateInfo.getCardType(),
                     webInputBankCardCreateInfo.getRemark()
             );
         }
     }
+
+    @JSONField(name = "account_book_key")
+    @Valid
+    @NotNull
+    private WebInputLongIdKey accountBookKey;
 
     @JSONField(name = "name")
     @NotNull
@@ -42,6 +50,14 @@ public class WebInputBankCardCreateInfo implements Dto {
     private String remark;
 
     public WebInputBankCardCreateInfo() {
+    }
+
+    public WebInputLongIdKey getAccountBookKey() {
+        return accountBookKey;
+    }
+
+    public void setAccountBookKey(WebInputLongIdKey accountBookKey) {
+        this.accountBookKey = accountBookKey;
     }
 
     public String getName() {
@@ -71,7 +87,8 @@ public class WebInputBankCardCreateInfo implements Dto {
     @Override
     public String toString() {
         return "WebInputBankCardCreateInfo{" +
-                "name='" + name + '\'' +
+                "accountBookKey=" + accountBookKey +
+                ", name='" + name + '\'' +
                 ", cardType='" + cardType + '\'' +
                 ", remark='" + remark + '\'' +
                 '}';

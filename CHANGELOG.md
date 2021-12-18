@@ -8,6 +8,7 @@
 
 - 优化部分 OperateService 的运行逻辑。
   - com.dwarfeng.familyhelper.finance.stack.service.AccountBookOperateService。
+  - com.dwarfeng.familyhelper.finance.stack.service.BankCardOperateService。
 
 #### Bug修复
 

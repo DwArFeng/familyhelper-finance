@@ -1,6 +1,7 @@
 package com.dwarfeng.familyhelper.finance.stack.bean.dto;
 
 import com.dwarfeng.subgrade.stack.bean.dto.Dto;
+import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 
 /**
  * 银行卡创建信息。
@@ -10,8 +11,9 @@ import com.dwarfeng.subgrade.stack.bean.dto.Dto;
  */
 public class BankCardCreateInfo implements Dto {
 
-    private static final long serialVersionUID = -1086808495667913782L;
+    private static final long serialVersionUID = -6874075089331691767L;
 
+    private LongIdKey accountBookKey;
     private String name;
     private String cardType;
     private String remark;
@@ -19,10 +21,19 @@ public class BankCardCreateInfo implements Dto {
     public BankCardCreateInfo() {
     }
 
-    public BankCardCreateInfo(String name, String cardType, String remark) {
+    public BankCardCreateInfo(LongIdKey accountBookKey, String name, String cardType, String remark) {
+        this.accountBookKey = accountBookKey;
         this.name = name;
         this.cardType = cardType;
         this.remark = remark;
+    }
+
+    public LongIdKey getAccountBookKey() {
+        return accountBookKey;
+    }
+
+    public void setAccountBookKey(LongIdKey accountBookKey) {
+        this.accountBookKey = accountBookKey;
     }
 
     public String getName() {
@@ -52,7 +63,8 @@ public class BankCardCreateInfo implements Dto {
     @Override
     public String toString() {
         return "BankCardCreateInfo{" +
-                "name='" + name + '\'' +
+                "accountBookKey=" + accountBookKey +
+                ", name='" + name + '\'' +
                 ", cardType='" + cardType + '\'' +
                 ", remark='" + remark + '\'' +
                 '}';

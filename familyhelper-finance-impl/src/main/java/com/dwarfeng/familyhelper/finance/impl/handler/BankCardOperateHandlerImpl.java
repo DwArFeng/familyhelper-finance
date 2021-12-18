@@ -41,17 +41,21 @@ public class BankCardOperateHandlerImpl implements BankCardOperateHandler {
     }
 
     @Override
-    public LongIdKey createBankCard(
-            StringIdKey userKey, LongIdKey accountBookKey, BankCardCreateInfo bankCardCreateInfo
-    ) throws HandlerException {
+    public LongIdKey createBankCard(StringIdKey userKey, BankCardCreateInfo bankCardCreateInfo)
+            throws HandlerException {
         try {
+            LongIdKey accountBookKey = bankCardCreateInfo.getAccountBookKey();
+
             // 1. 确认用户存在。
             makeSureUserExists(userKey);
 
             // 2. 确认账本存在。
             makeSureAccountBookExists(accountBookKey);
 
-            // 3. 根据 bankCardCreateInfo 以及创建的规则组合 银行卡 实体。
+            // 3. 确认用户有权限操作指定的账本。
+            makeSureUserPermittedForAccountBook(userKey, accountBookKey);
+
+            // 4. 根据 bankCardCreateInfo 以及创建的规则组合 银行卡 实体。
             BankCard bankCard = new BankCard(
                     null, accountBookKey, bankCardCreateInfo.getName(), bankCardCreateInfo.getCardType(), new Date(),
                     BigDecimal.ZERO, false, new Date(), BigDecimal.ZERO, bankCardCreateInfo.getRemark()
@@ -67,9 +71,10 @@ public class BankCardOperateHandlerImpl implements BankCardOperateHandler {
     }
 
     @Override
-    public void updateBankCard(StringIdKey userKey, LongIdKey bankCardKey, BankCardUpdateInfo bankCardUpdateInfo)
-            throws HandlerException {
+    public void updateBankCard(StringIdKey userKey, BankCardUpdateInfo bankCardUpdateInfo) throws HandlerException {
         try {
+            LongIdKey bankCardKey = bankCardUpdateInfo.getBankCardKey();
+
             // 1. 确认用户存在。
             makeSureUserExists(userKey);
 
