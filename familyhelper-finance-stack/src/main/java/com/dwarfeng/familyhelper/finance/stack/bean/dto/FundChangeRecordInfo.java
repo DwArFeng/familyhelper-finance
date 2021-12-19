@@ -1,6 +1,7 @@
 package com.dwarfeng.familyhelper.finance.stack.bean.dto;
 
 import com.dwarfeng.subgrade.stack.bean.dto.Dto;
+import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 
 import java.math.BigDecimal;
 
@@ -12,8 +13,9 @@ import java.math.BigDecimal;
  */
 public class FundChangeRecordInfo implements Dto {
 
-    private static final long serialVersionUID = -5298196621624192898L;
+    private static final long serialVersionUID = -5940553395011650098L;
 
+    private LongIdKey accountBookKey;
     private BigDecimal delta;
     private String changeType;
     private String remark;
@@ -21,10 +23,19 @@ public class FundChangeRecordInfo implements Dto {
     public FundChangeRecordInfo() {
     }
 
-    public FundChangeRecordInfo(BigDecimal delta, String changeType, String remark) {
+    public FundChangeRecordInfo(LongIdKey accountBookKey, BigDecimal delta, String changeType, String remark) {
+        this.accountBookKey = accountBookKey;
         this.delta = delta;
         this.changeType = changeType;
         this.remark = remark;
+    }
+
+    public LongIdKey getAccountBookKey() {
+        return accountBookKey;
+    }
+
+    public void setAccountBookKey(LongIdKey accountBookKey) {
+        this.accountBookKey = accountBookKey;
     }
 
     public BigDecimal getDelta() {
@@ -54,7 +65,8 @@ public class FundChangeRecordInfo implements Dto {
     @Override
     public String toString() {
         return "FundChangeRecordInfo{" +
-                "delta=" + delta +
+                "accountBookKey=" + accountBookKey +
+                ", delta=" + delta +
                 ", changeType='" + changeType + '\'' +
                 ", remark='" + remark + '\'' +
                 '}';

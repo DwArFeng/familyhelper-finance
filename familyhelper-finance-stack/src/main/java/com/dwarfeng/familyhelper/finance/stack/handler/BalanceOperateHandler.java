@@ -1,11 +1,10 @@
 package com.dwarfeng.familyhelper.finance.stack.handler;
 
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.BankCardBalanceRecordInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.HandlerException;
 import com.dwarfeng.subgrade.stack.handler.Handler;
-
-import java.math.BigDecimal;
 
 /**
  * 余额操作处理器。
@@ -22,12 +21,12 @@ public interface BalanceOperateHandler extends Handler {
      * <br>
      * 余额提交接口: {@link #recordCommit(StringIdKey, LongIdKey)}
      *
-     * @param userKey     操作用户。
-     * @param bankCardKey 指定的银行卡主键。
-     * @param balance     余额值。
+     * @param userKey                   操作用户。
+     * @param bankCardBalanceRecordInfo 银行卡余额记录信息。
      * @throws HandlerException 处理器异常。
      */
-    void recordBankCardBalance(StringIdKey userKey, LongIdKey bankCardKey, BigDecimal balance) throws HandlerException;
+    void recordBankCardBalance(StringIdKey userKey, BankCardBalanceRecordInfo bankCardBalanceRecordInfo)
+            throws HandlerException;
 
     /**
      * 提交银行卡的余额。

@@ -25,22 +25,20 @@ public class FundChangeOperateServiceImpl implements FundChangeOperateService {
     }
 
     @Override
-    public LongIdKey recordFundChange(
-            StringIdKey userKey, LongIdKey accountBookKey, FundChangeRecordInfo fundChangeRecordInfo
-    ) throws ServiceException {
+    public LongIdKey recordFundChange(StringIdKey userKey, FundChangeRecordInfo fundChangeRecordInfo)
+            throws ServiceException {
         try {
-            return fundChangeOperateHandler.recordFundChange(userKey, accountBookKey, fundChangeRecordInfo);
+            return fundChangeOperateHandler.recordFundChange(userKey, fundChangeRecordInfo);
         } catch (Exception e) {
             throw ServiceExceptionHelper.logAndThrow("记录资金变更时发生异常", LogLevel.WARN, sem, e);
         }
     }
 
     @Override
-    public void updateFundChange(
-            StringIdKey userKey, LongIdKey fundChangeKey, FundChangeUpdateInfo fundChangeUpdateInfo
-    ) throws ServiceException {
+    public void updateFundChange(StringIdKey userKey, FundChangeUpdateInfo fundChangeUpdateInfo)
+            throws ServiceException {
         try {
-            fundChangeOperateHandler.updateFundChange(userKey, fundChangeKey, fundChangeUpdateInfo);
+            fundChangeOperateHandler.updateFundChange(userKey, fundChangeUpdateInfo);
         } catch (Exception e) {
             throw ServiceExceptionHelper.logAndThrow("更新资金变更时发生异常", LogLevel.WARN, sem, e);
         }

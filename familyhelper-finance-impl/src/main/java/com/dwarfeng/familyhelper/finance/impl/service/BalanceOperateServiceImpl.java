@@ -1,5 +1,6 @@
 package com.dwarfeng.familyhelper.finance.impl.service;
 
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.BankCardBalanceRecordInfo;
 import com.dwarfeng.familyhelper.finance.stack.handler.BalanceOperateHandler;
 import com.dwarfeng.familyhelper.finance.stack.service.BalanceOperateService;
 import com.dwarfeng.subgrade.sdk.exception.ServiceExceptionHelper;
@@ -10,8 +11,6 @@ import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
 import com.dwarfeng.subgrade.stack.log.LogLevel;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.math.BigDecimal;
 
 @Service
 public class BalanceOperateServiceImpl implements BalanceOperateService {
@@ -27,9 +26,10 @@ public class BalanceOperateServiceImpl implements BalanceOperateService {
 
     @Override
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public void recordBankCardBalance(StringIdKey userKey, LongIdKey bankCardKey, BigDecimal balance) throws ServiceException {
+    public void recordBankCardBalance(StringIdKey userKey, BankCardBalanceRecordInfo bankCardBalanceRecordInfo)
+            throws ServiceException {
         try {
-            balanceOperateHandler.recordBankCardBalance(userKey, bankCardKey, balance);
+            balanceOperateHandler.recordBankCardBalance(userKey, bankCardBalanceRecordInfo);
         } catch (Exception e) {
             throw ServiceExceptionHelper.logAndThrow("记录银行卡的余额时发生异常", LogLevel.WARN, sem, e);
         }

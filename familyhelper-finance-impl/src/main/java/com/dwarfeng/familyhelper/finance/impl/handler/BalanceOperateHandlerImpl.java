@@ -1,5 +1,6 @@
 package com.dwarfeng.familyhelper.finance.impl.handler;
 
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.BankCardBalanceRecordInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.*;
 import com.dwarfeng.familyhelper.finance.stack.bean.key.PoabKey;
 import com.dwarfeng.familyhelper.finance.stack.exception.*;
@@ -43,8 +44,12 @@ public class BalanceOperateHandlerImpl implements BalanceOperateHandler {
     }
 
     @Override
-    public void recordBankCardBalance(StringIdKey userKey, LongIdKey bankCardKey, BigDecimal balance) throws HandlerException {
+    public void recordBankCardBalance(StringIdKey userKey, BankCardBalanceRecordInfo bankCardBalanceRecordInfo)
+            throws HandlerException {
         try {
+            LongIdKey bankCardKey = bankCardBalanceRecordInfo.getBankCardKey();
+            BigDecimal balance = bankCardBalanceRecordInfo.getBalance();
+
             // 1. 确认用户存在。
             makeSureUserExists(userKey);
 

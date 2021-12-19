@@ -39,10 +39,11 @@ public class FundChangeOperateHandlerImpl implements FundChangeOperateHandler {
     }
 
     @Override
-    public LongIdKey recordFundChange(
-            StringIdKey userKey, LongIdKey accountBookKey, FundChangeRecordInfo fundChangeRecordInfo
-    ) throws HandlerException {
+    public LongIdKey recordFundChange(StringIdKey userKey, FundChangeRecordInfo fundChangeRecordInfo)
+            throws HandlerException {
         try {
+            LongIdKey accountBookKey = fundChangeRecordInfo.getAccountBookKey();
+
             // 1. 确认用户存在。
             makeSureUserExists(userKey);
 
@@ -68,9 +69,11 @@ public class FundChangeOperateHandlerImpl implements FundChangeOperateHandler {
     }
 
     @Override
-    public void updateFundChange(StringIdKey userKey, LongIdKey fundChangeKey, FundChangeUpdateInfo fundChangeUpdateInfo)
+    public void updateFundChange(StringIdKey userKey, FundChangeUpdateInfo fundChangeUpdateInfo)
             throws HandlerException {
         try {
+            LongIdKey fundChangeKey = fundChangeUpdateInfo.getFundChangeKey();
+
             // 1. 确认用户存在。
             makeSureUserExists(userKey);
 

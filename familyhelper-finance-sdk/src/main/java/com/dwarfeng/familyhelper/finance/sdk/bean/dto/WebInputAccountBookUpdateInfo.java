@@ -34,6 +34,7 @@ public class WebInputAccountBookUpdateInfo implements Dto {
 
     @JSONField(name = "account_book_key")
     @Valid
+    @NotNull
     private WebInputLongIdKey accountBookKey;
 
     @JSONField(name = "name")

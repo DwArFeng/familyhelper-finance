@@ -2,8 +2,10 @@ package com.dwarfeng.familyhelper.finance.sdk.bean.dto;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.FundChangeRecordInfo;
+import com.dwarfeng.subgrade.sdk.bean.key.WebInputLongIdKey;
 import com.dwarfeng.subgrade.stack.bean.dto.Dto;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -16,19 +18,25 @@ import java.util.Objects;
  */
 public class WebInputFundChangeRecordInfo implements Dto {
 
-    private static final long serialVersionUID = 7873346983022175175L;
+    private static final long serialVersionUID = 2027664881221981122L;
 
     public static FundChangeRecordInfo toStackBean(WebInputFundChangeRecordInfo webInputFundChangeRecordInfo) {
         if (Objects.isNull(webInputFundChangeRecordInfo)) {
             return null;
         } else {
             return new FundChangeRecordInfo(
+                    WebInputLongIdKey.toStackBean(webInputFundChangeRecordInfo.getAccountBookKey()),
                     webInputFundChangeRecordInfo.getDelta(),
                     webInputFundChangeRecordInfo.getChangeType(),
                     webInputFundChangeRecordInfo.getRemark()
             );
         }
     }
+
+    @JSONField(name = "account_book_key")
+    @Valid
+    @NotNull
+    private WebInputLongIdKey accountBookKey;
 
     @JSONField(name = "delta")
     @NotNull
@@ -41,6 +49,14 @@ public class WebInputFundChangeRecordInfo implements Dto {
     private String remark;
 
     public WebInputFundChangeRecordInfo() {
+    }
+
+    public WebInputLongIdKey getAccountBookKey() {
+        return accountBookKey;
+    }
+
+    public void setAccountBookKey(WebInputLongIdKey accountBookKey) {
+        this.accountBookKey = accountBookKey;
     }
 
     public BigDecimal getDelta() {
@@ -70,7 +86,8 @@ public class WebInputFundChangeRecordInfo implements Dto {
     @Override
     public String toString() {
         return "WebInputFundChangeRecordInfo{" +
-                "delta=" + delta +
+                "accountBookKey=" + accountBookKey +
+                ", delta=" + delta +
                 ", changeType='" + changeType + '\'' +
                 ", remark='" + remark + '\'' +
                 '}';

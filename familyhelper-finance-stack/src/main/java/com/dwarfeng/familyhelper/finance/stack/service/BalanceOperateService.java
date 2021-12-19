@@ -1,11 +1,10 @@
 package com.dwarfeng.familyhelper.finance.stack.service;
 
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.BankCardBalanceRecordInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import com.dwarfeng.subgrade.stack.service.Service;
-
-import java.math.BigDecimal;
 
 /**
  * 余额操作服务。
@@ -22,12 +21,12 @@ public interface BalanceOperateService extends Service {
      * <br>
      * 余额提交接口: {@link #recordCommit(StringIdKey, LongIdKey)}
      *
-     * @param userKey     操作用户。
-     * @param bankCardKey 指定的银行卡主键。
-     * @param balance     余额值。
+     * @param userKey                   操作用户。
+     * @param bankCardBalanceRecordInfo 银行卡余额记录信息。
      * @throws ServiceException 服务异常。
      */
-    void recordBankCardBalance(StringIdKey userKey, LongIdKey bankCardKey, BigDecimal balance) throws ServiceException;
+    void recordBankCardBalance(StringIdKey userKey, BankCardBalanceRecordInfo bankCardBalanceRecordInfo)
+            throws ServiceException;
 
     /**
      * 提交银行卡的余额。
