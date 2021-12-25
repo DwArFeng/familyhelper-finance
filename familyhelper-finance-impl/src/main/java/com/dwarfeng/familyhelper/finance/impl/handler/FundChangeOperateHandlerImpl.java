@@ -1,5 +1,6 @@
 package com.dwarfeng.familyhelper.finance.impl.handler;
 
+import com.dwarfeng.familyhelper.finance.sdk.util.Constants;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.FundChangeRecordInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.FundChangeUpdateInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.FundChange;
@@ -179,7 +180,7 @@ public class FundChangeOperateHandlerImpl implements FundChangeOperateHandler {
 
             // 3. 查看 Poab.permissionLevel 是否为 Poab.PERMISSION_LEVEL_OWNER，如果不是，则没有权限。
             Poab poab = poabMaintainService.get(poabKey);
-            if (poab.getPermissionLevel() != Poab.PERMISSION_LEVEL_OWNER) {
+            if (poab.getPermissionLevel() != Constants.PERMISSION_LEVEL_OWNER) {
                 throw new UserNotPermittedException(userKey, accountBookKey);
             }
         } catch (ServiceException e) {

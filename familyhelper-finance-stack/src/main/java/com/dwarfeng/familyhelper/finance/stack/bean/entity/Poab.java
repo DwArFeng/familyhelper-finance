@@ -11,9 +11,6 @@ import com.dwarfeng.subgrade.stack.bean.entity.Entity;
  */
 public class Poab implements Entity<PoabKey> {
 
-    public static final int PERMISSION_LEVEL_OWNER = 0;
-    public static final int PERMISSION_LEVEL_GUEST = 1;
-
     private static final long serialVersionUID = 6405468025576702046L;
 
     private PoabKey key;

@@ -4,14 +4,12 @@ package com.dwarfeng.familyhelper.finance.sdk.util;
  * 常量类。
  *
  * @author DwArFeng
- * @since 1.8.2
+ * @since 1.3.1
  */
 public final class Constants {
 
-    /**
-     * 检查任务的执行间隔。
-     */
-    public static final long SCHEDULER_CHECK_INTERVAL = 5000L;
+    public static final int PERMISSION_LEVEL_OWNER = 0;
+    public static final int PERMISSION_LEVEL_GUEST = 1;
 
     private Constants() {
         throw new IllegalStateException("禁止实例化");

@@ -1,5 +1,6 @@
 package com.dwarfeng.familyhelper.finance.impl.handler;
 
+import com.dwarfeng.familyhelper.finance.sdk.util.Constants;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookCreateInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookUpdateInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionRemoveInfo;
@@ -60,7 +61,7 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
             // 4. 由账本实体生成的主键和用户主键组合权限信息，并插入。
             Poab poab = new Poab(
                     new PoabKey(accountBookKey.getLongId(), userKey.getStringId()),
-                    Poab.PERMISSION_LEVEL_OWNER,
+                    Constants.PERMISSION_LEVEL_OWNER,
                     "创建账本时自动插入，赋予创建人所有者权限"
             );
             poabMaintainService.insert(poab);
@@ -153,10 +154,10 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
             // 6. 通过入口信息组合权限实体，并进行插入或更新操作。
             String permissionLabel;
             switch (permissionLevel) {
-                case Poab.PERMISSION_LEVEL_GUEST:
+                case Constants.PERMISSION_LEVEL_GUEST:
                     permissionLabel = "目标";
                     break;
-                case Poab.PERMISSION_LEVEL_OWNER:
+                case Constants.PERMISSION_LEVEL_OWNER:
                     permissionLabel = "所有者";
                     break;
                 default:
@@ -241,7 +242,7 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
 
             // 3. 查看 Poab.permissionLevel 是否为 Poab.PERMISSION_LEVEL_OWNER，如果不是，则没有权限。
             Poab poab = poabMaintainService.get(poabKey);
-            if (poab.getPermissionLevel() != Poab.PERMISSION_LEVEL_OWNER) {
+            if (poab.getPermissionLevel() != Constants.PERMISSION_LEVEL_OWNER) {
                 throw new UserNotPermittedException(userKey, accountBookKey);
             }
         } catch (ServiceException e) {
@@ -250,7 +251,7 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
     }
 
     private void makeSurePermissionLevelValid(int permissionLevel) throws HandlerException {
-        if (permissionLevel == Poab.PERMISSION_LEVEL_GUEST) {
+        if (permissionLevel == Constants.PERMISSION_LEVEL_GUEST) {
             return;
         }
         throw new InvalidPermissionLevelException(permissionLevel);
