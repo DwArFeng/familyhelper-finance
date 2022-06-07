@@ -40,6 +40,10 @@ public class HibernateAccountBook implements Bean {
     @Column(name = "remark", length = Constraints.LENGTH_REMARK)
     private String remark;
 
+    // -----------------------------------------------------------一对一-----------------------------------------------------------
+    @OneToOne(cascade = CascadeType.MERGE, targetEntity = HibernateUrgeSetting.class, mappedBy = "accountBook")
+    private HibernateUrgeSetting urgeSetting;
+
     // -----------------------------------------------------------一对多-----------------------------------------------------------
     @OneToMany(cascade = CascadeType.MERGE, targetEntity = HibernateBankCard.class, mappedBy = "accountBook")
     private Set<HibernateBankCard> bankCards = new HashSet<>();
@@ -111,6 +115,14 @@ public class HibernateAccountBook implements Bean {
         this.remark = remark;
     }
 
+    public HibernateUrgeSetting getUrgeSetting() {
+        return urgeSetting;
+    }
+
+    public void setUrgeSetting(HibernateUrgeSetting urgeSetting) {
+        this.urgeSetting = urgeSetting;
+    }
+
     public Set<HibernateBankCard> getBankCards() {
         return bankCards;
     }
@@ -143,6 +155,7 @@ public class HibernateAccountBook implements Bean {
                 "cardType = " + cardType + ", " +
                 "lastRecordedDate = " + lastRecordedDate + ", " +
                 "totalValue = " + totalValue + ", " +
-                "remark = " + remark + ")";
+                "remark = " + remark + ", " +
+                "urgeSetting = " + urgeSetting + ")";
     }
 }

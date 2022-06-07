@@ -40,6 +40,8 @@ public class CacheConfiguration {
     private String totalBalanceHistoryPrefix;
     @Value("${cache.prefix.entity.bank_card_balance_history}")
     private String bankCardBalanceHistoryPrefix;
+    @Value("${cache.prefix.entity.urge_setting}")
+    private String urgeSettingPrefix;
 
     public CacheConfiguration(RedisTemplate<String, ?> template, Mapper mapper) {
         this.template = template;
@@ -137,6 +139,16 @@ public class CacheConfiguration {
                 (RedisTemplate<String, FastJsonBankCardBalanceHistory>) template,
                 new LongIdStringKeyFormatter(bankCardBalanceHistoryPrefix),
                 new DozerBeanTransformer<>(BankCardBalanceHistory.class, FastJsonBankCardBalanceHistory.class, mapper)
+        );
+    }
+
+    @Bean
+    @SuppressWarnings("unchecked")
+    public RedisBatchBaseCache<LongIdKey, UrgeSetting, FastJsonUrgeSetting> urgeSettingRedisBatchBaseCache() {
+        return new RedisBatchBaseCache<>(
+                (RedisTemplate<String, FastJsonUrgeSetting>) template,
+                new LongIdStringKeyFormatter(urgeSettingPrefix),
+                new DozerBeanTransformer<>(UrgeSetting.class, FastJsonUrgeSetting.class, mapper)
         );
     }
 }

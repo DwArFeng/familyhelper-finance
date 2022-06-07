@@ -19,41 +19,52 @@ import java.util.stream.Collectors;
 public class AccountBookCrudOperation implements BatchCrudOperation<LongIdKey, AccountBook> {
 
     private final AccountBookDao accountBookDao;
-    private final BankCardDao bankCardDao;
-    private final FundChangeDao fundChangeDao;
-    private final PoabDao poabDao;
-    private final TotalBalanceHistoryDao totalBalanceHistoryDao;
-    private final BankCardBalanceHistoryDao bankCardBalanceHistoryDao;
-
     private final AccountBookCache accountBookCache;
+
+    private final BankCardDao bankCardDao;
     private final BankCardCache bankCardCache;
+
+    private final FundChangeDao fundChangeDao;
     private final FundChangeCache fundChangeCache;
+
+    private final PoabDao poabDao;
     private final PoabCache poabCache;
+
+    private final TotalBalanceHistoryDao totalBalanceHistoryDao;
     private final TotalBalanceHistoryCache totalBalanceHistoryCache;
+
+    private final BankCardBalanceHistoryDao bankCardBalanceHistoryDao;
     private final BankCardBalanceHistoryCache bankCardBalanceHistoryCache;
+
+    private final UrgeSettingDao urgeSettingDao;
+    private final UrgeSettingCache urgeSettingCache;
 
     @Value("${cache.timeout.entity.account_book}")
     private long accountBookTimeout;
 
     public AccountBookCrudOperation(
-            AccountBookDao accountBookDao, BankCardDao bankCardDao, FundChangeDao fundChangeDao, PoabDao poabDao,
-            TotalBalanceHistoryDao totalBalanceHistoryDao, BankCardBalanceHistoryDao bankCardBalanceHistoryDao,
-            AccountBookCache accountBookCache, BankCardCache bankCardCache, FundChangeCache fundChangeCache,
-            PoabCache poabCache, TotalBalanceHistoryCache totalBalanceHistoryCache,
-            BankCardBalanceHistoryCache bankCardBalanceHistoryCache
+            AccountBookDao accountBookDao, AccountBookCache accountBookCache,
+            BankCardDao bankCardDao, BankCardCache bankCardCache,
+            FundChangeDao fundChangeDao, FundChangeCache fundChangeCache,
+            PoabDao poabDao, PoabCache poabCache,
+            TotalBalanceHistoryDao totalBalanceHistoryDao, TotalBalanceHistoryCache totalBalanceHistoryCache,
+            BankCardBalanceHistoryDao bankCardBalanceHistoryDao, BankCardBalanceHistoryCache bankCardBalanceHistoryCache,
+            UrgeSettingDao urgeSettingDao, UrgeSettingCache urgeSettingCache
     ) {
         this.accountBookDao = accountBookDao;
-        this.bankCardDao = bankCardDao;
-        this.fundChangeDao = fundChangeDao;
-        this.poabDao = poabDao;
-        this.totalBalanceHistoryDao = totalBalanceHistoryDao;
-        this.bankCardBalanceHistoryDao = bankCardBalanceHistoryDao;
         this.accountBookCache = accountBookCache;
+        this.bankCardDao = bankCardDao;
         this.bankCardCache = bankCardCache;
+        this.fundChangeDao = fundChangeDao;
         this.fundChangeCache = fundChangeCache;
+        this.poabDao = poabDao;
         this.poabCache = poabCache;
+        this.totalBalanceHistoryDao = totalBalanceHistoryDao;
         this.totalBalanceHistoryCache = totalBalanceHistoryCache;
+        this.bankCardBalanceHistoryDao = bankCardBalanceHistoryDao;
         this.bankCardBalanceHistoryCache = bankCardBalanceHistoryCache;
+        this.urgeSettingDao = urgeSettingDao;
+        this.urgeSettingCache = urgeSettingCache;
     }
 
     @Override
@@ -123,6 +134,12 @@ public class AccountBookCrudOperation implements BatchCrudOperation<LongIdKey, A
         ).stream().map(TotalBalanceHistory::getKey).collect(Collectors.toList());
         totalBalanceHistoryCache.batchDelete(totalBalanceHistoryKeys);
         totalBalanceHistoryDao.batchDelete(totalBalanceHistoryKeys);
+
+        // 删除与账本相关的敦促设置。
+        if (urgeSettingDao.exists(key)) {
+            urgeSettingCache.delete(key);
+            urgeSettingDao.delete(key);
+        }
 
         // 删除账本实体自身。
         accountBookCache.delete(key);

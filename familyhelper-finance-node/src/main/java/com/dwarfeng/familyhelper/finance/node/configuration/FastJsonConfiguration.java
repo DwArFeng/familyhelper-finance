@@ -23,6 +23,7 @@ public class FastJsonConfiguration {
         ParserConfig.getGlobalInstance().addAccept(FastJsonUser.class.getCanonicalName());
         ParserConfig.getGlobalInstance().addAccept(FastJsonTotalBalanceHistory.class.getCanonicalName());
         ParserConfig.getGlobalInstance().addAccept(FastJsonBankCardBalanceHistory.class.getCanonicalName());
+        ParserConfig.getGlobalInstance().addAccept(FastJsonUrgeSetting.class.getCanonicalName());
         LOGGER.debug("FastJson autotype 白名单配置完毕");
     }
 }

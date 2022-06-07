@@ -38,6 +38,11 @@ public final class Constraints {
      */
     public static final int LENGTH_USER = 50;
 
+    /**
+     * CRON表达式的长度约束。
+     */
+    public static final int LENGTH_CRON = 30;
+
     private Constraints() {
         throw new IllegalStateException("禁止实例化");
     }

@@ -4,6 +4,9 @@
 
 #### 功能构建
 
+- 添加实体。
+  - com.dwarfeng.familyhelper.finance.stack.bean.entity.UrgeSetting。
+
 - 依赖升级。
   - 升级 `junit` 依赖版本为 `4.13.2` 以规避漏洞。
   - 升级 `spring` 依赖版本为 `5.3.20` 以规避漏洞。

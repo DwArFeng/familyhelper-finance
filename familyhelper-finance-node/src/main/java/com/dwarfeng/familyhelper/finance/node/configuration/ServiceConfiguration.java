@@ -24,11 +24,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ServiceConfiguration {
 
-    @Bean
-    public KeyFetcher<LongIdKey> longIdKeyKeyFetcher() {
-        return new SnowFlakeLongIdKeyFetcher();
-    }
-
     private final ServiceExceptionMapperConfiguration serviceExceptionMapperConfiguration;
 
     private final AccountBookCrudOperation accountBookCrudOperation;
@@ -48,6 +43,8 @@ public class ServiceConfiguration {
     private final TotalBalanceHistoryCache totalBalanceHistoryCache;
     private final BankCardBalanceHistoryDao bankCardBalanceHistoryDao;
     private final BankCardBalanceHistoryCache bankCardBalanceHistoryCache;
+    private final UrgeSettingDao urgeSettingDao;
+    private final UrgeSettingCache urgeSettingCache;
 
     @Value("${cache.timeout.entity.bank_card_type_indicator}")
     private long bankCardTypeIndicatorTimeout;
@@ -61,6 +58,8 @@ public class ServiceConfiguration {
     private long totalBalanceHistoryTimeout;
     @Value("${cache.timeout.entity.bank_card_balance_history}")
     private long bankCardBalanceHistoryTimeout;
+    @Value("${cache.timeout.entity.urge_setting}")
+    private long urgeSettingTimeout;
 
     public ServiceConfiguration(
             ServiceExceptionMapperConfiguration serviceExceptionMapperConfiguration,
@@ -80,7 +79,8 @@ public class ServiceConfiguration {
             TotalBalanceHistoryDao totalBalanceHistoryDao,
             TotalBalanceHistoryCache totalBalanceHistoryCache,
             BankCardBalanceHistoryDao bankCardBalanceHistoryDao,
-            BankCardBalanceHistoryCache bankCardBalanceHistoryCache
+            BankCardBalanceHistoryCache bankCardBalanceHistoryCache,
+            UrgeSettingDao urgeSettingDao, UrgeSettingCache urgeSettingCache
     ) {
         this.serviceExceptionMapperConfiguration = serviceExceptionMapperConfiguration;
         this.accountBookCrudOperation = accountBookCrudOperation;
@@ -100,6 +100,13 @@ public class ServiceConfiguration {
         this.totalBalanceHistoryCache = totalBalanceHistoryCache;
         this.bankCardBalanceHistoryDao = bankCardBalanceHistoryDao;
         this.bankCardBalanceHistoryCache = bankCardBalanceHistoryCache;
+        this.urgeSettingDao = urgeSettingDao;
+        this.urgeSettingCache = urgeSettingCache;
+    }
+
+    @Bean
+    public KeyFetcher<LongIdKey> longIdKeyKeyFetcher() {
+        return new SnowFlakeLongIdKeyFetcher();
     }
 
     @Bean
@@ -327,6 +334,36 @@ public class ServiceConfiguration {
     public DaoOnlyPresetLookupService<BankCardBalanceHistory> bankCardBalanceHistoryDaoOnlyPresetLookupService() {
         return new DaoOnlyPresetLookupService<>(
                 bankCardBalanceHistoryDao,
+                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
+                LogLevel.WARN
+        );
+    }
+
+    @Bean
+    public GeneralBatchCrudService<LongIdKey, UrgeSetting> urgeSettingBatchCustomCrudService() {
+        return new GeneralBatchCrudService<>(
+                urgeSettingDao,
+                urgeSettingCache,
+                new ExceptionKeyFetcher<>(),
+                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
+                LogLevel.WARN,
+                urgeSettingTimeout
+        );
+    }
+
+    @Bean
+    public DaoOnlyEntireLookupService<UrgeSetting> urgeSettingDaoOnlyEntireLookupService() {
+        return new DaoOnlyEntireLookupService<>(
+                urgeSettingDao,
+                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
+                LogLevel.WARN
+        );
+    }
+
+    @Bean
+    public DaoOnlyPresetLookupService<UrgeSetting> urgeSettingDaoOnlyPresetLookupService() {
+        return new DaoOnlyPresetLookupService<>(
+                urgeSettingDao,
                 serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
                 LogLevel.WARN
         );
