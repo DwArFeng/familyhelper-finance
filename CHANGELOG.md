@@ -8,19 +8,11 @@
   - com.dwarfeng.familyhelper.finance.stack.bean.entity.UrgeSetting。
 
 - 依赖升级。
-  - 升级 `junit` 依赖版本为 `4.13.2` 以规避漏洞。
-  - 升级 `spring` 依赖版本为 `5.3.20` 以规避漏洞。
-  - 升级 `mysql` 依赖版本为 `8.0.27` 以规避漏洞。
-  - 升级 `fastjson` 依赖版本为 `1.2.83` 以规避漏洞。
-  - 升级 `dubbo` 依赖版本为 `2.7.15` 以规避漏洞。
-  - 升级 `netty` 依赖版本为 `4.1.77.Final` 以规避漏洞。
-  - 升级 `hibernate` 依赖版本为 `5.4.24.Final` 以规避漏洞。
-  - 升级 `hibernate-validator` 依赖版本为 `6.0.21.Final` 以规避漏洞。
-  - 升级 `log4j2` 依赖版本为 `2.17.2` 以规避漏洞。
-  - 升级 `slf4j` 依赖版本为 `1.7.36` 以规避漏洞。
-  - 升级 `dutil` 依赖版本为 `beta-0.2.2.a` 以规避漏洞。
-  - 升级 `snowflake` 依赖版本为 `1.4.6.a` 以规避漏洞。
-  - 升级 `subgrade` 依赖版本为 `1.2.7.a` 以规避漏洞。
+  - 升级 `mysql` 依赖版本为 `8.0.28` 以规避漏洞。
+  - 升级 `slf4j` 依赖版本为 `1.7.5` 以规避漏洞。
+  - 升级 `dutil` 依赖版本为 `beta-0.3.0.a` 以规避漏洞。
+  - 升级 `snowflake` 依赖版本为 `1.4.7.a` 以规避漏洞。
+  - 升级 `subgrade` 依赖版本为 `1.2.8.a` 以规避漏洞。
   - 升级 `spring-terminator` 依赖版本为 `1.0.8.a` 以规避漏洞。
   - 升级 `spring-telqos` 依赖版本为 `1.1.3.a` 以规避漏洞。
 
