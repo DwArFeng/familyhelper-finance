@@ -8,16 +8,11 @@ import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionUpsertInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.AccountBook;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.Poab;
 import com.dwarfeng.familyhelper.finance.stack.bean.key.PoabKey;
-import com.dwarfeng.familyhelper.finance.stack.exception.AccountBookNotExistsException;
-import com.dwarfeng.familyhelper.finance.stack.exception.InvalidPermissionLevelException;
-import com.dwarfeng.familyhelper.finance.stack.exception.UserNotExistsException;
-import com.dwarfeng.familyhelper.finance.stack.exception.UserNotPermittedException;
 import com.dwarfeng.familyhelper.finance.stack.handler.AccountBookOperateHandler;
 import com.dwarfeng.familyhelper.finance.stack.service.*;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.HandlerException;
-import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -27,19 +22,21 @@ import java.util.Objects;
 @Component
 public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler {
 
-    private final UserMaintainService userMaintainService;
     private final AccountBookMaintainService accountBookMaintainService;
     private final PoabMaintainService poabMaintainService;
 
+    private final OperateHandlerValidator operateHandlerValidator;
+
     public AccountBookOperateHandlerImpl(
-            UserMaintainService userMaintainService, BankCardMaintainService bankCardMaintainService,
+            BankCardMaintainService bankCardMaintainService,
             AccountBookMaintainService accountBookMaintainService, PoabMaintainService poabMaintainService,
             BankCardBalanceHistoryMaintainService bankCardBalanceHistoryMaintainService,
-            TotalBalanceHistoryMaintainService totalBalanceHistoryMaintainService
+            TotalBalanceHistoryMaintainService totalBalanceHistoryMaintainService,
+            OperateHandlerValidator operateHandlerValidator
     ) {
-        this.userMaintainService = userMaintainService;
         this.accountBookMaintainService = accountBookMaintainService;
         this.poabMaintainService = poabMaintainService;
+        this.operateHandlerValidator = operateHandlerValidator;
     }
 
     @Override
@@ -47,7 +44,7 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
             throws HandlerException {
         try {
             // 1. 确认用户存在。
-            makeSureUserExists(userKey);
+            operateHandlerValidator.makeSureUserExists(userKey);
 
             // 2. 根据 accountBookCreateInfo 以及创建的规则组合 账本 实体。
             AccountBook accountBook = new AccountBook(
@@ -82,13 +79,13 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
             LongIdKey accountBookKey = accountBookUpdateInfo.getAccountBookKey();
 
             // 1. 确认用户存在。
-            makeSureUserExists(userKey);
+            operateHandlerValidator.makeSureUserExists(userKey);
 
             // 2. 确认账本存在。
-            makeSureAccountBookExists(accountBookKey);
+            operateHandlerValidator.makeSureAccountBookExists(accountBookKey);
 
             // 3. 确认用户有权限操作指定的账本。
-            makeSureUserPermittedForAccountBook(userKey, accountBookKey);
+            operateHandlerValidator.makeSureUserPermittedForAccountBook(userKey, accountBookKey);
 
             // 4. 根据 accountBookUpdateInfo 以及更新的规则设置 账本 实体。
             AccountBook accountBook = accountBookMaintainService.get(accountBookKey);
@@ -108,13 +105,13 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
     public void removeAccountBook(StringIdKey userKey, LongIdKey accountBookKey) throws HandlerException {
         try {
             // 1. 确认用户存在。
-            makeSureUserExists(userKey);
+            operateHandlerValidator.makeSureUserExists(userKey);
 
             // 2. 确认账本存在。
-            makeSureAccountBookExists(accountBookKey);
+            operateHandlerValidator.makeSureAccountBookExists(accountBookKey);
 
             // 3. 确认用户有权限操作指定的账本。
-            makeSureUserPermittedForAccountBook(userKey, accountBookKey);
+            operateHandlerValidator.makeSureUserPermittedForAccountBook(userKey, accountBookKey);
 
             // 4. 删除指定主键的账本。
             accountBookMaintainService.delete(accountBookKey);
@@ -139,17 +136,17 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
             }
 
             // 2. 确认 permissionLevel 有效。
-            makeSurePermissionLevelValid(permissionLevel);
+            operateHandlerValidator.makeSurePermissionLevelValid(permissionLevel);
 
             // 3. 确认用户存在。
-            makeSureUserExists(ownerUserKey);
-            makeSureUserExists(targetUserKey);
+            operateHandlerValidator.makeSureUserExists(ownerUserKey);
+            operateHandlerValidator.makeSureUserExists(targetUserKey);
 
             // 4. 确认账本存在。
-            makeSureAccountBookExists(accountBookKey);
+            operateHandlerValidator.makeSureAccountBookExists(accountBookKey);
 
             // 5. 确认用户有权限操作指定的账本。
-            makeSureUserPermittedForAccountBook(ownerUserKey, accountBookKey);
+            operateHandlerValidator.makeSureUserPermittedForAccountBook(ownerUserKey, accountBookKey);
 
             // 6. 通过入口信息组合权限实体，并进行插入或更新操作。
             String permissionLabel;
@@ -189,14 +186,14 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
             }
 
             // 2. 确认用户存在。
-            makeSureUserExists(ownerUserKey);
-            makeSureUserExists(targetUserKey);
+            operateHandlerValidator.makeSureUserExists(ownerUserKey);
+            operateHandlerValidator.makeSureUserExists(targetUserKey);
 
             // 3. 确认账本存在。
-            makeSureAccountBookExists(accountBookKey);
+            operateHandlerValidator.makeSureAccountBookExists(accountBookKey);
 
             // 4. 确认用户有权限操作指定的账本。
-            makeSureUserPermittedForAccountBook(ownerUserKey, accountBookKey);
+            operateHandlerValidator.makeSureUserPermittedForAccountBook(ownerUserKey, accountBookKey);
 
             // 5. 通过入口信息组合权限实体主键，并进行存在删除操作。
             PoabKey poabKey = new PoabKey(accountBookKey.getLongId(), targetUserKey.getStringId());
@@ -206,54 +203,5 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
         } catch (Exception e) {
             throw new HandlerException(e);
         }
-    }
-
-    private void makeSureUserExists(StringIdKey userKey) throws HandlerException {
-        try {
-            if (!userMaintainService.exists(userKey)) {
-                throw new UserNotExistsException(userKey);
-            }
-        } catch (ServiceException e) {
-            throw new HandlerException(e);
-        }
-    }
-
-    private void makeSureAccountBookExists(LongIdKey accountBookKey) throws HandlerException {
-        try {
-            if (!accountBookMaintainService.exists(accountBookKey)) {
-                throw new AccountBookNotExistsException(accountBookKey);
-            }
-        } catch (ServiceException e) {
-            throw new HandlerException(e);
-        }
-    }
-
-    @SuppressWarnings("DuplicatedCode")
-    private void makeSureUserPermittedForAccountBook(StringIdKey userKey, LongIdKey accountBookKey)
-            throws HandlerException {
-        try {
-            // 1. 构造 Poab 主键。
-            PoabKey poabKey = new PoabKey(accountBookKey.getLongId(), userKey.getStringId());
-
-            // 2. 查看 Poab 实体是否存在，如果不存在，则没有权限。
-            if (!poabMaintainService.exists(poabKey)) {
-                throw new UserNotPermittedException(userKey, accountBookKey);
-            }
-
-            // 3. 查看 Poab.permissionLevel 是否为 Poab.PERMISSION_LEVEL_OWNER，如果不是，则没有权限。
-            Poab poab = poabMaintainService.get(poabKey);
-            if (poab.getPermissionLevel() != Constants.PERMISSION_LEVEL_OWNER) {
-                throw new UserNotPermittedException(userKey, accountBookKey);
-            }
-        } catch (ServiceException e) {
-            throw new HandlerException(e);
-        }
-    }
-
-    private void makeSurePermissionLevelValid(int permissionLevel) throws HandlerException {
-        if (permissionLevel == Constants.PERMISSION_LEVEL_GUEST) {
-            return;
-        }
-        throw new InvalidPermissionLevelException(permissionLevel);
     }
 }
