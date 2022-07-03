@@ -24,8 +24,8 @@ public class AccountBookCrudOperation implements BatchCrudOperation<LongIdKey, A
     private final BankCardDao bankCardDao;
     private final BankCardCache bankCardCache;
 
+    private final FundChangeCrudOperation fundChangeCrudOperation;
     private final FundChangeDao fundChangeDao;
-    private final FundChangeCache fundChangeCache;
 
     private final PoabDao poabDao;
     private final PoabCache poabCache;
@@ -45,7 +45,7 @@ public class AccountBookCrudOperation implements BatchCrudOperation<LongIdKey, A
     public AccountBookCrudOperation(
             AccountBookDao accountBookDao, AccountBookCache accountBookCache,
             BankCardDao bankCardDao, BankCardCache bankCardCache,
-            FundChangeDao fundChangeDao, FundChangeCache fundChangeCache,
+            FundChangeCrudOperation fundChangeCrudOperation, FundChangeDao fundChangeDao,
             PoabDao poabDao, PoabCache poabCache,
             TotalBalanceHistoryDao totalBalanceHistoryDao, TotalBalanceHistoryCache totalBalanceHistoryCache,
             BankCardBalanceHistoryDao bankCardBalanceHistoryDao, BankCardBalanceHistoryCache bankCardBalanceHistoryCache,
@@ -55,8 +55,8 @@ public class AccountBookCrudOperation implements BatchCrudOperation<LongIdKey, A
         this.accountBookCache = accountBookCache;
         this.bankCardDao = bankCardDao;
         this.bankCardCache = bankCardCache;
+        this.fundChangeCrudOperation = fundChangeCrudOperation;
         this.fundChangeDao = fundChangeDao;
-        this.fundChangeCache = fundChangeCache;
         this.poabDao = poabDao;
         this.poabCache = poabCache;
         this.totalBalanceHistoryDao = totalBalanceHistoryDao;
@@ -119,8 +119,7 @@ public class AccountBookCrudOperation implements BatchCrudOperation<LongIdKey, A
         List<LongIdKey> fundChangeKeys = fundChangeDao.lookup(
                 FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK, new Object[]{key}
         ).stream().map(FundChange::getKey).collect(Collectors.toList());
-        fundChangeCache.batchDelete(fundChangeKeys);
-        fundChangeDao.batchDelete(fundChangeKeys);
+        fundChangeCrudOperation.batchDelete(fundChangeKeys);
 
         // 删除与账本相关的账本权限。
         List<PoabKey> poabKeys = poabDao.lookup(PoabMaintainService.CHILD_FOR_ACCOUNT_BOOK, new Object[]{key})

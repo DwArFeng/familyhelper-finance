@@ -7,14 +7,16 @@ import com.dwarfeng.subgrade.stack.bean.Bean;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Entity
 @IdClass(HibernateLongIdKey.class)
 @Table(name = "tbl_fund_change")
 public class HibernateFundChange implements Bean {
 
-    private static final long serialVersionUID = 1203465328971020251L;
+    private static final long serialVersionUID = 8851437529624806941L;
 
     // -----------------------------------------------------------主键-----------------------------------------------------------
     @Id
@@ -45,6 +47,10 @@ public class HibernateFundChange implements Bean {
             @JoinColumn(name = "account_book_id", referencedColumnName = "id", insertable = false, updatable = false), //
     })
     private HibernateAccountBook accountBook;
+
+    // -----------------------------------------------------------一对多-----------------------------------------------------------
+    @OneToMany(cascade = CascadeType.MERGE, targetEntity = HibernateBillFileInfo.class, mappedBy = "fundChange")
+    private Set<HibernateBillFileInfo> billFileInfos = new HashSet<>();
 
     public HibernateFundChange() {
     }
@@ -121,6 +127,14 @@ public class HibernateFundChange implements Bean {
 
     public void setAccountBook(HibernateAccountBook accountBook) {
         this.accountBook = accountBook;
+    }
+
+    public Set<HibernateBillFileInfo> getBillFileInfos() {
+        return billFileInfos;
+    }
+
+    public void setBillFileInfos(Set<HibernateBillFileInfo> billFileInfos) {
+        this.billFileInfos = billFileInfos;
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.dwarfeng.familyhelper.finance.impl.service;
 
-import com.dwarfeng.familyhelper.finance.stack.bean.entity.FundChange;
-import com.dwarfeng.familyhelper.finance.stack.service.FundChangeMaintainService;
+import com.dwarfeng.familyhelper.finance.stack.bean.entity.BillFileInfo;
+import com.dwarfeng.familyhelper.finance.stack.service.BillFileInfoMaintainService;
 import com.dwarfeng.subgrade.impl.service.CustomBatchCrudService;
 import com.dwarfeng.subgrade.impl.service.DaoOnlyEntireLookupService;
 import com.dwarfeng.subgrade.impl.service.DaoOnlyPresetLookupService;
@@ -17,16 +17,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class FundChangeMaintainServiceImpl implements FundChangeMaintainService {
+public class BillFileInfoMaintainServiceImpl implements BillFileInfoMaintainService {
 
-    private final CustomBatchCrudService<LongIdKey, FundChange> crudService;
-    private final DaoOnlyEntireLookupService<FundChange> entireLookupService;
-    private final DaoOnlyPresetLookupService<FundChange> presetLookupService;
+    private final CustomBatchCrudService<LongIdKey, BillFileInfo> crudService;
+    private final DaoOnlyEntireLookupService<BillFileInfo> entireLookupService;
+    private final DaoOnlyPresetLookupService<BillFileInfo> presetLookupService;
 
-    public FundChangeMaintainServiceImpl(
-            CustomBatchCrudService<LongIdKey, FundChange> crudService,
-            DaoOnlyEntireLookupService<FundChange> entireLookupService,
-            DaoOnlyPresetLookupService<FundChange> presetLookupService
+    public BillFileInfoMaintainServiceImpl(
+            CustomBatchCrudService<LongIdKey, BillFileInfo> crudService,
+            DaoOnlyEntireLookupService<BillFileInfo> entireLookupService,
+            DaoOnlyPresetLookupService<BillFileInfo> presetLookupService
     ) {
         this.crudService = crudService;
         this.entireLookupService = entireLookupService;
@@ -43,21 +43,21 @@ public class FundChangeMaintainServiceImpl implements FundChangeMaintainService 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public FundChange get(LongIdKey key) throws ServiceException {
+    public BillFileInfo get(LongIdKey key) throws ServiceException {
         return crudService.get(key);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public LongIdKey insert(FundChange element) throws ServiceException {
+    public LongIdKey insert(BillFileInfo element) throws ServiceException {
         return crudService.insert(element);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public void update(FundChange element) throws ServiceException {
+    public void update(BillFileInfo element) throws ServiceException {
         crudService.update(element);
     }
 
@@ -71,21 +71,21 @@ public class FundChangeMaintainServiceImpl implements FundChangeMaintainService 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public FundChange getIfExists(LongIdKey key) throws ServiceException {
+    public BillFileInfo getIfExists(LongIdKey key) throws ServiceException {
         return crudService.getIfExists(key);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public LongIdKey insertIfNotExists(FundChange element) throws ServiceException {
+    public LongIdKey insertIfNotExists(BillFileInfo element) throws ServiceException {
         return crudService.insertIfNotExists(element);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public void updateIfExists(FundChange element) throws ServiceException {
+    public void updateIfExists(BillFileInfo element) throws ServiceException {
         crudService.updateIfExists(element);
     }
 
@@ -99,7 +99,7 @@ public class FundChangeMaintainServiceImpl implements FundChangeMaintainService 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public LongIdKey insertOrUpdate(FundChange element) throws ServiceException {
+    public LongIdKey insertOrUpdate(BillFileInfo element) throws ServiceException {
         return crudService.insertOrUpdate(element);
     }
 
@@ -121,7 +121,7 @@ public class FundChangeMaintainServiceImpl implements FundChangeMaintainService 
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public List<FundChange> batchGet(@SkipRecord List<LongIdKey> keys) throws ServiceException {
+    public List<BillFileInfo> batchGet(@SkipRecord List<LongIdKey> keys) throws ServiceException {
         return crudService.batchGet(keys);
     }
 
@@ -129,14 +129,14 @@ public class FundChangeMaintainServiceImpl implements FundChangeMaintainService 
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public List<LongIdKey> batchInsert(@SkipRecord List<FundChange> elements) throws ServiceException {
+    public List<LongIdKey> batchInsert(@SkipRecord List<BillFileInfo> elements) throws ServiceException {
         return crudService.batchInsert(elements);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public void batchUpdate(@SkipRecord List<FundChange> elements) throws ServiceException {
+    public void batchUpdate(@SkipRecord List<BillFileInfo> elements) throws ServiceException {
         crudService.batchUpdate(elements);
     }
 
@@ -151,7 +151,7 @@ public class FundChangeMaintainServiceImpl implements FundChangeMaintainService 
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public List<FundChange> batchGetIfExists(@SkipRecord List<LongIdKey> keys) throws ServiceException {
+    public List<BillFileInfo> batchGetIfExists(@SkipRecord List<LongIdKey> keys) throws ServiceException {
         return crudService.batchGetIfExists(keys);
     }
 
@@ -159,14 +159,14 @@ public class FundChangeMaintainServiceImpl implements FundChangeMaintainService 
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public List<LongIdKey> batchInsertIfExists(@SkipRecord List<FundChange> elements) throws ServiceException {
+    public List<LongIdKey> batchInsertIfExists(@SkipRecord List<BillFileInfo> elements) throws ServiceException {
         return crudService.batchInsertIfExists(elements);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public void batchUpdateIfExists(@SkipRecord List<FundChange> elements) throws ServiceException {
+    public void batchUpdateIfExists(@SkipRecord List<BillFileInfo> elements) throws ServiceException {
         crudService.batchUpdateIfExists(elements);
     }
 
@@ -181,7 +181,7 @@ public class FundChangeMaintainServiceImpl implements FundChangeMaintainService 
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public List<LongIdKey> batchInsertOrUpdate(@SkipRecord List<FundChange> elements) throws ServiceException {
+    public List<LongIdKey> batchInsertOrUpdate(@SkipRecord List<BillFileInfo> elements) throws ServiceException {
         return crudService.batchInsertOrUpdate(elements);
     }
 
@@ -189,7 +189,7 @@ public class FundChangeMaintainServiceImpl implements FundChangeMaintainService 
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public PagedData<FundChange> lookup() throws ServiceException {
+    public PagedData<BillFileInfo> lookup() throws ServiceException {
         return entireLookupService.lookup();
     }
 
@@ -197,7 +197,7 @@ public class FundChangeMaintainServiceImpl implements FundChangeMaintainService 
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public PagedData<FundChange> lookup(PagingInfo pagingInfo) throws ServiceException {
+    public PagedData<BillFileInfo> lookup(PagingInfo pagingInfo) throws ServiceException {
         return entireLookupService.lookup(pagingInfo);
     }
 
@@ -205,7 +205,7 @@ public class FundChangeMaintainServiceImpl implements FundChangeMaintainService 
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public PagedData<FundChange> lookup(String preset, Object[] objs) throws ServiceException {
+    public PagedData<BillFileInfo> lookup(String preset, Object[] objs) throws ServiceException {
         return presetLookupService.lookup(preset, objs);
     }
 
@@ -213,7 +213,7 @@ public class FundChangeMaintainServiceImpl implements FundChangeMaintainService 
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public PagedData<FundChange> lookup(String preset, Object[] objs, PagingInfo pagingInfo) throws ServiceException {
+    public PagedData<BillFileInfo> lookup(String preset, Object[] objs, PagingInfo pagingInfo) throws ServiceException {
         return presetLookupService.lookup(preset, objs, pagingInfo);
     }
 }

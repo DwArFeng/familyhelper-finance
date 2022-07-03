@@ -33,6 +33,7 @@ public class DaoConfiguration {
     private final TotalBalanceHistoryPresetCriteriaMaker totalBalanceHistoryPresetCriteriaMaker;
     private final BankCardBalanceHistoryPresetCriteriaMaker bankCardBalanceHistoryPresetCriteriaMaker;
     private final UrgeSettingPresetCriteriaMaker urgeSettingPresetCriteriaMaker;
+    private final BillFileInfoPresetCriteriaMaker billFileInfoPresetCriteriaMaker;
 
     @Value("${hibernate.jdbc.batch_size}")
     private int batchSize;
@@ -44,7 +45,8 @@ public class DaoConfiguration {
             PoabPresetCriteriaMaker poabPresetCriteriaMaker,
             TotalBalanceHistoryPresetCriteriaMaker totalBalanceHistoryPresetCriteriaMaker,
             BankCardBalanceHistoryPresetCriteriaMaker bankCardBalanceHistoryPresetCriteriaMaker,
-            UrgeSettingPresetCriteriaMaker urgeSettingPresetCriteriaMaker
+            UrgeSettingPresetCriteriaMaker urgeSettingPresetCriteriaMaker,
+            BillFileInfoPresetCriteriaMaker billFileInfoPresetCriteriaMaker
     ) {
         this.template = template;
         this.mapper = mapper;
@@ -55,6 +57,7 @@ public class DaoConfiguration {
         this.totalBalanceHistoryPresetCriteriaMaker = totalBalanceHistoryPresetCriteriaMaker;
         this.bankCardBalanceHistoryPresetCriteriaMaker = bankCardBalanceHistoryPresetCriteriaMaker;
         this.urgeSettingPresetCriteriaMaker = urgeSettingPresetCriteriaMaker;
+        this.billFileInfoPresetCriteriaMaker = billFileInfoPresetCriteriaMaker;
     }
 
     @Bean
@@ -347,6 +350,38 @@ public class DaoConfiguration {
                 new DozerBeanTransformer<>(UrgeSetting.class, HibernateUrgeSetting.class, mapper),
                 HibernateUrgeSetting.class,
                 urgeSettingPresetCriteriaMaker
+        );
+    }
+
+    @Bean
+    public HibernateBatchBaseDao<LongIdKey, HibernateLongIdKey, BillFileInfo, HibernateBillFileInfo>
+    billFileInfoHibernateBatchBaseDao() {
+        return new HibernateBatchBaseDao<>(
+                template,
+                new DozerBeanTransformer<>(LongIdKey.class, HibernateLongIdKey.class, mapper),
+                new DozerBeanTransformer<>(BillFileInfo.class, HibernateBillFileInfo.class, mapper),
+                HibernateBillFileInfo.class,
+                new DefaultDeletionMod<>(),
+                batchSize
+        );
+    }
+
+    @Bean
+    public HibernateEntireLookupDao<BillFileInfo, HibernateBillFileInfo> billFileInfoHibernateEntireLookupDao() {
+        return new HibernateEntireLookupDao<>(
+                template,
+                new DozerBeanTransformer<>(BillFileInfo.class, HibernateBillFileInfo.class, mapper),
+                HibernateBillFileInfo.class
+        );
+    }
+
+    @Bean
+    public HibernatePresetLookupDao<BillFileInfo, HibernateBillFileInfo> billFileInfoHibernatePresetLookupDao() {
+        return new HibernatePresetLookupDao<>(
+                template,
+                new DozerBeanTransformer<>(BillFileInfo.class, HibernateBillFileInfo.class, mapper),
+                HibernateBillFileInfo.class,
+                billFileInfoPresetCriteriaMaker
         );
     }
 }

@@ -37,21 +37,12 @@ public class FundChangeMaintainServiceImplTest {
         fundChanges = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             FundChange fundChange = new FundChange(
-                    null,
-                    null,
-                    BigDecimal.ZERO,
-                    "change_type",
-                    new Date(),
-                    "remark"
+                    null, null, BigDecimal.ZERO, "change_type", new Date(), "remark"
             );
             fundChanges.add(fundChange);
         }
         accountBook = new AccountBook(
-                null,
-                "name",
-                new Date(),
-                BigDecimal.ZERO,
-                "remark"
+                null, "name", new Date(), BigDecimal.ZERO, "remark"
         );
     }
 

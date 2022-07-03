@@ -6,6 +6,7 @@
 
 - 添加实体。
   - com.dwarfeng.familyhelper.finance.stack.bean.entity.UrgeSetting。
+  - com.dwarfeng.familyhelper.finance.stack.bean.entity.BillFileInfo。
 
 - 依赖升级。
   - 升级 `mysql` 依赖版本为 `8.0.28` 以规避漏洞。
