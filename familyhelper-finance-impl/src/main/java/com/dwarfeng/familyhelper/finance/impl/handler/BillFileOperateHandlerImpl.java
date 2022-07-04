@@ -56,7 +56,7 @@ public class BillFileOperateHandlerImpl implements BillFileOperateHandler {
             );
 
             // 6. 拼接 BillFile 并返回。
-            return new BillFile(billFileInfo.getIndex(), content);
+            return new BillFile(billFileInfo.getOriginName(), content);
         } catch (HandlerException e) {
             throw e;
         } catch (Exception e) {

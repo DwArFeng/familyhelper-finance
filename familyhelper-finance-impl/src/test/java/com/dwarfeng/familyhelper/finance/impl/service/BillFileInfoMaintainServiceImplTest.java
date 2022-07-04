@@ -39,7 +39,7 @@ public class BillFileInfoMaintainServiceImplTest {
         billFileInfos = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             BillFileInfo billFileInfo = new BillFileInfo(
-                    null, null, i, 12450L, new Date(), "remark"
+                    null, null, "originName", i, 12450L, new Date(), "remark"
             );
             billFileInfos.add(billFileInfo);
         }

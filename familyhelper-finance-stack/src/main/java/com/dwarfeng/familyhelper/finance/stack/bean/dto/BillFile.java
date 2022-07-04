@@ -12,25 +12,22 @@ import java.util.Arrays;
  */
 public class BillFile implements Dto {
 
-    private static final long serialVersionUID = 6002957744844039916L;
+    private static final long serialVersionUID = 2149866606468844444L;
 
-    private int index;
+    private String originName;
     private byte[] content;
 
-    public BillFile() {
-    }
-
-    public BillFile(int index, byte[] content) {
-        this.index = index;
+    public BillFile(String originName, byte[] content) {
+        this.originName = originName;
         this.content = content;
     }
 
-    public int getIndex() {
-        return index;
+    public String getOriginName() {
+        return originName;
     }
 
-    public void setIndex(int index) {
-        this.index = index;
+    public void setOriginName(String originName) {
+        this.originName = originName;
     }
 
     public byte[] getContent() {
@@ -44,7 +41,7 @@ public class BillFile implements Dto {
     @Override
     public String toString() {
         return "BillFile{" +
-                "index=" + index +
+                "originName='" + originName + '\'' +
                 ", content=" + Arrays.toString(content) +
                 '}';
     }

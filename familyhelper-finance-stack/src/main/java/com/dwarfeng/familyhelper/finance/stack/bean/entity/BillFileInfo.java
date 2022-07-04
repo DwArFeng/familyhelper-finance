@@ -13,10 +13,11 @@ import java.util.Date;
  */
 public class BillFileInfo implements Entity<LongIdKey> {
 
-    private static final long serialVersionUID = 6789460862940719977L;
+    private static final long serialVersionUID = 7458937315126034351L;
 
     private LongIdKey key;
     private LongIdKey fundChangeKey;
+    private String originName;
     private int index;
     private long length;
     private Date createdDate;
@@ -26,10 +27,12 @@ public class BillFileInfo implements Entity<LongIdKey> {
     }
 
     public BillFileInfo(
-            LongIdKey key, LongIdKey fundChangeKey, int index, long length, Date createdDate, String remark
+            LongIdKey key, LongIdKey fundChangeKey, String originName, int index, long length, Date createdDate,
+            String remark
     ) {
         this.key = key;
         this.fundChangeKey = fundChangeKey;
+        this.originName = originName;
         this.index = index;
         this.length = length;
         this.createdDate = createdDate;
@@ -52,6 +55,14 @@ public class BillFileInfo implements Entity<LongIdKey> {
 
     public void setFundChangeKey(LongIdKey fundChangeKey) {
         this.fundChangeKey = fundChangeKey;
+    }
+
+    public String getOriginName() {
+        return originName;
+    }
+
+    public void setOriginName(String originName) {
+        this.originName = originName;
     }
 
     public int getIndex() {
@@ -91,6 +102,7 @@ public class BillFileInfo implements Entity<LongIdKey> {
         return "BillFileInfo{" +
                 "key=" + key +
                 ", fundChangeKey=" + fundChangeKey +
+                ", originName='" + originName + '\'' +
                 ", index=" + index +
                 ", length=" + length +
                 ", createdDate=" + createdDate +

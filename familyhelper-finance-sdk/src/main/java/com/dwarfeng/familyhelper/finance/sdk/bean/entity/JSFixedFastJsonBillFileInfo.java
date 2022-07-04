@@ -16,7 +16,7 @@ import java.util.Objects;
  */
 public class JSFixedFastJsonBillFileInfo implements Bean {
 
-    private static final long serialVersionUID = -5124591054180416228L;
+    private static final long serialVersionUID = 7605107427016196071L;
 
     public static JSFixedFastJsonBillFileInfo of(BillFileInfo billFileInfo) {
         if (Objects.isNull(billFileInfo)) {
@@ -37,16 +37,19 @@ public class JSFixedFastJsonBillFileInfo implements Bean {
     @JSONField(name = "fund_change_key", ordinal = 2)
     private JSFixedFastJsonLongIdKey fundChangeKey;
 
-    @JSONField(name = "index", ordinal = 3)
+    @JSONField(name = "origin_name", ordinal = 3)
+    private String originName;
+
+    @JSONField(name = "index", ordinal = 4)
     private int index;
 
-    @JSONField(name = "length", ordinal = 4)
+    @JSONField(name = "length", ordinal = 5)
     private long length;
 
-    @JSONField(name = "created_date", ordinal = 5)
+    @JSONField(name = "created_date", ordinal = 6)
     private Date createdDate;
 
-    @JSONField(name = "remark", ordinal = 6)
+    @JSONField(name = "remark", ordinal = 7)
     private String remark;
 
     public JSFixedFastJsonBillFileInfo() {
@@ -78,6 +81,14 @@ public class JSFixedFastJsonBillFileInfo implements Bean {
 
     public void setFundChangeKey(JSFixedFastJsonLongIdKey fundChangeKey) {
         this.fundChangeKey = fundChangeKey;
+    }
+
+    public String getOriginName() {
+        return originName;
+    }
+
+    public void setOriginName(String originName) {
+        this.originName = originName;
     }
 
     public int getIndex() {
@@ -117,6 +128,7 @@ public class JSFixedFastJsonBillFileInfo implements Bean {
         return "JSFixedFastJsonBillFileInfo{" +
                 "key=" + key +
                 ", fundChangeKey=" + fundChangeKey +
+                ", originName='" + originName + '\'' +
                 ", index=" + index +
                 ", length=" + length +
                 ", createdDate=" + createdDate +

@@ -17,7 +17,7 @@ import java.util.Optional;
 })
 public class HibernateBillFileInfo implements Bean {
 
-    private static final long serialVersionUID = 3873543405543344412L;
+    private static final long serialVersionUID = 3522649199522755629L;
 
     // -----------------------------------------------------------主键-----------------------------------------------------------
     @Id
@@ -29,6 +29,9 @@ public class HibernateBillFileInfo implements Bean {
     private Long fundChangeLongId;
 
     // -----------------------------------------------------------主属性字段-----------------------------------------------------------
+    @Column(name = "origin_name")
+    private String originName;
+
     @Column(name = "column_index")
     private int index;
 
@@ -86,6 +89,14 @@ public class HibernateBillFileInfo implements Bean {
         this.fundChangeLongId = fundChangeLongId;
     }
 
+    public String getOriginName() {
+        return originName;
+    }
+
+    public void setOriginName(String originName) {
+        this.originName = originName;
+    }
+
     public int getIndex() {
         return index;
     }
@@ -131,6 +142,7 @@ public class HibernateBillFileInfo implements Bean {
         return getClass().getSimpleName() + "(" +
                 "longId = " + longId + ", " +
                 "fundChangeLongId = " + fundChangeLongId + ", " +
+                "originName = " + originName + ", " +
                 "index = " + index + ", " +
                 "length = " + length + ", " +
                 "createdDate = " + createdDate + ", " +
