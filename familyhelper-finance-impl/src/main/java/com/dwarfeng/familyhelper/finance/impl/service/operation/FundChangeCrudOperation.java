@@ -38,7 +38,6 @@ public class FundChangeCrudOperation implements BatchCrudOperation<LongIdKey, Fu
         this.billFileInfoDao = billFileInfoDao;
     }
 
-
     @Override
     public boolean exists(LongIdKey key) throws Exception {
         return fundChangeCache.exists(key) || fundChangeDao.exists(key);

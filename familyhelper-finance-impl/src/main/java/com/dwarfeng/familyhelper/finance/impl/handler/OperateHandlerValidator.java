@@ -36,19 +36,22 @@ public class OperateHandlerValidator {
     private final PoabMaintainService poabMaintainService;
     private final BankCardMaintainService bankCardMaintainService;
     private final FundChangeMaintainService fundChangeMaintainService;
+    private final BillFileInfoMaintainService billFileInfoMaintainService;
 
     public OperateHandlerValidator(
             UserMaintainService userMaintainService,
             AccountBookMaintainService accountBookMaintainService,
             PoabMaintainService poabMaintainService,
             BankCardMaintainService bankCardMaintainService,
-            FundChangeMaintainService fundChangeMaintainService
+            FundChangeMaintainService fundChangeMaintainService,
+            BillFileInfoMaintainService billFileInfoMaintainService
     ) {
         this.userMaintainService = userMaintainService;
         this.accountBookMaintainService = accountBookMaintainService;
         this.poabMaintainService = poabMaintainService;
         this.bankCardMaintainService = bankCardMaintainService;
         this.fundChangeMaintainService = fundChangeMaintainService;
+        this.billFileInfoMaintainService = billFileInfoMaintainService;
     }
 
     public void makeSureUserExists(StringIdKey userKey) throws HandlerException {
@@ -65,28 +68,6 @@ public class OperateHandlerValidator {
         try {
             if (!accountBookMaintainService.exists(accountBookKey)) {
                 throw new AccountBookNotExistsException(accountBookKey);
-            }
-        } catch (ServiceException e) {
-            throw new HandlerException(e);
-        }
-    }
-
-    @SuppressWarnings("DuplicatedCode")
-    public void makeSureUserPermittedForAccountBook(StringIdKey userKey, LongIdKey accountBookKey)
-            throws HandlerException {
-        try {
-            // 1. 构造 Poab 主键。
-            PoabKey poabKey = new PoabKey(accountBookKey.getLongId(), userKey.getStringId());
-
-            // 2. 查看 Poab 实体是否存在，如果不存在，则没有权限。
-            if (!poabMaintainService.exists(poabKey)) {
-                throw new UserNotPermittedException(userKey, accountBookKey);
-            }
-
-            // 3. 查看 Poab.permissionLevel 是否为 Poab.PERMISSION_LEVEL_OWNER，如果不是，则没有权限。
-            Poab poab = poabMaintainService.get(poabKey);
-            if (poab.getPermissionLevel() != Constants.PERMISSION_LEVEL_OWNER) {
-                throw new UserNotPermittedException(userKey, accountBookKey);
             }
         } catch (ServiceException e) {
             throw new HandlerException(e);
@@ -110,21 +91,6 @@ public class OperateHandlerValidator {
         }
     }
 
-    public void makeSureUserPermittedForBankCard(StringIdKey userKey, LongIdKey bankCardKey) throws HandlerException {
-        try {
-            // 1. 查找指定的银行卡是否绑定账本，如果不绑定账本，则抛出银行卡状态异常。
-            BankCard bankCard = bankCardMaintainService.get(bankCardKey);
-            if (Objects.isNull(bankCard.getAccountBookKey())) {
-                throw new IllegalBankCardStateException(bankCardKey);
-            }
-
-            // 2. 取出银行卡的账本外键，判断用户是否拥有该账本的权限。
-            makeSureUserPermittedForAccountBook(userKey, bankCard.getAccountBookKey());
-        } catch (ServiceException e) {
-            throw new HandlerException(e);
-        }
-    }
-
     public void makeSureFundChangeExists(LongIdKey fundChangeKey) throws HandlerException {
         try {
             if (!fundChangeMaintainService.exists(fundChangeKey)) {
@@ -135,7 +101,60 @@ public class OperateHandlerValidator {
         }
     }
 
-    public void makeSureUserPermittedForFundChange(StringIdKey userKey, LongIdKey fundChangeKey)
+    public void makeSureBillFileExists(LongIdKey billFileKey) throws HandlerException {
+        try {
+            if (!billFileInfoMaintainService.exists(billFileKey)) {
+                throw new BillFileNotExistsException(billFileKey);
+            }
+        } catch (ServiceException e) {
+            throw new HandlerException(e);
+        }
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    public void makeSureUserInspectPermittedForAccountBook(StringIdKey userKey, LongIdKey accountBookKey)
+            throws HandlerException {
+        try {
+            // 1. 构造 Poab 主键。
+            PoabKey poabKey = new PoabKey(accountBookKey.getLongId(), userKey.getStringId());
+
+            // 2. 查看 Poab 实体是否存在，如果不存在，则没有权限。
+            if (!poabMaintainService.exists(poabKey)) {
+                throw new UserNotPermittedException(userKey, accountBookKey);
+            }
+
+            // 3. 查看 Poab.permissionLevel 是否为 Poab.PERMISSION_LEVEL_OWNER 或 Poab.PERMISSION_LEVEL_GUEST，
+            // 如果不是，则没有权限。
+            Poab poab = poabMaintainService.get(poabKey);
+            if (Objects.equals(poab.getPermissionLevel(), Constants.PERMISSION_LEVEL_OWNER)) {
+                return;
+            }
+            if (Objects.equals(poab.getPermissionLevel(), Constants.PERMISSION_LEVEL_GUEST)) {
+                return;
+            }
+            throw new UserNotPermittedException(userKey, accountBookKey);
+        } catch (ServiceException e) {
+            throw new HandlerException(e);
+        }
+    }
+
+    public void makeSureUserInspectPermittedForBankCard(StringIdKey userKey, LongIdKey bankCardKey)
+            throws HandlerException {
+        try {
+            // 1. 查找指定的银行卡是否绑定账本，如果不绑定账本，则抛出银行卡状态异常。
+            BankCard bankCard = bankCardMaintainService.get(bankCardKey);
+            if (Objects.isNull(bankCard.getAccountBookKey())) {
+                throw new IllegalBankCardStateException(bankCardKey);
+            }
+
+            // 2. 取出银行卡的账本外键，判断用户是否拥有该账本的权限。
+            makeSureUserInspectPermittedForAccountBook(userKey, bankCard.getAccountBookKey());
+        } catch (ServiceException e) {
+            throw new HandlerException(e);
+        }
+    }
+
+    public void makeSureUserInspectPermittedForFundChange(StringIdKey userKey, LongIdKey fundChangeKey)
             throws HandlerException {
         try {
             // 1. 查找指定的资金变更是否绑定账本，如果不绑定账本，则抛出资金变更状态异常。
@@ -145,7 +164,60 @@ public class OperateHandlerValidator {
             }
 
             // 2. 取出资金变更的账本外键，判断用户是否拥有该账本的权限。
-            makeSureUserPermittedForAccountBook(userKey, fundChange.getAccountBookKey());
+            makeSureUserInspectPermittedForAccountBook(userKey, fundChange.getAccountBookKey());
+        } catch (ServiceException e) {
+            throw new HandlerException(e);
+        }
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    public void makeSureUserModifyPermittedForAccountBook(StringIdKey userKey, LongIdKey assetCatalogKey)
+            throws HandlerException {
+        try {
+            // 1. 构造 Poab 主键。
+            PoabKey poabKey = new PoabKey(assetCatalogKey.getLongId(), userKey.getStringId());
+
+            // 2. 查看 Poab 实体是否存在，如果不存在，则没有权限。
+            if (!poabMaintainService.exists(poabKey)) {
+                throw new UserNotPermittedException(userKey, assetCatalogKey);
+            }
+
+            // 3. 查看 Poab.permissionLevel 是否为 Poab.PERMISSION_LEVEL_OWNER，如果不是，则没有权限。
+            Poab poab = poabMaintainService.get(poabKey);
+            if (Objects.equals(poab.getPermissionLevel(), Constants.PERMISSION_LEVEL_OWNER)) {
+                return;
+            }
+            throw new UserNotPermittedException(userKey, assetCatalogKey);
+        } catch (ServiceException e) {
+            throw new HandlerException(e);
+        }
+    }
+
+    public void makeSureUserModifyPermittedForBankCard(StringIdKey userKey, LongIdKey bankCardKey) throws HandlerException {
+        try {
+            // 1. 查找指定的银行卡是否绑定账本，如果不绑定账本，则抛出银行卡状态异常。
+            BankCard bankCard = bankCardMaintainService.get(bankCardKey);
+            if (Objects.isNull(bankCard.getAccountBookKey())) {
+                throw new IllegalBankCardStateException(bankCardKey);
+            }
+
+            // 2. 取出银行卡的账本外键，判断用户是否拥有该账本的权限。
+            makeSureUserModifyPermittedForAccountBook(userKey, bankCard.getAccountBookKey());
+        } catch (ServiceException e) {
+            throw new HandlerException(e);
+        }
+    }
+
+    public void makeSureUserModifyPermittedForFundChange(StringIdKey userKey, LongIdKey fundChangeKey) throws HandlerException {
+        try {
+            // 1. 查找指定的资金变更是否绑定账本，如果不绑定账本，则抛出资金变更状态异常。
+            FundChange fundChange = fundChangeMaintainService.get(fundChangeKey);
+            if (Objects.isNull(fundChange.getAccountBookKey())) {
+                throw new IllegalFundChangeStateException(fundChangeKey);
+            }
+
+            // 2. 取出资金变更的账本外键，判断用户是否拥有该账本的权限。
+            makeSureUserModifyPermittedForAccountBook(userKey, fundChange.getAccountBookKey());
         } catch (ServiceException e) {
             throw new HandlerException(e);
         }

@@ -40,7 +40,7 @@ public class FundChangeOperateHandlerImpl implements FundChangeOperateHandler {
             operateHandlerValidator.makeSureAccountBookExists(accountBookKey);
 
             // 3. 确认用户有权限操作指定的账本。
-            operateHandlerValidator.makeSureUserPermittedForAccountBook(userKey, accountBookKey);
+            operateHandlerValidator.makeSureUserModifyPermittedForAccountBook(userKey, accountBookKey);
 
             // 4. 根据 fundChangeRecordInfo 以及创建的规则组合 资金变更 实体。
             FundChange fundChange = new FundChange(
@@ -70,7 +70,7 @@ public class FundChangeOperateHandlerImpl implements FundChangeOperateHandler {
             operateHandlerValidator.makeSureFundChangeExists(fundChangeKey);
 
             // 3. 确认用户有权限操作指定的资金变更记录。
-            operateHandlerValidator.makeSureUserPermittedForFundChange(userKey, fundChangeKey);
+            operateHandlerValidator.makeSureUserModifyPermittedForFundChange(userKey, fundChangeKey);
 
             // 4. 根据 fundChangeUpdateInfo 以及更新的规则设置 资金变更 实体。
             FundChange fundChange = fundChangeMaintainService.get(fundChangeKey);
@@ -97,7 +97,7 @@ public class FundChangeOperateHandlerImpl implements FundChangeOperateHandler {
             operateHandlerValidator.makeSureFundChangeExists(fundChangeKey);
 
             // 3. 确认用户有权限操作指定的资金变更。
-            operateHandlerValidator.makeSureUserPermittedForFundChange(userKey, fundChangeKey);
+            operateHandlerValidator.makeSureUserModifyPermittedForFundChange(userKey, fundChangeKey);
 
             // 4. 存在删除指定的资金变更。
             fundChangeMaintainService.deleteIfExists(fundChangeKey);

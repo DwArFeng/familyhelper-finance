@@ -85,7 +85,7 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
             operateHandlerValidator.makeSureAccountBookExists(accountBookKey);
 
             // 3. 确认用户有权限操作指定的账本。
-            operateHandlerValidator.makeSureUserPermittedForAccountBook(userKey, accountBookKey);
+            operateHandlerValidator.makeSureUserModifyPermittedForAccountBook(userKey, accountBookKey);
 
             // 4. 根据 accountBookUpdateInfo 以及更新的规则设置 账本 实体。
             AccountBook accountBook = accountBookMaintainService.get(accountBookKey);
@@ -111,7 +111,7 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
             operateHandlerValidator.makeSureAccountBookExists(accountBookKey);
 
             // 3. 确认用户有权限操作指定的账本。
-            operateHandlerValidator.makeSureUserPermittedForAccountBook(userKey, accountBookKey);
+            operateHandlerValidator.makeSureUserModifyPermittedForAccountBook(userKey, accountBookKey);
 
             // 4. 删除指定主键的账本。
             accountBookMaintainService.delete(accountBookKey);
@@ -146,7 +146,7 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
             operateHandlerValidator.makeSureAccountBookExists(accountBookKey);
 
             // 5. 确认用户有权限操作指定的账本。
-            operateHandlerValidator.makeSureUserPermittedForAccountBook(ownerUserKey, accountBookKey);
+            operateHandlerValidator.makeSureUserModifyPermittedForAccountBook(ownerUserKey, accountBookKey);
 
             // 6. 通过入口信息组合权限实体，并进行插入或更新操作。
             String permissionLabel;
@@ -193,7 +193,7 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
             operateHandlerValidator.makeSureAccountBookExists(accountBookKey);
 
             // 4. 确认用户有权限操作指定的账本。
-            operateHandlerValidator.makeSureUserPermittedForAccountBook(ownerUserKey, accountBookKey);
+            operateHandlerValidator.makeSureUserModifyPermittedForAccountBook(ownerUserKey, accountBookKey);
 
             // 5. 通过入口信息组合权限实体主键，并进行存在删除操作。
             PoabKey poabKey = new PoabKey(accountBookKey.getLongId(), targetUserKey.getStringId());

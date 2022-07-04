@@ -19,6 +19,9 @@
 
 - 优化操作服务验证环节的代码结构。
 
+- 完成实体的操作服务。
+  - com.dwarfeng.familyhelper.finance.stack.service.BillFileOperateService。
+
 #### Bug修复
 
 - (无)

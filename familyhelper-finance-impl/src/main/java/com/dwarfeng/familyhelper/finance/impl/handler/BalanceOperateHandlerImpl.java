@@ -59,7 +59,7 @@ public class BalanceOperateHandlerImpl implements BalanceOperateHandler {
             operateHandlerValidator.makeSureBankCardExists(bankCardKey);
 
             // 3. 确认用户有权限操作指定的银行卡。
-            operateHandlerValidator.makeSureUserPermittedForBankCard(userKey, bankCardKey);
+            operateHandlerValidator.makeSureUserModifyPermittedForBankCard(userKey, bankCardKey);
 
             // 4. 将临时区的字段设置为指定的余额。
             BankCard bankCard = bankCardMaintainService.get(bankCardKey);
@@ -84,7 +84,7 @@ public class BalanceOperateHandlerImpl implements BalanceOperateHandler {
             operateHandlerValidator.makeSureAccountBookExists(accountBookKey);
 
             // 3. 确认用户有权限操作指定的账本。
-            operateHandlerValidator.makeSureUserPermittedForAccountBook(userKey, accountBookKey);
+            operateHandlerValidator.makeSureUserModifyPermittedForAccountBook(userKey, accountBookKey);
 
             // 4. 查询账本下的所有银行卡。
             List<BankCard> bankCards = bankCardMaintainService.lookup(
@@ -144,7 +144,7 @@ public class BalanceOperateHandlerImpl implements BalanceOperateHandler {
             operateHandlerValidator.makeSureBankCardExists(bankCardKey);
 
             // 3. 确认用户有权限操作指定的银行卡。
-            operateHandlerValidator.makeSureUserPermittedForBankCard(userKey, bankCardKey);
+            operateHandlerValidator.makeSureUserModifyPermittedForBankCard(userKey, bankCardKey);
 
             // 4. 设置临时使能为 false。
             BankCard bankCard = bankCardMaintainService.get(bankCardKey);
@@ -167,7 +167,7 @@ public class BalanceOperateHandlerImpl implements BalanceOperateHandler {
             operateHandlerValidator.makeSureAccountBookExists(accountBookKey);
 
             // 3. 确认用户有权限操作指定的账本。
-            operateHandlerValidator.makeSureUserPermittedForAccountBook(userKey, accountBookKey);
+            operateHandlerValidator.makeSureUserModifyPermittedForAccountBook(userKey, accountBookKey);
 
             // 4. 查询账本下的所有银行卡，将每个银行卡设置临时使能为 false。
             List<BankCard> bankCards = bankCardMaintainService.lookup(

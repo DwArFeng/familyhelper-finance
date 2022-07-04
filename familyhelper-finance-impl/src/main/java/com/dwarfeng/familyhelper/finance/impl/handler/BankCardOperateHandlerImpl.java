@@ -46,7 +46,7 @@ public class BankCardOperateHandlerImpl implements BankCardOperateHandler {
             operateHandlerValidator.makeSureAccountBookExists(accountBookKey);
 
             // 3. 确认用户有权限操作指定的账本。
-            operateHandlerValidator.makeSureUserPermittedForAccountBook(userKey, accountBookKey);
+            operateHandlerValidator.makeSureUserModifyPermittedForAccountBook(userKey, accountBookKey);
 
             // 4. 根据 bankCardCreateInfo 以及创建的规则组合 银行卡 实体。
             BankCard bankCard = new BankCard(
@@ -75,7 +75,7 @@ public class BankCardOperateHandlerImpl implements BankCardOperateHandler {
             operateHandlerValidator.makeSureBankCardExists(bankCardKey);
 
             // 3. 确认用户有权限操作指定的银行卡。
-            operateHandlerValidator.makeSureUserPermittedForBankCard(userKey, bankCardKey);
+            operateHandlerValidator.makeSureUserModifyPermittedForBankCard(userKey, bankCardKey);
 
             // 4. 根据 bankCardUpdateInfo 以及更新的规则设置 银行卡 实体。
             BankCard bankCard = bankCardMaintainService.get(bankCardKey);
@@ -102,7 +102,7 @@ public class BankCardOperateHandlerImpl implements BankCardOperateHandler {
             operateHandlerValidator.makeSureBankCardExists(bankCardKey);
 
             // 3. 确认用户有权限操作指定的银行卡。
-            operateHandlerValidator.makeSureUserPermittedForBankCard(userKey, bankCardKey);
+            operateHandlerValidator.makeSureUserModifyPermittedForBankCard(userKey, bankCardKey);
 
             // 4. 获取银行卡所属的账本。
             BankCard bankCard = bankCardMaintainService.get(bankCardKey);

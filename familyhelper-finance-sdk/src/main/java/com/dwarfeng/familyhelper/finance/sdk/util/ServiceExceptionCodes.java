@@ -28,6 +28,8 @@ public final class ServiceExceptionCodes {
             new ServiceException.Code(offset(60), "illegal fund change state");
     public static final ServiceException.Code INVALID_PERMISSION_LEVEL =
             new ServiceException.Code(offset(70), "invalid permission level");
+    public static final ServiceException.Code BILL_FILE_NOT_EXISTS =
+            new ServiceException.Code(offset(80), "bill file not exists");
 
     private static int offset(int i) {
         return EXCEPTION_CODE_OFFSET + i;
@@ -60,6 +62,7 @@ public final class ServiceExceptionCodes {
         FUND_CHANGE_NOT_EXISTS.setCode(offset(50));
         ILLEGAL_FUND_CHANGE_STATE.setCode(offset(60));
         INVALID_PERMISSION_LEVEL.setCode(offset(70));
+        BILL_FILE_NOT_EXISTS.setCode(offset(80));
     }
 
     private ServiceExceptionCodes() {
