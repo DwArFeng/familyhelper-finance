@@ -14,6 +14,7 @@ import com.dwarfeng.subgrade.stack.exception.HandlerException;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.Objects;
 
 @Component
 public class BillFileOperateHandlerImpl implements BillFileOperateHandler {
@@ -85,9 +86,10 @@ public class BillFileOperateHandlerImpl implements BillFileOperateHandler {
             ftpHandler.storeFile(new String[]{FtpConstants.PATH_BILL_FILE}, getFileName(billFileKey), content);
 
             // 6. 查询当前资金变更的票据的最高 maxIndex，令新的 index = maxIndex + 1。
-            int index = billFileInfoMaintainService.lookupFirst(
+            BillFileInfo lastBillFileInfo = billFileInfoMaintainService.lookupFirst(
                     BillFileInfoMaintainService.CHILD_FOR_FUND_CHANGE_INDEX_DESC, new Object[]{fundChangeKey}
-            ).getIndex() + 1;
+            );
+            int index = Objects.isNull(lastBillFileInfo) ? 0 : lastBillFileInfo.getIndex() + 1;
 
             // 6. 根据 billFileUploadInfo 构造 BillFileInfo，插入或更新。
             Date currentDate = new Date();
@@ -95,6 +97,7 @@ public class BillFileOperateHandlerImpl implements BillFileOperateHandler {
             BillFileInfo billFileInfo = new BillFileInfo();
             billFileInfo.setKey(billFileKey);
             billFileInfo.setFundChangeKey(fundChangeKey);
+            billFileInfo.setOriginName(billFileUploadInfo.getOriginName());
             billFileInfo.setIndex(index);
             billFileInfo.setLength(billFileUploadInfo.getContent().length);
             billFileInfo.setCreatedDate(currentDate);
