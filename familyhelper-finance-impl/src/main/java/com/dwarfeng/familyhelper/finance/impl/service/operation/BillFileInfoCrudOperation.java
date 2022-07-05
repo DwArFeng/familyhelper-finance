@@ -1,8 +1,10 @@
 package com.dwarfeng.familyhelper.finance.impl.service.operation;
 
+import com.dwarfeng.familyhelper.finance.impl.util.FtpConstants;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.BillFileInfo;
 import com.dwarfeng.familyhelper.finance.stack.cache.BillFileInfoCache;
 import com.dwarfeng.familyhelper.finance.stack.dao.BillFileInfoDao;
+import com.dwarfeng.ftp.handler.FtpHandler;
 import com.dwarfeng.subgrade.sdk.exception.ServiceExceptionCodes;
 import com.dwarfeng.subgrade.sdk.service.custom.operation.BatchCrudOperation;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
@@ -16,15 +18,20 @@ import java.util.List;
 public class BillFileInfoCrudOperation implements BatchCrudOperation<LongIdKey, BillFileInfo> {
 
     private final BillFileInfoDao billFileInfoDao;
-
     private final BillFileInfoCache billFileInfoCache;
+
+    private final FtpHandler ftpHandler;
 
     @Value("${cache.timeout.entity.bill_file_info}")
     private long billFileInfoTimeout;
 
-    public BillFileInfoCrudOperation(BillFileInfoDao billFileInfoDao, BillFileInfoCache billFileInfoCache) {
+    public BillFileInfoCrudOperation(
+            BillFileInfoDao billFileInfoDao, BillFileInfoCache billFileInfoCache,
+            FtpHandler ftpHandler
+    ) {
         this.billFileInfoDao = billFileInfoDao;
         this.billFileInfoCache = billFileInfoCache;
+        this.ftpHandler = ftpHandler;
     }
 
     @Override
@@ -61,10 +68,18 @@ public class BillFileInfoCrudOperation implements BatchCrudOperation<LongIdKey, 
     @SuppressWarnings("DuplicatedCode")
     @Override
     public void delete(LongIdKey key) throws Exception {
-        // TODO 实现文件系统后，删除 实体自身 的同时也应该删除文件。
+        // 如果存在票据文件，则删除票据文件。
+        if (ftpHandler.existsFile(new String[]{FtpConstants.PATH_BILL_FILE}, getFileName(key))) {
+            ftpHandler.deleteFile(new String[]{FtpConstants.PATH_BILL_FILE}, getFileName(key));
+        }
+
         // 删除票据文件信息实体自身。
         billFileInfoCache.delete(key);
         billFileInfoDao.delete(key);
+    }
+
+    private String getFileName(LongIdKey billFileKey) {
+        return Long.toString(billFileKey.getLongId());
     }
 
     @Override
