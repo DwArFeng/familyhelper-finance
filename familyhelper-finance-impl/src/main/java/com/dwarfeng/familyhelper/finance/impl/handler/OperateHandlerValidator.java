@@ -11,8 +11,6 @@ import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.HandlerException;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
@@ -28,8 +26,6 @@ import java.util.Objects;
  */
 @Component
 public class OperateHandlerValidator {
-
-    public static final Logger LOGGER = LoggerFactory.getLogger(OperateHandlerValidator.class);
 
     private final UserMaintainService userMaintainService;
     private final AccountBookMaintainService accountBookMaintainService;
