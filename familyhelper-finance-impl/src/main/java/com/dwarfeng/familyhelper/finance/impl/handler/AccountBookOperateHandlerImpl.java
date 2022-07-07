@@ -9,7 +9,8 @@ import com.dwarfeng.familyhelper.finance.stack.bean.entity.AccountBook;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.Poab;
 import com.dwarfeng.familyhelper.finance.stack.bean.key.PoabKey;
 import com.dwarfeng.familyhelper.finance.stack.handler.AccountBookOperateHandler;
-import com.dwarfeng.familyhelper.finance.stack.service.*;
+import com.dwarfeng.familyhelper.finance.stack.service.AccountBookMaintainService;
+import com.dwarfeng.familyhelper.finance.stack.service.PoabMaintainService;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.HandlerException;
@@ -28,16 +29,15 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
     private final OperateHandlerValidator operateHandlerValidator;
 
     public AccountBookOperateHandlerImpl(
-            BankCardMaintainService bankCardMaintainService,
-            AccountBookMaintainService accountBookMaintainService, PoabMaintainService poabMaintainService,
-            BankCardBalanceHistoryMaintainService bankCardBalanceHistoryMaintainService,
-            TotalBalanceHistoryMaintainService totalBalanceHistoryMaintainService,
+            AccountBookMaintainService accountBookMaintainService,
+            PoabMaintainService poabMaintainService,
             OperateHandlerValidator operateHandlerValidator
     ) {
         this.accountBookMaintainService = accountBookMaintainService;
         this.poabMaintainService = poabMaintainService;
         this.operateHandlerValidator = operateHandlerValidator;
     }
+
 
     @Override
     public LongIdKey createAccountBook(StringIdKey userKey, AccountBookCreateInfo accountBookCreateInfo)
