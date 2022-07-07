@@ -2,9 +2,9 @@ package com.dwarfeng.familyhelper.finance.impl.handler;
 
 import com.dwarfeng.familyhelper.finance.sdk.util.Constants;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookCreateInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookPermissionRemoveInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookPermissionUpsertInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookUpdateInfo;
-import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionRemoveInfo;
-import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionUpsertInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.AccountBook;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.Poab;
 import com.dwarfeng.familyhelper.finance.stack.bean.key.PoabKey;
@@ -123,12 +123,13 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
     }
 
     @Override
-    public void upsertPermission(StringIdKey ownerUserKey, PermissionUpsertInfo permissionUpsertInfo)
-            throws HandlerException {
+    public void upsertPermission(
+            StringIdKey ownerUserKey, AccountBookPermissionUpsertInfo accountBookPermissionUpsertInfo
+    ) throws HandlerException {
         try {
-            LongIdKey accountBookKey = permissionUpsertInfo.getAccountBookKey();
-            StringIdKey targetUserKey = permissionUpsertInfo.getUserKey();
-            int permissionLevel = permissionUpsertInfo.getPermissionLevel();
+            LongIdKey accountBookKey = accountBookPermissionUpsertInfo.getAccountBookKey();
+            StringIdKey targetUserKey = accountBookPermissionUpsertInfo.getUserKey();
+            int permissionLevel = accountBookPermissionUpsertInfo.getPermissionLevel();
 
             // 1. 如果用户主键与目标主键一致，则什么也不做。
             if (Objects.equals(ownerUserKey, targetUserKey)) {
@@ -174,11 +175,12 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
     }
 
     @Override
-    public void removePermission(StringIdKey ownerUserKey, PermissionRemoveInfo permissionRemoveInfo)
-            throws HandlerException {
+    public void removePermission(
+            StringIdKey ownerUserKey, AccountBookPermissionRemoveInfo accountBookPermissionRemoveInfo
+    ) throws HandlerException {
         try {
-            LongIdKey accountBookKey = permissionRemoveInfo.getAccountBookKey();
-            StringIdKey targetUserKey = permissionRemoveInfo.getUserKey();
+            LongIdKey accountBookKey = accountBookPermissionRemoveInfo.getAccountBookKey();
+            StringIdKey targetUserKey = accountBookPermissionRemoveInfo.getUserKey();
 
             // 1. 如果用户主键与目标主键一致，则什么也不做。
             if (Objects.equals(ownerUserKey, targetUserKey)) {

@@ -1,9 +1,9 @@
 package com.dwarfeng.familyhelper.finance.impl.service;
 
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookCreateInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookPermissionRemoveInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookPermissionUpsertInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookUpdateInfo;
-import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionRemoveInfo;
-import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionUpsertInfo;
 import com.dwarfeng.familyhelper.finance.stack.handler.AccountBookOperateHandler;
 import com.dwarfeng.familyhelper.finance.stack.service.AccountBookOperateService;
 import com.dwarfeng.subgrade.sdk.exception.ServiceExceptionHelper;
@@ -58,20 +58,22 @@ public class AccountBookOperateServiceImpl implements AccountBookOperateService 
     }
 
     @Override
-    public void upsertPermission(StringIdKey ownerUserKey, PermissionUpsertInfo permissionUpsertInfo)
-            throws ServiceException {
+    public void upsertPermission(
+            StringIdKey ownerUserKey, AccountBookPermissionUpsertInfo accountBookPermissionUpsertInfo
+    ) throws ServiceException {
         try {
-            accountBookOperateHandler.upsertPermission(ownerUserKey, permissionUpsertInfo);
+            accountBookOperateHandler.upsertPermission(ownerUserKey, accountBookPermissionUpsertInfo);
         } catch (Exception e) {
             throw ServiceExceptionHelper.logAndThrow("添加账本的访客权限时发生异常", LogLevel.WARN, sem, e);
         }
     }
 
     @Override
-    public void removePermission(StringIdKey ownerUserKey, PermissionRemoveInfo permissionRemoveInfo)
-            throws ServiceException {
+    public void removePermission(
+            StringIdKey ownerUserKey, AccountBookPermissionRemoveInfo accountBookPermissionRemoveInfo
+    ) throws ServiceException {
         try {
-            accountBookOperateHandler.removePermission(ownerUserKey, permissionRemoveInfo);
+            accountBookOperateHandler.removePermission(ownerUserKey, accountBookPermissionRemoveInfo);
         } catch (Exception e) {
             throw ServiceExceptionHelper.logAndThrow("移除账本的访客权限时发生异常", LogLevel.WARN, sem, e);
         }

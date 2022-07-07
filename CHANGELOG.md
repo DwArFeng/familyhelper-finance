@@ -22,6 +22,9 @@
 - 完成实体的操作服务。
   - com.dwarfeng.familyhelper.finance.stack.service.BillFileOperateService。
 
+- 优化部分 DTO 实体的名称。
+  - 此处更新与旧版本不兼容。
+
 #### Bug修复
 
 - (无)

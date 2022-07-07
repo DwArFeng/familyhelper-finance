@@ -5,22 +5,22 @@ import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 
 /**
- * 资产目录权限信息。
+ * 账本权限删除信息。
  *
  * @author DwArFeng
- * @since 1.3.0
+ * @since 1.4.0
  */
-public class PermissionRemoveInfo implements Dto {
+public class AccountBookPermissionRemoveInfo implements Dto {
 
-    private static final long serialVersionUID = -2288921537659735982L;
+    private static final long serialVersionUID = -3317933138827581080L;
 
     private LongIdKey accountBookKey;
     private StringIdKey userKey;
 
-    public PermissionRemoveInfo() {
+    public AccountBookPermissionRemoveInfo() {
     }
 
-    public PermissionRemoveInfo(LongIdKey accountBookKey, StringIdKey userKey) {
+    public AccountBookPermissionRemoveInfo(LongIdKey accountBookKey, StringIdKey userKey) {
         this.accountBookKey = accountBookKey;
         this.userKey = userKey;
     }
@@ -43,7 +43,7 @@ public class PermissionRemoveInfo implements Dto {
 
     @Override
     public String toString() {
-        return "PermissionRemoveInfo{" +
+        return "AccountBookPermissionRemoveInfo{" +
                 "accountBookKey=" + accountBookKey +
                 ", userKey=" + userKey +
                 '}';

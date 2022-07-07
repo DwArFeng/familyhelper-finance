@@ -1,7 +1,7 @@
 package com.dwarfeng.familyhelper.finance.sdk.bean.dto;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionUpsertInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookPermissionRemoveInfo;
 import com.dwarfeng.subgrade.sdk.bean.key.WebInputLongIdKey;
 import com.dwarfeng.subgrade.sdk.bean.key.WebInputStringIdKey;
 import com.dwarfeng.subgrade.stack.bean.dto.Dto;
@@ -10,23 +10,22 @@ import javax.validation.Valid;
 import java.util.Objects;
 
 /**
- * WebInput 资产目录权限信息。
+ * WebInput 账本权限删除信息。
  *
  * @author DwArFeng
- * @since 1.3.0
+ * @since 1.4.0
  */
-public class WebInputPermissionUpsertInfo implements Dto {
+public class WebInputAccountBookPermissionRemoveInfo implements Dto {
 
-    private static final long serialVersionUID = 4283072725215086005L;
+    private static final long serialVersionUID = -57100278594532486L;
 
-    public static PermissionUpsertInfo toStackBean(WebInputPermissionUpsertInfo webInputPermissionUpsertInfo) {
-        if (Objects.isNull(webInputPermissionUpsertInfo)) {
+    public static AccountBookPermissionRemoveInfo toStackBean(WebInputAccountBookPermissionRemoveInfo webInput) {
+        if (Objects.isNull(webInput)) {
             return null;
         } else {
-            return new PermissionUpsertInfo(
-                    WebInputLongIdKey.toStackBean(webInputPermissionUpsertInfo.getAccountBookKey()),
-                    WebInputStringIdKey.toStackBean(webInputPermissionUpsertInfo.getUserKey()),
-                    webInputPermissionUpsertInfo.getPermissionLevel()
+            return new AccountBookPermissionRemoveInfo(
+                    WebInputLongIdKey.toStackBean(webInput.getAccountBookKey()),
+                    WebInputStringIdKey.toStackBean(webInput.getUserKey())
             );
         }
     }
@@ -39,10 +38,7 @@ public class WebInputPermissionUpsertInfo implements Dto {
     @Valid
     private WebInputStringIdKey userKey;
 
-    @JSONField(name = "permission_level")
-    private int permissionLevel;
-
-    public WebInputPermissionUpsertInfo() {
+    public WebInputAccountBookPermissionRemoveInfo() {
     }
 
     public WebInputLongIdKey getAccountBookKey() {
@@ -61,20 +57,11 @@ public class WebInputPermissionUpsertInfo implements Dto {
         this.userKey = userKey;
     }
 
-    public int getPermissionLevel() {
-        return permissionLevel;
-    }
-
-    public void setPermissionLevel(int permissionLevel) {
-        this.permissionLevel = permissionLevel;
-    }
-
     @Override
     public String toString() {
-        return "WebInputPermissionUpsertInfo{" +
+        return "WebInputAccountBookPermissionRemoveInfo{" +
                 "accountBookKey=" + accountBookKey +
                 ", userKey=" + userKey +
-                ", permissionLevel=" + permissionLevel +
                 '}';
     }
 }

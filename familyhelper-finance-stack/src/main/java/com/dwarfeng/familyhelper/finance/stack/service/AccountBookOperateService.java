@@ -1,9 +1,9 @@
 package com.dwarfeng.familyhelper.finance.stack.service;
 
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookCreateInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookPermissionRemoveInfo;
+import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookPermissionUpsertInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.AccountBookUpdateInfo;
-import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionRemoveInfo;
-import com.dwarfeng.familyhelper.finance.stack.bean.dto.PermissionUpsertInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
@@ -49,18 +49,20 @@ public interface AccountBookOperateService extends Service {
     /**
      * 添加或更新账本的访客权限。
      *
-     * @param ownerUserKey         操作者的主键。
-     * @param permissionUpsertInfo 权限添加信息。
+     * @param ownerUserKey                    操作者的主键。
+     * @param accountBookPermissionUpsertInfo 权限添加信息。
      * @throws ServiceException 服务异常。
      */
-    void upsertPermission(StringIdKey ownerUserKey, PermissionUpsertInfo permissionUpsertInfo) throws ServiceException;
+    void upsertPermission(StringIdKey ownerUserKey, AccountBookPermissionUpsertInfo accountBookPermissionUpsertInfo)
+            throws ServiceException;
 
     /**
      * 移除账本的访客权限。
      *
-     * @param ownerUserKey         操作者的主键。
-     * @param permissionRemoveInfo 权限移除信息。
+     * @param ownerUserKey                    操作者的主键。
+     * @param accountBookPermissionRemoveInfo 权限移除信息。
      * @throws ServiceException 服务异常。
      */
-    void removePermission(StringIdKey ownerUserKey, PermissionRemoveInfo permissionRemoveInfo) throws ServiceException;
+    void removePermission(StringIdKey ownerUserKey, AccountBookPermissionRemoveInfo accountBookPermissionRemoveInfo)
+            throws ServiceException;
 }

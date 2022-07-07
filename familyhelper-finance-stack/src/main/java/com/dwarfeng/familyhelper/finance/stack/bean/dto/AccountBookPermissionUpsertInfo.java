@@ -5,23 +5,23 @@ import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 
 /**
- * 资产目录权限信息。
+ * 账本权限插入或更新信息。
  *
  * @author DwArFeng
- * @since 1.3.0
+ * @since 1.4.0
  */
-public class PermissionUpsertInfo implements Dto {
+public class AccountBookPermissionUpsertInfo implements Dto {
 
-    private static final long serialVersionUID = -5344694933985365220L;
+    private static final long serialVersionUID = -5237194315391163791L;
 
     private LongIdKey accountBookKey;
     private StringIdKey userKey;
     private int permissionLevel;
 
-    public PermissionUpsertInfo() {
+    public AccountBookPermissionUpsertInfo() {
     }
 
-    public PermissionUpsertInfo(LongIdKey AccountBookKey, StringIdKey userKey, int permissionLevel) {
+    public AccountBookPermissionUpsertInfo(LongIdKey AccountBookKey, StringIdKey userKey, int permissionLevel) {
         this.accountBookKey = AccountBookKey;
         this.userKey = userKey;
         this.permissionLevel = permissionLevel;
@@ -53,7 +53,7 @@ public class PermissionUpsertInfo implements Dto {
 
     @Override
     public String toString() {
-        return "PermissionUpsertInfo{" +
+        return "AccountBookPermissionUpsertInfo{" +
                 "accountBookKey=" + accountBookKey +
                 ", userKey=" + userKey +
                 ", permissionLevel=" + permissionLevel +
