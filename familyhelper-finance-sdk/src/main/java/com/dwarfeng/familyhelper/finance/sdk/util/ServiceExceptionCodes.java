@@ -20,8 +20,8 @@ public final class ServiceExceptionCodes {
             new ServiceException.Code(offset(20), "illegal bank card state");
     public static final ServiceException.Code USER_NOT_EXISTS =
             new ServiceException.Code(offset(30), "user not exists");
-    public static final ServiceException.Code USER_NOT_PERMITTED =
-            new ServiceException.Code(offset(40), "user not permitted");
+    public static final ServiceException.Code USER_NOT_PERMITTED_FOR_ACCOUNT_BOOK =
+            new ServiceException.Code(offset(40), "user not permitted for account book");
     public static final ServiceException.Code FUND_CHANGE_NOT_EXISTS =
             new ServiceException.Code(offset(50), "fund change not exists");
     public static final ServiceException.Code ILLEGAL_FUND_CHANGE_STATE =
@@ -58,7 +58,7 @@ public final class ServiceExceptionCodes {
         BANK_CARD_NOT_EXISTS.setCode(offset(10));
         ILLEGAL_BANK_CARD_STATE.setCode(offset(20));
         USER_NOT_EXISTS.setCode(offset(30));
-        USER_NOT_PERMITTED.setCode(offset(40));
+        USER_NOT_PERMITTED_FOR_ACCOUNT_BOOK.setCode(offset(40));
         FUND_CHANGE_NOT_EXISTS.setCode(offset(50));
         ILLEGAL_FUND_CHANGE_STATE.setCode(offset(60));
         INVALID_PERMISSION_LEVEL.setCode(offset(70));

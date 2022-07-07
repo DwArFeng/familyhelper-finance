@@ -116,7 +116,7 @@ public class OperateHandlerValidator {
 
             // 2. 查看 Poab 实体是否存在，如果不存在，则没有权限。
             if (!poabMaintainService.exists(poabKey)) {
-                throw new UserNotPermittedException(userKey, accountBookKey);
+                throw new UserNotPermittedForAccountBookException(userKey, accountBookKey);
             }
 
             // 3. 查看 Poab.permissionLevel 是否为 Poab.PERMISSION_LEVEL_OWNER 或 Poab.PERMISSION_LEVEL_GUEST，
@@ -128,7 +128,7 @@ public class OperateHandlerValidator {
             if (Objects.equals(poab.getPermissionLevel(), Constants.PERMISSION_LEVEL_GUEST)) {
                 return;
             }
-            throw new UserNotPermittedException(userKey, accountBookKey);
+            throw new UserNotPermittedForAccountBookException(userKey, accountBookKey);
         } catch (ServiceException e) {
             throw new HandlerException(e);
         }
@@ -175,7 +175,7 @@ public class OperateHandlerValidator {
 
             // 2. 查看 Poab 实体是否存在，如果不存在，则没有权限。
             if (!poabMaintainService.exists(poabKey)) {
-                throw new UserNotPermittedException(userKey, assetCatalogKey);
+                throw new UserNotPermittedForAccountBookException(userKey, assetCatalogKey);
             }
 
             // 3. 查看 Poab.permissionLevel 是否为 Poab.PERMISSION_LEVEL_OWNER，如果不是，则没有权限。
@@ -183,7 +183,7 @@ public class OperateHandlerValidator {
             if (Objects.equals(poab.getPermissionLevel(), Constants.PERMISSION_LEVEL_OWNER)) {
                 return;
             }
-            throw new UserNotPermittedException(userKey, assetCatalogKey);
+            throw new UserNotPermittedForAccountBookException(userKey, assetCatalogKey);
         } catch (ServiceException e) {
             throw new HandlerException(e);
         }

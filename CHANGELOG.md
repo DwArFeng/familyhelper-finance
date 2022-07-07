@@ -25,6 +25,9 @@
 - 优化部分 DTO 实体的名称。
   - 此处更新与旧版本不兼容。
 
+- 优化部分异常的名称。
+  - 此处更新与旧版本不兼容。
+
 #### Bug修复
 
 - (无)
@@ -270,7 +273,7 @@
   - com.dwarfeng.familyhelper.finance.stack.exception.BankCardNotExistsException。
   - com.dwarfeng.familyhelper.finance.stack.exception.IllegalBankCardStateException。
   - com.dwarfeng.familyhelper.finance.stack.exception.UserNotExistsException。
-  - com.dwarfeng.familyhelper.finance.stack.exception.UserNotPermittedException。
+  - com.dwarfeng.familyhelper.finance.stack.exception.UserNotPermittedForAccountBookException。
 
 ---
 

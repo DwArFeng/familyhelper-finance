@@ -20,7 +20,7 @@ public class ServiceExceptionMapperConfiguration {
         destination.put(BankCardNotExistsException.class, ServiceExceptionCodes.BANK_CARD_NOT_EXISTS);
         destination.put(IllegalBankCardStateException.class, ServiceExceptionCodes.ILLEGAL_BANK_CARD_STATE);
         destination.put(UserNotExistsException.class, ServiceExceptionCodes.USER_NOT_EXISTS);
-        destination.put(UserNotPermittedException.class, ServiceExceptionCodes.USER_NOT_PERMITTED);
+        destination.put(UserNotPermittedForAccountBookException.class, ServiceExceptionCodes.USER_NOT_PERMITTED_FOR_ACCOUNT_BOOK);
         destination.put(FundChangeNotExistsException.class, ServiceExceptionCodes.FUND_CHANGE_NOT_EXISTS);
         destination.put(IllegalFundChangeStateException.class, ServiceExceptionCodes.ILLEGAL_FUND_CHANGE_STATE);
         destination.put(InvalidPermissionLevelException.class, ServiceExceptionCodes.INVALID_PERMISSION_LEVEL);

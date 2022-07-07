@@ -10,19 +10,19 @@ import com.dwarfeng.subgrade.stack.exception.HandlerException;
  * @author DwArFeng
  * @since 1.1.0
  */
-public class UserNotPermittedException extends HandlerException {
+public class UserNotPermittedForAccountBookException extends HandlerException {
 
-    private static final long serialVersionUID = -148148909478561243L;
+    private static final long serialVersionUID = -5568749637690477417L;
 
     private final StringIdKey userKey;
     private final LongIdKey accountBookKey;
 
-    public UserNotPermittedException(StringIdKey userKey, LongIdKey accountBookKey) {
+    public UserNotPermittedForAccountBookException(StringIdKey userKey, LongIdKey accountBookKey) {
         this.userKey = userKey;
         this.accountBookKey = accountBookKey;
     }
 
-    public UserNotPermittedException(Throwable cause, StringIdKey userKey, LongIdKey accountBookKey) {
+    public UserNotPermittedForAccountBookException(Throwable cause, StringIdKey userKey, LongIdKey accountBookKey) {
         super(cause);
         this.userKey = userKey;
         this.accountBookKey = accountBookKey;
