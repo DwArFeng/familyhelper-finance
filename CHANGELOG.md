@@ -4,18 +4,22 @@
 
 #### 功能构建
 
+- 插件升级。
+  - 升级 `maven-deploy-plugin` 插件版本为 `2.8.2`。
+
 - 添加实体。
   - com.dwarfeng.familyhelper.finance.stack.bean.entity.UrgeSetting。
   - com.dwarfeng.familyhelper.finance.stack.bean.entity.BillFileInfo。
 
 - 依赖升级。
-  - 升级 `mysql` 依赖版本为 `8.0.28` 以规避漏洞。
-  - 升级 `slf4j` 依赖版本为 `1.7.5` 以规避漏洞。
-  - 升级 `dutil` 依赖版本为 `beta-0.3.0.a` 以规避漏洞。
-  - 升级 `snowflake` 依赖版本为 `1.4.7.a` 以规避漏洞。
-  - 升级 `subgrade` 依赖版本为 `1.2.8.a` 以规避漏洞。
-  - 升级 `spring-terminator` 依赖版本为 `1.0.8.a` 以规避漏洞。
-  - 升级 `spring-telqos` 依赖版本为 `1.1.3.a` 以规避漏洞。
+  - 升级 `jetty` 依赖版本为 `9.4.48.v20220622` 以规避漏洞。
+  - 升级 `dubbo` 依赖版本为 `2.7.18` 以规避漏洞。
+  - 升级 `dutil` 依赖版本为 `beta-0.3.1.a` 以规避漏洞。
+  - 升级 `dwarfeng-ftp` 依赖版本为 `1.1.1.a` 以规避漏洞。
+  - 升级 `snowflake` 依赖版本为 `1.4.9.a` 以规避漏洞。
+  - 升级 `subgrade` 依赖版本为 `1.2.13.b` 以规避漏洞。
+  - 升级 `spring-terminator` 依赖版本为 `1.0.9.a` 以规避漏洞。
+  - 升级 `spring-telqos` 依赖版本为 `1.1.4.a` 以规避漏洞。
 
 - 优化操作服务验证环节的代码结构。
 
@@ -35,6 +39,8 @@
 #### 功能移除
 
 - 删除不需要的依赖。
+  - 删除 `commons-lang3` 依赖。
+  - 删除 `commons-io` 依赖。
   - 删除 `joda-time` 依赖。
   - 删除 `httpcomponents` 依赖。
 
