@@ -36,9 +36,6 @@ public class AccountBookCrudOperation implements BatchCrudOperation<LongIdKey, A
     private final BankCardBalanceHistoryDao bankCardBalanceHistoryDao;
     private final BankCardBalanceHistoryCache bankCardBalanceHistoryCache;
 
-    private final RemindSettingDao remindSettingDao;
-    private final RemindSettingCache remindSettingCache;
-
     @Value("${cache.timeout.entity.account_book}")
     private long accountBookTimeout;
 
@@ -48,8 +45,7 @@ public class AccountBookCrudOperation implements BatchCrudOperation<LongIdKey, A
             FundChangeCrudOperation fundChangeCrudOperation, FundChangeDao fundChangeDao,
             PoabDao poabDao, PoabCache poabCache,
             TotalBalanceHistoryDao totalBalanceHistoryDao, TotalBalanceHistoryCache totalBalanceHistoryCache,
-            BankCardBalanceHistoryDao bankCardBalanceHistoryDao, BankCardBalanceHistoryCache bankCardBalanceHistoryCache,
-            RemindSettingDao remindSettingDao, RemindSettingCache remindSettingCache
+            BankCardBalanceHistoryDao bankCardBalanceHistoryDao, BankCardBalanceHistoryCache bankCardBalanceHistoryCache
     ) {
         this.accountBookDao = accountBookDao;
         this.accountBookCache = accountBookCache;
@@ -63,8 +59,6 @@ public class AccountBookCrudOperation implements BatchCrudOperation<LongIdKey, A
         this.totalBalanceHistoryCache = totalBalanceHistoryCache;
         this.bankCardBalanceHistoryDao = bankCardBalanceHistoryDao;
         this.bankCardBalanceHistoryCache = bankCardBalanceHistoryCache;
-        this.remindSettingDao = remindSettingDao;
-        this.remindSettingCache = remindSettingCache;
     }
 
     @Override
@@ -133,12 +127,6 @@ public class AccountBookCrudOperation implements BatchCrudOperation<LongIdKey, A
         ).stream().map(TotalBalanceHistory::getKey).collect(Collectors.toList());
         totalBalanceHistoryCache.batchDelete(totalBalanceHistoryKeys);
         totalBalanceHistoryDao.batchDelete(totalBalanceHistoryKeys);
-
-        // 删除与账本相关的提醒设置。
-        if (remindSettingDao.exists(key)) {
-            remindSettingCache.delete(key);
-            remindSettingDao.delete(key);
-        }
 
         // 删除账本实体自身。
         accountBookCache.delete(key);

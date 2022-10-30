@@ -16,8 +16,8 @@ import java.util.Set;
 @Table(name = "tbl_account_book")
 public class HibernateAccountBook implements Bean {
 
-    private static final long serialVersionUID = 1583088573573092908L;
-
+    private static final long serialVersionUID = -4742437943366763610L;
+    
     // -----------------------------------------------------------主键-----------------------------------------------------------
     @Id
     @Column(name = "id", nullable = false, unique = true)
@@ -39,10 +39,6 @@ public class HibernateAccountBook implements Bean {
 
     @Column(name = "remark", length = Constraints.LENGTH_REMARK)
     private String remark;
-
-    // -----------------------------------------------------------一对一-----------------------------------------------------------
-    @OneToOne(cascade = CascadeType.MERGE, targetEntity = HibernateRemindSetting.class, mappedBy = "accountBook")
-    private HibernateRemindSetting remindSetting;
 
     // -----------------------------------------------------------一对多-----------------------------------------------------------
     @OneToMany(cascade = CascadeType.MERGE, targetEntity = HibernateBankCard.class, mappedBy = "accountBook")
@@ -115,14 +111,6 @@ public class HibernateAccountBook implements Bean {
         this.remark = remark;
     }
 
-    public HibernateRemindSetting getRemindSetting() {
-        return remindSetting;
-    }
-
-    public void setRemindSetting(HibernateRemindSetting remindSetting) {
-        this.remindSetting = remindSetting;
-    }
-
     public Set<HibernateBankCard> getBankCards() {
         return bankCards;
     }
@@ -155,7 +143,6 @@ public class HibernateAccountBook implements Bean {
                 "cardType = " + cardType + ", " +
                 "lastRecordedDate = " + lastRecordedDate + ", " +
                 "totalValue = " + totalValue + ", " +
-                "remark = " + remark + ", " +
-                "remindSetting = " + remindSetting + ")";
+                "remark = " + remark + ")";
     }
 }

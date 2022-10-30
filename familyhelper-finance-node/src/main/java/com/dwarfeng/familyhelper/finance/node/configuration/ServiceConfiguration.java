@@ -41,8 +41,6 @@ public class ServiceConfiguration {
     private final TotalBalanceHistoryCache totalBalanceHistoryCache;
     private final BankCardBalanceHistoryDao bankCardBalanceHistoryDao;
     private final BankCardBalanceHistoryCache bankCardBalanceHistoryCache;
-    private final RemindSettingDao remindSettingDao;
-    private final RemindSettingCache remindSettingCache;
     private final BillFileInfoCrudOperation billFileInfoCrudOperation;
     private final BillFileInfoDao billFileInfoDao;
 
@@ -56,8 +54,6 @@ public class ServiceConfiguration {
     private long totalBalanceHistoryTimeout;
     @Value("${cache.timeout.entity.bank_card_balance_history}")
     private long bankCardBalanceHistoryTimeout;
-    @Value("${cache.timeout.entity.remind_setting}")
-    private long remindSettingTimeout;
 
     public ServiceConfiguration(
             ServiceExceptionMapperConfiguration serviceExceptionMapperConfiguration,
@@ -70,7 +66,6 @@ public class ServiceConfiguration {
             UserCrudOperation userCrudOperation,
             TotalBalanceHistoryDao totalBalanceHistoryDao, TotalBalanceHistoryCache totalBalanceHistoryCache,
             BankCardBalanceHistoryDao bankCardBalanceHistoryDao, BankCardBalanceHistoryCache bankCardBalanceHistoryCache,
-            RemindSettingDao remindSettingDao, RemindSettingCache remindSettingCache,
             BillFileInfoCrudOperation billFileInfoCrudOperation, BillFileInfoDao billFileInfoDao
     ) {
         this.serviceExceptionMapperConfiguration = serviceExceptionMapperConfiguration;
@@ -91,8 +86,6 @@ public class ServiceConfiguration {
         this.totalBalanceHistoryCache = totalBalanceHistoryCache;
         this.bankCardBalanceHistoryDao = bankCardBalanceHistoryDao;
         this.bankCardBalanceHistoryCache = bankCardBalanceHistoryCache;
-        this.remindSettingDao = remindSettingDao;
-        this.remindSettingCache = remindSettingCache;
         this.billFileInfoCrudOperation = billFileInfoCrudOperation;
         this.billFileInfoDao = billFileInfoDao;
     }
@@ -325,36 +318,6 @@ public class ServiceConfiguration {
     public DaoOnlyPresetLookupService<BankCardBalanceHistory> bankCardBalanceHistoryDaoOnlyPresetLookupService() {
         return new DaoOnlyPresetLookupService<>(
                 bankCardBalanceHistoryDao,
-                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
-                LogLevel.WARN
-        );
-    }
-
-    @Bean
-    public GeneralBatchCrudService<LongIdKey, RemindSetting> remindSettingBatchCustomCrudService() {
-        return new GeneralBatchCrudService<>(
-                remindSettingDao,
-                remindSettingCache,
-                new ExceptionKeyFetcher<>(),
-                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
-                LogLevel.WARN,
-                remindSettingTimeout
-        );
-    }
-
-    @Bean
-    public DaoOnlyEntireLookupService<RemindSetting> remindSettingDaoOnlyEntireLookupService() {
-        return new DaoOnlyEntireLookupService<>(
-                remindSettingDao,
-                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
-                LogLevel.WARN
-        );
-    }
-
-    @Bean
-    public DaoOnlyPresetLookupService<RemindSetting> remindSettingDaoOnlyPresetLookupService() {
-        return new DaoOnlyPresetLookupService<>(
-                remindSettingDao,
                 serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
                 LogLevel.WARN
         );

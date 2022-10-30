@@ -51,8 +51,6 @@
                    ref="bankCardOperateServiceImpl"/>
     <dubbo:service interface="com.dwarfeng.familyhelper.finance.stack.service.FundChangeOperateService"
                    ref="fundChangeOperateServiceImpl"/>
-    <dubbo:service interface="com.dwarfeng.familyhelper.finance.stack.service.RemindSettingMaintainService"
-                   ref="remindSettingMaintainServiceImpl"/>
     <dubbo:service interface="com.dwarfeng.familyhelper.finance.stack.service.BillFileInfoMaintainService"
                    ref="billFileInfoMaintainServiceImpl"/>
     <dubbo:service interface="com.dwarfeng.familyhelper.finance.stack.service.BillFileOperateService"

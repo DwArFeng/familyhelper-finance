@@ -8,7 +8,6 @@
   - 升级 `maven-deploy-plugin` 插件版本为 `2.8.2`。
 
 - 添加实体。
-  - com.dwarfeng.familyhelper.finance.stack.bean.entity.RemindSetting。
   - com.dwarfeng.familyhelper.finance.stack.bean.entity.BillFileInfo。
 
 - 依赖升级。

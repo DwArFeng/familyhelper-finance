@@ -32,7 +32,6 @@ public class DaoConfiguration {
     private final PoabPresetCriteriaMaker poabPresetCriteriaMaker;
     private final TotalBalanceHistoryPresetCriteriaMaker totalBalanceHistoryPresetCriteriaMaker;
     private final BankCardBalanceHistoryPresetCriteriaMaker bankCardBalanceHistoryPresetCriteriaMaker;
-    private final RemindSettingPresetCriteriaMaker remindSettingPresetCriteriaMaker;
     private final BillFileInfoPresetCriteriaMaker billFileInfoPresetCriteriaMaker;
 
     @Value("${hibernate.jdbc.batch_size}")
@@ -45,7 +44,6 @@ public class DaoConfiguration {
             PoabPresetCriteriaMaker poabPresetCriteriaMaker,
             TotalBalanceHistoryPresetCriteriaMaker totalBalanceHistoryPresetCriteriaMaker,
             BankCardBalanceHistoryPresetCriteriaMaker bankCardBalanceHistoryPresetCriteriaMaker,
-            RemindSettingPresetCriteriaMaker remindSettingPresetCriteriaMaker,
             BillFileInfoPresetCriteriaMaker billFileInfoPresetCriteriaMaker
     ) {
         this.template = template;
@@ -56,7 +54,6 @@ public class DaoConfiguration {
         this.poabPresetCriteriaMaker = poabPresetCriteriaMaker;
         this.totalBalanceHistoryPresetCriteriaMaker = totalBalanceHistoryPresetCriteriaMaker;
         this.bankCardBalanceHistoryPresetCriteriaMaker = bankCardBalanceHistoryPresetCriteriaMaker;
-        this.remindSettingPresetCriteriaMaker = remindSettingPresetCriteriaMaker;
         this.billFileInfoPresetCriteriaMaker = billFileInfoPresetCriteriaMaker;
     }
 
@@ -318,38 +315,6 @@ public class DaoConfiguration {
                 new DozerBeanTransformer<>(BankCardBalanceHistory.class, HibernateBankCardBalanceHistory.class, mapper),
                 HibernateBankCardBalanceHistory.class,
                 bankCardBalanceHistoryPresetCriteriaMaker
-        );
-    }
-
-    @Bean
-    public HibernateBatchBaseDao<LongIdKey, HibernateLongIdKey, RemindSetting, HibernateRemindSetting>
-    remindSettingHibernateBatchBaseDao() {
-        return new HibernateBatchBaseDao<>(
-                template,
-                new DozerBeanTransformer<>(LongIdKey.class, HibernateLongIdKey.class, mapper),
-                new DozerBeanTransformer<>(RemindSetting.class, HibernateRemindSetting.class, mapper),
-                HibernateRemindSetting.class,
-                new DefaultDeletionMod<>(),
-                batchSize
-        );
-    }
-
-    @Bean
-    public HibernateEntireLookupDao<RemindSetting, HibernateRemindSetting> remindSettingHibernateEntireLookupDao() {
-        return new HibernateEntireLookupDao<>(
-                template,
-                new DozerBeanTransformer<>(RemindSetting.class, HibernateRemindSetting.class, mapper),
-                HibernateRemindSetting.class
-        );
-    }
-
-    @Bean
-    public HibernatePresetLookupDao<RemindSetting, HibernateRemindSetting> remindSettingHibernatePresetLookupDao() {
-        return new HibernatePresetLookupDao<>(
-                template,
-                new DozerBeanTransformer<>(RemindSetting.class, HibernateRemindSetting.class, mapper),
-                HibernateRemindSetting.class,
-                remindSettingPresetCriteriaMaker
         );
     }
 

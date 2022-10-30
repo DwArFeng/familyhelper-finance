@@ -40,8 +40,6 @@ public class CacheConfiguration {
     private String totalBalanceHistoryPrefix;
     @Value("${cache.prefix.entity.bank_card_balance_history}")
     private String bankCardBalanceHistoryPrefix;
-    @Value("${cache.prefix.entity.remind_setting}")
-    private String remindSettingPrefix;
     @Value("${cache.prefix.entity.bill_file_info}")
     private String billFileInfoPrefix;
 
@@ -141,16 +139,6 @@ public class CacheConfiguration {
                 (RedisTemplate<String, FastJsonBankCardBalanceHistory>) template,
                 new LongIdStringKeyFormatter(bankCardBalanceHistoryPrefix),
                 new DozerBeanTransformer<>(BankCardBalanceHistory.class, FastJsonBankCardBalanceHistory.class, mapper)
-        );
-    }
-
-    @Bean
-    @SuppressWarnings("unchecked")
-    public RedisBatchBaseCache<LongIdKey, RemindSetting, FastJsonRemindSetting> remindSettingRedisBatchBaseCache() {
-        return new RedisBatchBaseCache<>(
-                (RedisTemplate<String, FastJsonRemindSetting>) template,
-                new LongIdStringKeyFormatter(remindSettingPrefix),
-                new DozerBeanTransformer<>(RemindSetting.class, FastJsonRemindSetting.class, mapper)
         );
     }
 
