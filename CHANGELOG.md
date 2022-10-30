@@ -9,6 +9,8 @@
 
 - 添加实体。
   - com.dwarfeng.familyhelper.finance.stack.bean.entity.BillFileInfo。
+  - com.dwarfeng.familyhelper.finance.stack.bean.entity.RemindDriverInfo。
+  - com.dwarfeng.familyhelper.finance.stack.bean.entity.RemindDriverSupport。
 
 - 依赖升级。
   - 升级 `jetty` 依赖版本为 `9.4.48.v20220622` 以规避漏洞。

@@ -42,6 +42,10 @@ public class CacheConfiguration {
     private String bankCardBalanceHistoryPrefix;
     @Value("${cache.prefix.entity.bill_file_info}")
     private String billFileInfoPrefix;
+    @Value("${cache.prefix.entity.remind_driver_info}")
+    private String remindDriverInfoPrefix;
+    @Value("${cache.prefix.entity.remind_driver_support}")
+    private String remindDriverSupportPrefix;
 
     public CacheConfiguration(RedisTemplate<String, ?> template, Mapper mapper) {
         this.template = template;
@@ -149,6 +153,28 @@ public class CacheConfiguration {
                 (RedisTemplate<String, FastJsonBillFileInfo>) template,
                 new LongIdStringKeyFormatter(billFileInfoPrefix),
                 new DozerBeanTransformer<>(BillFileInfo.class, FastJsonBillFileInfo.class, mapper)
+        );
+    }
+
+    @Bean
+    @SuppressWarnings("unchecked")
+    public RedisBatchBaseCache<LongIdKey, RemindDriverInfo, FastJsonRemindDriverInfo>
+    remindDriverInfoRedisBatchBaseCache() {
+        return new RedisBatchBaseCache<>(
+                (RedisTemplate<String, FastJsonRemindDriverInfo>) template,
+                new LongIdStringKeyFormatter(remindDriverInfoPrefix),
+                new DozerBeanTransformer<>(RemindDriverInfo.class, FastJsonRemindDriverInfo.class, mapper)
+        );
+    }
+
+    @Bean
+    @SuppressWarnings("unchecked")
+    public RedisBatchBaseCache<StringIdKey, RemindDriverSupport, FastJsonRemindDriverSupport>
+    remindDriverSupportRedisBatchBaseCache() {
+        return new RedisBatchBaseCache<>(
+                (RedisTemplate<String, FastJsonRemindDriverSupport>) template,
+                new StringIdStringKeyFormatter(remindDriverSupportPrefix),
+                new DozerBeanTransformer<>(RemindDriverSupport.class, FastJsonRemindDriverSupport.class, mapper)
         );
     }
 }

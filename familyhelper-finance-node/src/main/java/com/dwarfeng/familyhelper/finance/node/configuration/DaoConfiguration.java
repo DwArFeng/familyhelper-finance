@@ -33,6 +33,8 @@ public class DaoConfiguration {
     private final TotalBalanceHistoryPresetCriteriaMaker totalBalanceHistoryPresetCriteriaMaker;
     private final BankCardBalanceHistoryPresetCriteriaMaker bankCardBalanceHistoryPresetCriteriaMaker;
     private final BillFileInfoPresetCriteriaMaker billFileInfoPresetCriteriaMaker;
+    private final RemindDriverInfoPresetCriteriaMaker remindDriverInfoPresetCriteriaMaker;
+    private final RemindDriverSupportPresetCriteriaMaker remindDriverSupportPresetCriteriaMaker;
 
     @Value("${hibernate.jdbc.batch_size}")
     private int batchSize;
@@ -44,7 +46,9 @@ public class DaoConfiguration {
             PoabPresetCriteriaMaker poabPresetCriteriaMaker,
             TotalBalanceHistoryPresetCriteriaMaker totalBalanceHistoryPresetCriteriaMaker,
             BankCardBalanceHistoryPresetCriteriaMaker bankCardBalanceHistoryPresetCriteriaMaker,
-            BillFileInfoPresetCriteriaMaker billFileInfoPresetCriteriaMaker
+            BillFileInfoPresetCriteriaMaker billFileInfoPresetCriteriaMaker,
+            RemindDriverInfoPresetCriteriaMaker remindDriverInfoPresetCriteriaMaker,
+            RemindDriverSupportPresetCriteriaMaker remindDriverSupportPresetCriteriaMaker
     ) {
         this.template = template;
         this.mapper = mapper;
@@ -55,6 +59,8 @@ public class DaoConfiguration {
         this.totalBalanceHistoryPresetCriteriaMaker = totalBalanceHistoryPresetCriteriaMaker;
         this.bankCardBalanceHistoryPresetCriteriaMaker = bankCardBalanceHistoryPresetCriteriaMaker;
         this.billFileInfoPresetCriteriaMaker = billFileInfoPresetCriteriaMaker;
+        this.remindDriverInfoPresetCriteriaMaker = remindDriverInfoPresetCriteriaMaker;
+        this.remindDriverSupportPresetCriteriaMaker = remindDriverSupportPresetCriteriaMaker;
     }
 
     @Bean
@@ -347,6 +353,74 @@ public class DaoConfiguration {
                 new DozerBeanTransformer<>(BillFileInfo.class, HibernateBillFileInfo.class, mapper),
                 HibernateBillFileInfo.class,
                 billFileInfoPresetCriteriaMaker
+        );
+    }
+
+    @Bean
+    public HibernateBatchBaseDao<LongIdKey, HibernateLongIdKey, RemindDriverInfo, HibernateRemindDriverInfo>
+    remindDriverInfoHibernateBatchBaseDao() {
+        return new HibernateBatchBaseDao<>(
+                template,
+                new DozerBeanTransformer<>(LongIdKey.class, HibernateLongIdKey.class, mapper),
+                new DozerBeanTransformer<>(RemindDriverInfo.class, HibernateRemindDriverInfo.class, mapper),
+                HibernateRemindDriverInfo.class,
+                new DefaultDeletionMod<>(),
+                batchSize
+        );
+    }
+
+    @Bean
+    public HibernateEntireLookupDao<RemindDriverInfo, HibernateRemindDriverInfo>
+    remindDriverInfoHibernateEntireLookupDao() {
+        return new HibernateEntireLookupDao<>(
+                template,
+                new DozerBeanTransformer<>(RemindDriverInfo.class, HibernateRemindDriverInfo.class, mapper),
+                HibernateRemindDriverInfo.class
+        );
+    }
+
+    @Bean
+    public HibernatePresetLookupDao<RemindDriverInfo, HibernateRemindDriverInfo>
+    remindDriverInfoHibernatePresetLookupDao() {
+        return new HibernatePresetLookupDao<>(
+                template,
+                new DozerBeanTransformer<>(RemindDriverInfo.class, HibernateRemindDriverInfo.class, mapper),
+                HibernateRemindDriverInfo.class,
+                remindDriverInfoPresetCriteriaMaker
+        );
+    }
+
+    @Bean
+    public HibernateBatchBaseDao<StringIdKey, HibernateStringIdKey, RemindDriverSupport, HibernateRemindDriverSupport>
+    remindDriverSupportHibernateBatchBaseDao() {
+        return new HibernateBatchBaseDao<>(
+                template,
+                new DozerBeanTransformer<>(StringIdKey.class, HibernateStringIdKey.class, mapper),
+                new DozerBeanTransformer<>(RemindDriverSupport.class, HibernateRemindDriverSupport.class, mapper),
+                HibernateRemindDriverSupport.class,
+                new DefaultDeletionMod<>(),
+                batchSize
+        );
+    }
+
+    @Bean
+    public HibernateEntireLookupDao<RemindDriverSupport, HibernateRemindDriverSupport>
+    remindDriverSupportHibernateEntireLookupDao() {
+        return new HibernateEntireLookupDao<>(
+                template,
+                new DozerBeanTransformer<>(RemindDriverSupport.class, HibernateRemindDriverSupport.class, mapper),
+                HibernateRemindDriverSupport.class
+        );
+    }
+
+    @Bean
+    public HibernatePresetLookupDao<RemindDriverSupport, HibernateRemindDriverSupport>
+    remindDriverSupportHibernatePresetLookupDao() {
+        return new HibernatePresetLookupDao<>(
+                template,
+                new DozerBeanTransformer<>(RemindDriverSupport.class, HibernateRemindDriverSupport.class, mapper),
+                HibernateRemindDriverSupport.class,
+                remindDriverSupportPresetCriteriaMaker
         );
     }
 }

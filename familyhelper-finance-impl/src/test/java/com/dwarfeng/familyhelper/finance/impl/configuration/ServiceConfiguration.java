@@ -43,6 +43,10 @@ public class ServiceConfiguration {
     private final BankCardBalanceHistoryCache bankCardBalanceHistoryCache;
     private final BillFileInfoCrudOperation billFileInfoCrudOperation;
     private final BillFileInfoDao billFileInfoDao;
+    private final RemindDriverInfoDao remindDriverInfoDao;
+    private final RemindDriverInfoCache remindDriverInfoCache;
+    private final RemindDriverSupportDao remindDriverSupportDao;
+    private final RemindDriverSupportCache remindDriverSupportCache;
 
     @Value("${cache.timeout.entity.bank_card_type_indicator}")
     private long bankCardTypeIndicatorTimeout;
@@ -54,6 +58,10 @@ public class ServiceConfiguration {
     private long totalBalanceHistoryTimeout;
     @Value("${cache.timeout.entity.bank_card_balance_history}")
     private long bankCardBalanceHistoryTimeout;
+    @Value("${cache.timeout.entity.remind_driver_info}")
+    private long remindDriverInfoTimeout;
+    @Value("${cache.timeout.entity.remind_driver_support}")
+    private long remindDriverSupportTimeout;
 
     public ServiceConfiguration(
             ServiceExceptionMapperConfiguration serviceExceptionMapperConfiguration,
@@ -66,7 +74,9 @@ public class ServiceConfiguration {
             UserCrudOperation userCrudOperation,
             TotalBalanceHistoryDao totalBalanceHistoryDao, TotalBalanceHistoryCache totalBalanceHistoryCache,
             BankCardBalanceHistoryDao bankCardBalanceHistoryDao, BankCardBalanceHistoryCache bankCardBalanceHistoryCache,
-            BillFileInfoCrudOperation billFileInfoCrudOperation, BillFileInfoDao billFileInfoDao
+            BillFileInfoCrudOperation billFileInfoCrudOperation, BillFileInfoDao billFileInfoDao,
+            RemindDriverInfoDao remindDriverInfoDao, RemindDriverInfoCache remindDriverInfoCache,
+            RemindDriverSupportDao remindDriverSupportDao, RemindDriverSupportCache remindDriverSupportCache
     ) {
         this.serviceExceptionMapperConfiguration = serviceExceptionMapperConfiguration;
         this.accountBookCrudOperation = accountBookCrudOperation;
@@ -88,6 +98,10 @@ public class ServiceConfiguration {
         this.bankCardBalanceHistoryCache = bankCardBalanceHistoryCache;
         this.billFileInfoCrudOperation = billFileInfoCrudOperation;
         this.billFileInfoDao = billFileInfoDao;
+        this.remindDriverInfoDao = remindDriverInfoDao;
+        this.remindDriverInfoCache = remindDriverInfoCache;
+        this.remindDriverSupportDao = remindDriverSupportDao;
+        this.remindDriverSupportCache = remindDriverSupportCache;
     }
 
     @Bean
@@ -346,6 +360,66 @@ public class ServiceConfiguration {
     public DaoOnlyPresetLookupService<BillFileInfo> billFileInfoDaoOnlyPresetLookupService() {
         return new DaoOnlyPresetLookupService<>(
                 billFileInfoDao,
+                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
+                LogLevel.WARN
+        );
+    }
+
+    @Bean
+    public GeneralBatchCrudService<LongIdKey, RemindDriverInfo> remindDriverInfoGeneralBatchCrudService() {
+        return new GeneralBatchCrudService<>(
+                remindDriverInfoDao,
+                remindDriverInfoCache,
+                longIdKeyKeyFetcher(),
+                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
+                LogLevel.WARN,
+                remindDriverInfoTimeout
+        );
+    }
+
+    @Bean
+    public DaoOnlyEntireLookupService<RemindDriverInfo> remindDriverInfoDaoOnlyEntireLookupService() {
+        return new DaoOnlyEntireLookupService<>(
+                remindDriverInfoDao,
+                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
+                LogLevel.WARN
+        );
+    }
+
+    @Bean
+    public DaoOnlyPresetLookupService<RemindDriverInfo> remindDriverInfoDaoOnlyPresetLookupService() {
+        return new DaoOnlyPresetLookupService<>(
+                remindDriverInfoDao,
+                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
+                LogLevel.WARN
+        );
+    }
+
+    @Bean
+    public GeneralBatchCrudService<StringIdKey, RemindDriverSupport> remindDriverSupportGeneralBatchCrudService() {
+        return new GeneralBatchCrudService<>(
+                remindDriverSupportDao,
+                remindDriverSupportCache,
+                new ExceptionKeyFetcher<>(),
+                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
+                LogLevel.WARN,
+                remindDriverSupportTimeout
+        );
+    }
+
+    @Bean
+    public DaoOnlyEntireLookupService<RemindDriverSupport> remindDriverSupportDaoOnlyEntireLookupService() {
+        return new DaoOnlyEntireLookupService<>(
+                remindDriverSupportDao,
+                serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
+                LogLevel.WARN
+        );
+    }
+
+    @Bean
+    public DaoOnlyPresetLookupService<RemindDriverSupport> remindDriverSupportDaoOnlyPresetLookupService() {
+        return new DaoOnlyPresetLookupService<>(
+                remindDriverSupportDao,
                 serviceExceptionMapperConfiguration.mapServiceExceptionMapper(),
                 LogLevel.WARN
         );

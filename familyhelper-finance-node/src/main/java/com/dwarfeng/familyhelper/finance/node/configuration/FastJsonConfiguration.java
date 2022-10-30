@@ -24,6 +24,8 @@ public class FastJsonConfiguration {
         ParserConfig.getGlobalInstance().addAccept(FastJsonTotalBalanceHistory.class.getCanonicalName());
         ParserConfig.getGlobalInstance().addAccept(FastJsonBankCardBalanceHistory.class.getCanonicalName());
         ParserConfig.getGlobalInstance().addAccept(FastJsonBillFileInfo.class.getCanonicalName());
+        ParserConfig.getGlobalInstance().addAccept(FastJsonRemindDriverInfo.class.getCanonicalName());
+        ParserConfig.getGlobalInstance().addAccept(FastJsonRemindDriverSupport.class.getCanonicalName());
         LOGGER.debug("FastJson autotype 白名单配置完毕");
     }
 }

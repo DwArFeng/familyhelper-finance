@@ -36,6 +36,9 @@ public class AccountBookCrudOperation implements BatchCrudOperation<LongIdKey, A
     private final BankCardBalanceHistoryDao bankCardBalanceHistoryDao;
     private final BankCardBalanceHistoryCache bankCardBalanceHistoryCache;
 
+    private final RemindDriverInfoDao remindDriverInfoDao;
+    private final RemindDriverInfoCache remindDriverInfoCache;
+
     @Value("${cache.timeout.entity.account_book}")
     private long accountBookTimeout;
 
@@ -45,7 +48,8 @@ public class AccountBookCrudOperation implements BatchCrudOperation<LongIdKey, A
             FundChangeCrudOperation fundChangeCrudOperation, FundChangeDao fundChangeDao,
             PoabDao poabDao, PoabCache poabCache,
             TotalBalanceHistoryDao totalBalanceHistoryDao, TotalBalanceHistoryCache totalBalanceHistoryCache,
-            BankCardBalanceHistoryDao bankCardBalanceHistoryDao, BankCardBalanceHistoryCache bankCardBalanceHistoryCache
+            BankCardBalanceHistoryDao bankCardBalanceHistoryDao, BankCardBalanceHistoryCache bankCardBalanceHistoryCache,
+            RemindDriverInfoDao remindDriverInfoDao, RemindDriverInfoCache remindDriverInfoCache
     ) {
         this.accountBookDao = accountBookDao;
         this.accountBookCache = accountBookCache;
@@ -59,6 +63,8 @@ public class AccountBookCrudOperation implements BatchCrudOperation<LongIdKey, A
         this.totalBalanceHistoryCache = totalBalanceHistoryCache;
         this.bankCardBalanceHistoryDao = bankCardBalanceHistoryDao;
         this.bankCardBalanceHistoryCache = bankCardBalanceHistoryCache;
+        this.remindDriverInfoDao = remindDriverInfoDao;
+        this.remindDriverInfoCache = remindDriverInfoCache;
     }
 
     @Override
@@ -127,6 +133,13 @@ public class AccountBookCrudOperation implements BatchCrudOperation<LongIdKey, A
         ).stream().map(TotalBalanceHistory::getKey).collect(Collectors.toList());
         totalBalanceHistoryCache.batchDelete(totalBalanceHistoryKeys);
         totalBalanceHistoryDao.batchDelete(totalBalanceHistoryKeys);
+
+        // 删除与账本相关的提醒驱动器信息。
+        List<LongIdKey> remindDriverInfoKeys = remindDriverInfoDao.lookup(
+                RemindDriverInfoMaintainService.CHILD_FOR_ACCOUNT_BOOK, new Object[]{key}
+        ).stream().map(RemindDriverInfo::getKey).collect(Collectors.toList());
+        remindDriverInfoCache.batchDelete(remindDriverInfoKeys);
+        remindDriverInfoDao.batchDelete(remindDriverInfoKeys);
 
         // 删除账本实体自身。
         accountBookCache.delete(key);

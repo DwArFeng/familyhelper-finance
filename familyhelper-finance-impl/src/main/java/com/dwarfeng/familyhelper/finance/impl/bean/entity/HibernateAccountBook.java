@@ -16,8 +16,8 @@ import java.util.Set;
 @Table(name = "tbl_account_book")
 public class HibernateAccountBook implements Bean {
 
-    private static final long serialVersionUID = -4742437943366763610L;
-    
+    private static final long serialVersionUID = -2236202531111234931L;
+
     // -----------------------------------------------------------主键-----------------------------------------------------------
     @Id
     @Column(name = "id", nullable = false, unique = true)
@@ -49,6 +49,9 @@ public class HibernateAccountBook implements Bean {
 
     @OneToMany(cascade = CascadeType.MERGE, targetEntity = HibernatePoab.class, mappedBy = "accountBook")
     private Set<HibernatePoab> poabs = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.MERGE, targetEntity = HibernateRemindDriverInfo.class, mappedBy = "accountBook")
+    private Set<HibernateRemindDriverInfo> remindDriverInfos = new HashSet<>();
 
     public HibernateAccountBook() {
     }
@@ -133,6 +136,14 @@ public class HibernateAccountBook implements Bean {
 
     public void setPoabs(Set<HibernatePoab> poabs) {
         this.poabs = poabs;
+    }
+
+    public Set<HibernateRemindDriverInfo> getRemindDriverInfos() {
+        return remindDriverInfos;
+    }
+
+    public void setRemindDriverInfos(Set<HibernateRemindDriverInfo> remindDriverInfos) {
+        this.remindDriverInfos = remindDriverInfos;
     }
 
     @Override
