@@ -1,7 +1,7 @@
 package com.dwarfeng.familyhelper.finance.impl.service;
 
-import com.dwarfeng.familyhelper.finance.stack.bean.entity.UrgeSetting;
-import com.dwarfeng.familyhelper.finance.stack.service.UrgeSettingMaintainService;
+import com.dwarfeng.familyhelper.finance.stack.bean.entity.RemindSetting;
+import com.dwarfeng.familyhelper.finance.stack.service.RemindSettingMaintainService;
 import com.dwarfeng.subgrade.impl.service.DaoOnlyEntireLookupService;
 import com.dwarfeng.subgrade.impl.service.DaoOnlyPresetLookupService;
 import com.dwarfeng.subgrade.impl.service.GeneralBatchCrudService;
@@ -17,16 +17,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class UrgeSettingMaintainServiceImpl implements UrgeSettingMaintainService {
+public class RemindSettingMaintainServiceImpl implements RemindSettingMaintainService {
 
-    private final GeneralBatchCrudService<LongIdKey, UrgeSetting> crudService;
-    private final DaoOnlyEntireLookupService<UrgeSetting> entireLookupService;
-    private final DaoOnlyPresetLookupService<UrgeSetting> presetLookupService;
+    private final GeneralBatchCrudService<LongIdKey, RemindSetting> crudService;
+    private final DaoOnlyEntireLookupService<RemindSetting> entireLookupService;
+    private final DaoOnlyPresetLookupService<RemindSetting> presetLookupService;
 
-    public UrgeSettingMaintainServiceImpl(
-            GeneralBatchCrudService<LongIdKey, UrgeSetting> crudService,
-            DaoOnlyEntireLookupService<UrgeSetting> entireLookupService,
-            DaoOnlyPresetLookupService<UrgeSetting> presetLookupService
+    public RemindSettingMaintainServiceImpl(
+            GeneralBatchCrudService<LongIdKey, RemindSetting> crudService,
+            DaoOnlyEntireLookupService<RemindSetting> entireLookupService,
+            DaoOnlyPresetLookupService<RemindSetting> presetLookupService
     ) {
         this.crudService = crudService;
         this.entireLookupService = entireLookupService;
@@ -43,21 +43,21 @@ public class UrgeSettingMaintainServiceImpl implements UrgeSettingMaintainServic
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public UrgeSetting get(LongIdKey key) throws ServiceException {
+    public RemindSetting get(LongIdKey key) throws ServiceException {
         return crudService.get(key);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public LongIdKey insert(UrgeSetting element) throws ServiceException {
+    public LongIdKey insert(RemindSetting element) throws ServiceException {
         return crudService.insert(element);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public void update(UrgeSetting element) throws ServiceException {
+    public void update(RemindSetting element) throws ServiceException {
         crudService.update(element);
     }
 
@@ -71,21 +71,21 @@ public class UrgeSettingMaintainServiceImpl implements UrgeSettingMaintainServic
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public UrgeSetting getIfExists(LongIdKey key) throws ServiceException {
+    public RemindSetting getIfExists(LongIdKey key) throws ServiceException {
         return crudService.getIfExists(key);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public LongIdKey insertIfNotExists(UrgeSetting element) throws ServiceException {
+    public LongIdKey insertIfNotExists(RemindSetting element) throws ServiceException {
         return crudService.insertIfNotExists(element);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public void updateIfExists(UrgeSetting element) throws ServiceException {
+    public void updateIfExists(RemindSetting element) throws ServiceException {
         crudService.updateIfExists(element);
     }
 
@@ -99,7 +99,7 @@ public class UrgeSettingMaintainServiceImpl implements UrgeSettingMaintainServic
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public LongIdKey insertOrUpdate(UrgeSetting element) throws ServiceException {
+    public LongIdKey insertOrUpdate(RemindSetting element) throws ServiceException {
         return crudService.insertOrUpdate(element);
     }
 
@@ -121,7 +121,7 @@ public class UrgeSettingMaintainServiceImpl implements UrgeSettingMaintainServic
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public List<UrgeSetting> batchGet(@SkipRecord List<LongIdKey> keys) throws ServiceException {
+    public List<RemindSetting> batchGet(@SkipRecord List<LongIdKey> keys) throws ServiceException {
         return crudService.batchGet(keys);
     }
 
@@ -129,14 +129,14 @@ public class UrgeSettingMaintainServiceImpl implements UrgeSettingMaintainServic
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public List<LongIdKey> batchInsert(@SkipRecord List<UrgeSetting> elements) throws ServiceException {
+    public List<LongIdKey> batchInsert(@SkipRecord List<RemindSetting> elements) throws ServiceException {
         return crudService.batchInsert(elements);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public void batchUpdate(@SkipRecord List<UrgeSetting> elements) throws ServiceException {
+    public void batchUpdate(@SkipRecord List<RemindSetting> elements) throws ServiceException {
         crudService.batchUpdate(elements);
     }
 
@@ -151,7 +151,7 @@ public class UrgeSettingMaintainServiceImpl implements UrgeSettingMaintainServic
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public List<UrgeSetting> batchGetIfExists(@SkipRecord List<LongIdKey> keys) throws ServiceException {
+    public List<RemindSetting> batchGetIfExists(@SkipRecord List<LongIdKey> keys) throws ServiceException {
         return crudService.batchGetIfExists(keys);
     }
 
@@ -159,14 +159,14 @@ public class UrgeSettingMaintainServiceImpl implements UrgeSettingMaintainServic
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public List<LongIdKey> batchInsertIfExists(@SkipRecord List<UrgeSetting> elements) throws ServiceException {
+    public List<LongIdKey> batchInsertIfExists(@SkipRecord List<RemindSetting> elements) throws ServiceException {
         return crudService.batchInsertIfExists(elements);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public void batchUpdateIfExists(@SkipRecord List<UrgeSetting> elements) throws ServiceException {
+    public void batchUpdateIfExists(@SkipRecord List<RemindSetting> elements) throws ServiceException {
         crudService.batchUpdateIfExists(elements);
     }
 
@@ -181,7 +181,7 @@ public class UrgeSettingMaintainServiceImpl implements UrgeSettingMaintainServic
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public List<LongIdKey> batchInsertOrUpdate(@SkipRecord List<UrgeSetting> elements) throws ServiceException {
+    public List<LongIdKey> batchInsertOrUpdate(@SkipRecord List<RemindSetting> elements) throws ServiceException {
         return crudService.batchInsertOrUpdate(elements);
     }
 
@@ -189,7 +189,7 @@ public class UrgeSettingMaintainServiceImpl implements UrgeSettingMaintainServic
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public PagedData<UrgeSetting> lookup() throws ServiceException {
+    public PagedData<RemindSetting> lookup() throws ServiceException {
         return entireLookupService.lookup();
     }
 
@@ -197,7 +197,7 @@ public class UrgeSettingMaintainServiceImpl implements UrgeSettingMaintainServic
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public PagedData<UrgeSetting> lookup(PagingInfo pagingInfo) throws ServiceException {
+    public PagedData<RemindSetting> lookup(PagingInfo pagingInfo) throws ServiceException {
         return entireLookupService.lookup(pagingInfo);
     }
 
@@ -205,7 +205,7 @@ public class UrgeSettingMaintainServiceImpl implements UrgeSettingMaintainServic
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public List<UrgeSetting> lookupAsList() throws ServiceException {
+    public List<RemindSetting> lookupAsList() throws ServiceException {
         return entireLookupService.lookupAsList();
     }
 
@@ -213,7 +213,7 @@ public class UrgeSettingMaintainServiceImpl implements UrgeSettingMaintainServic
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public List<UrgeSetting> lookupAsList(PagingInfo pagingInfo) throws ServiceException {
+    public List<RemindSetting> lookupAsList(PagingInfo pagingInfo) throws ServiceException {
         return entireLookupService.lookupAsList(pagingInfo);
     }
 
@@ -221,7 +221,7 @@ public class UrgeSettingMaintainServiceImpl implements UrgeSettingMaintainServic
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public PagedData<UrgeSetting> lookup(String preset, Object[] objs) throws ServiceException {
+    public PagedData<RemindSetting> lookup(String preset, Object[] objs) throws ServiceException {
         return presetLookupService.lookup(preset, objs);
     }
 
@@ -229,7 +229,7 @@ public class UrgeSettingMaintainServiceImpl implements UrgeSettingMaintainServic
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public PagedData<UrgeSetting> lookup(String preset, Object[] objs, PagingInfo pagingInfo) throws ServiceException {
+    public PagedData<RemindSetting> lookup(String preset, Object[] objs, PagingInfo pagingInfo) throws ServiceException {
         return presetLookupService.lookup(preset, objs, pagingInfo);
     }
 
@@ -237,7 +237,7 @@ public class UrgeSettingMaintainServiceImpl implements UrgeSettingMaintainServic
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public List<UrgeSetting> lookupAsList(String preset, Object[] objs) throws ServiceException {
+    public List<RemindSetting> lookupAsList(String preset, Object[] objs) throws ServiceException {
         return presetLookupService.lookupAsList(preset, objs);
     }
 
@@ -245,7 +245,7 @@ public class UrgeSettingMaintainServiceImpl implements UrgeSettingMaintainServic
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public List<UrgeSetting> lookupAsList(String preset, Object[] objs, PagingInfo pagingInfo) throws ServiceException {
+    public List<RemindSetting> lookupAsList(String preset, Object[] objs, PagingInfo pagingInfo) throws ServiceException {
         return presetLookupService.lookupAsList(preset, objs, pagingInfo);
     }
 }

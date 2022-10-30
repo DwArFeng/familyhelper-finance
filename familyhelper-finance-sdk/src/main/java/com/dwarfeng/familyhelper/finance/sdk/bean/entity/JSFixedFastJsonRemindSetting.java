@@ -1,36 +1,36 @@
 package com.dwarfeng.familyhelper.finance.sdk.bean.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.dwarfeng.familyhelper.finance.stack.bean.entity.UrgeSetting;
-import com.dwarfeng.subgrade.sdk.bean.key.FastJsonLongIdKey;
+import com.dwarfeng.familyhelper.finance.stack.bean.entity.RemindSetting;
+import com.dwarfeng.subgrade.sdk.bean.key.JSFixedFastJsonLongIdKey;
 import com.dwarfeng.subgrade.stack.bean.Bean;
 
 import java.util.Objects;
 
 /**
- * FastJson 敦促设置。
+ * JSFixed FastJson 提醒设置。
  *
  * @author DwArFeng
  * @since 1.4.0
  */
-public class FastJsonUrgeSetting implements Bean {
+public class JSFixedFastJsonRemindSetting implements Bean {
 
-    private static final long serialVersionUID = -8770549119823639343L;
+    private static final long serialVersionUID = -5053608656722842163L;
 
-    public static FastJsonUrgeSetting of(UrgeSetting urgeSetting) {
-        if (Objects.isNull(urgeSetting)) {
+    public static JSFixedFastJsonRemindSetting of(RemindSetting remindSetting) {
+        if (Objects.isNull(remindSetting)) {
             return null;
         } else {
-            return new FastJsonUrgeSetting(
-                    FastJsonLongIdKey.of(urgeSetting.getKey()),
-                    urgeSetting.getCron(), urgeSetting.getRemark(),
-                    urgeSetting.getModifiedCount(), urgeSetting.isEnabled()
+            return new JSFixedFastJsonRemindSetting(
+                    JSFixedFastJsonLongIdKey.of(remindSetting.getKey()),
+                    remindSetting.getCron(), remindSetting.getRemark(),
+                    remindSetting.getModifiedCount(), remindSetting.isEnabled()
             );
         }
     }
 
     @JSONField(name = "key", ordinal = 1)
-    private FastJsonLongIdKey key;
+    private JSFixedFastJsonLongIdKey key;
 
     @JSONField(name = "cron", ordinal = 2)
     private String cron;
@@ -44,11 +44,11 @@ public class FastJsonUrgeSetting implements Bean {
     @JSONField(name = "enabled", ordinal = 5)
     private boolean enabled;
 
-    public FastJsonUrgeSetting() {
+    public JSFixedFastJsonRemindSetting() {
     }
 
-    public FastJsonUrgeSetting(
-            FastJsonLongIdKey key, String cron, String remark, int modifiedCount, boolean enabled
+    public JSFixedFastJsonRemindSetting(
+            JSFixedFastJsonLongIdKey key, String cron, String remark, int modifiedCount, boolean enabled
     ) {
         this.key = key;
         this.cron = cron;
@@ -57,11 +57,11 @@ public class FastJsonUrgeSetting implements Bean {
         this.enabled = enabled;
     }
 
-    public FastJsonLongIdKey getKey() {
+    public JSFixedFastJsonLongIdKey getKey() {
         return key;
     }
 
-    public void setKey(FastJsonLongIdKey key) {
+    public void setKey(JSFixedFastJsonLongIdKey key) {
         this.key = key;
     }
 
@@ -99,7 +99,7 @@ public class FastJsonUrgeSetting implements Bean {
 
     @Override
     public String toString() {
-        return "FastJsonUrgeSetting{" +
+        return "JSFixedFastJsonRemindSetting{" +
                 "key=" + key +
                 ", cron='" + cron + '\'' +
                 ", remark='" + remark + '\'' +

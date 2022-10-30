@@ -16,7 +16,7 @@ import java.util.Set;
 @Table(name = "tbl_account_book")
 public class HibernateAccountBook implements Bean {
 
-    private static final long serialVersionUID = -6874503621198732735L;
+    private static final long serialVersionUID = 1583088573573092908L;
 
     // -----------------------------------------------------------主键-----------------------------------------------------------
     @Id
@@ -41,8 +41,8 @@ public class HibernateAccountBook implements Bean {
     private String remark;
 
     // -----------------------------------------------------------一对一-----------------------------------------------------------
-    @OneToOne(cascade = CascadeType.MERGE, targetEntity = HibernateUrgeSetting.class, mappedBy = "accountBook")
-    private HibernateUrgeSetting urgeSetting;
+    @OneToOne(cascade = CascadeType.MERGE, targetEntity = HibernateRemindSetting.class, mappedBy = "accountBook")
+    private HibernateRemindSetting remindSetting;
 
     // -----------------------------------------------------------一对多-----------------------------------------------------------
     @OneToMany(cascade = CascadeType.MERGE, targetEntity = HibernateBankCard.class, mappedBy = "accountBook")
@@ -115,12 +115,12 @@ public class HibernateAccountBook implements Bean {
         this.remark = remark;
     }
 
-    public HibernateUrgeSetting getUrgeSetting() {
-        return urgeSetting;
+    public HibernateRemindSetting getRemindSetting() {
+        return remindSetting;
     }
 
-    public void setUrgeSetting(HibernateUrgeSetting urgeSetting) {
-        this.urgeSetting = urgeSetting;
+    public void setRemindSetting(HibernateRemindSetting remindSetting) {
+        this.remindSetting = remindSetting;
     }
 
     public Set<HibernateBankCard> getBankCards() {
@@ -156,6 +156,6 @@ public class HibernateAccountBook implements Bean {
                 "lastRecordedDate = " + lastRecordedDate + ", " +
                 "totalValue = " + totalValue + ", " +
                 "remark = " + remark + ", " +
-                "urgeSetting = " + urgeSetting + ")";
+                "remindSetting = " + remindSetting + ")";
     }
 }

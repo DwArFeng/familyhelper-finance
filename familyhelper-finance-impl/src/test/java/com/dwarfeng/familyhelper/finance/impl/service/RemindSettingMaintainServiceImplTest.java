@@ -1,9 +1,9 @@
 package com.dwarfeng.familyhelper.finance.impl.service;
 
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.AccountBook;
-import com.dwarfeng.familyhelper.finance.stack.bean.entity.UrgeSetting;
+import com.dwarfeng.familyhelper.finance.stack.bean.entity.RemindSetting;
 import com.dwarfeng.familyhelper.finance.stack.service.AccountBookMaintainService;
-import com.dwarfeng.familyhelper.finance.stack.service.UrgeSettingMaintainService;
+import com.dwarfeng.familyhelper.finance.stack.service.RemindSettingMaintainService;
 import org.apache.commons.beanutils.BeanUtils;
 import org.junit.After;
 import org.junit.Before;
@@ -20,42 +20,42 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring/application-context*.xml")
-public class UrgeSettingMaintainServiceImplTest {
+public class RemindSettingMaintainServiceImplTest {
 
     @Autowired
     private AccountBookMaintainService accountBookMaintainService;
     @Autowired
-    private UrgeSettingMaintainService urgeSettingMaintainService;
+    private RemindSettingMaintainService remindSettingMaintainService;
 
     private AccountBook accountBook;
-    private UrgeSetting urgeSetting;
+    private RemindSetting remindSetting;
 
     @Before
     public void setUp() {
         accountBook = new AccountBook(null, "name", new Date(), BigDecimal.ZERO, "remark");
-        urgeSetting = new UrgeSetting(null, "cron", "remark", 0, true);
+        remindSetting = new RemindSetting(null, "cron", "remark", 0, true);
     }
 
     @After
     public void tearDown() {
         accountBook = null;
-        urgeSetting = null;
+        remindSetting = null;
     }
 
     @Test
     public void testForCrud() throws Exception {
         try {
             accountBook.setKey(accountBookMaintainService.insert(accountBook));
-            urgeSetting.setKey(accountBook.getKey());
-            urgeSettingMaintainService.insert(urgeSetting);
+            remindSetting.setKey(accountBook.getKey());
+            remindSettingMaintainService.insert(remindSetting);
 
-            UrgeSetting testUrgeSetting = urgeSettingMaintainService.get(urgeSetting.getKey());
-            assertEquals(BeanUtils.describe(urgeSetting), BeanUtils.describe(testUrgeSetting));
-            urgeSettingMaintainService.update(urgeSetting);
-            testUrgeSetting = urgeSettingMaintainService.get(urgeSetting.getKey());
-            assertEquals(BeanUtils.describe(urgeSetting), BeanUtils.describe(testUrgeSetting));
+            RemindSetting testRemindSetting = remindSettingMaintainService.get(remindSetting.getKey());
+            assertEquals(BeanUtils.describe(remindSetting), BeanUtils.describe(testRemindSetting));
+            remindSettingMaintainService.update(remindSetting);
+            testRemindSetting = remindSettingMaintainService.get(remindSetting.getKey());
+            assertEquals(BeanUtils.describe(remindSetting), BeanUtils.describe(testRemindSetting));
         } finally {
-            urgeSettingMaintainService.deleteIfExists(urgeSetting.getKey());
+            remindSettingMaintainService.deleteIfExists(remindSetting.getKey());
             accountBookMaintainService.deleteIfExists(accountBook.getKey());
         }
     }
@@ -64,14 +64,14 @@ public class UrgeSettingMaintainServiceImplTest {
     public void testForAccountBookCascade() throws Exception {
         try {
             accountBook.setKey(accountBookMaintainService.insert(accountBook));
-            urgeSetting.setKey(accountBook.getKey());
-            urgeSettingMaintainService.insert(urgeSetting);
+            remindSetting.setKey(accountBook.getKey());
+            remindSettingMaintainService.insert(remindSetting);
 
-            assertTrue(urgeSettingMaintainService.exists(urgeSetting.getKey()));
+            assertTrue(remindSettingMaintainService.exists(remindSetting.getKey()));
             accountBookMaintainService.deleteIfExists(accountBook.getKey());
-            assertFalse(urgeSettingMaintainService.exists(urgeSetting.getKey()));
+            assertFalse(remindSettingMaintainService.exists(remindSetting.getKey()));
         } finally {
-            urgeSettingMaintainService.deleteIfExists(urgeSetting.getKey());
+            remindSettingMaintainService.deleteIfExists(remindSetting.getKey());
             accountBookMaintainService.deleteIfExists(accountBook.getKey());
         }
     }

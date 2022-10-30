@@ -40,8 +40,8 @@ public class CacheConfiguration {
     private String totalBalanceHistoryPrefix;
     @Value("${cache.prefix.entity.bank_card_balance_history}")
     private String bankCardBalanceHistoryPrefix;
-    @Value("${cache.prefix.entity.urge_setting}")
-    private String urgeSettingPrefix;
+    @Value("${cache.prefix.entity.remind_setting}")
+    private String remindSettingPrefix;
     @Value("${cache.prefix.entity.bill_file_info}")
     private String billFileInfoPrefix;
 
@@ -146,11 +146,11 @@ public class CacheConfiguration {
 
     @Bean
     @SuppressWarnings("unchecked")
-    public RedisBatchBaseCache<LongIdKey, UrgeSetting, FastJsonUrgeSetting> urgeSettingRedisBatchBaseCache() {
+    public RedisBatchBaseCache<LongIdKey, RemindSetting, FastJsonRemindSetting> remindSettingRedisBatchBaseCache() {
         return new RedisBatchBaseCache<>(
-                (RedisTemplate<String, FastJsonUrgeSetting>) template,
-                new LongIdStringKeyFormatter(urgeSettingPrefix),
-                new DozerBeanTransformer<>(UrgeSetting.class, FastJsonUrgeSetting.class, mapper)
+                (RedisTemplate<String, FastJsonRemindSetting>) template,
+                new LongIdStringKeyFormatter(remindSettingPrefix),
+                new DozerBeanTransformer<>(RemindSetting.class, FastJsonRemindSetting.class, mapper)
         );
     }
 

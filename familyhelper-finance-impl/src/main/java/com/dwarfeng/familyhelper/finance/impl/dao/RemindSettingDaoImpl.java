@@ -1,8 +1,8 @@
 package com.dwarfeng.familyhelper.finance.impl.dao;
 
-import com.dwarfeng.familyhelper.finance.impl.bean.entity.HibernateUrgeSetting;
-import com.dwarfeng.familyhelper.finance.stack.bean.entity.UrgeSetting;
-import com.dwarfeng.familyhelper.finance.stack.dao.UrgeSettingDao;
+import com.dwarfeng.familyhelper.finance.impl.bean.entity.HibernateRemindSetting;
+import com.dwarfeng.familyhelper.finance.stack.bean.entity.RemindSetting;
+import com.dwarfeng.familyhelper.finance.stack.dao.RemindSettingDao;
 import com.dwarfeng.subgrade.impl.dao.HibernateBatchBaseDao;
 import com.dwarfeng.subgrade.impl.dao.HibernateEntireLookupDao;
 import com.dwarfeng.subgrade.impl.dao.HibernatePresetLookupDao;
@@ -18,16 +18,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public class UrgeSettingDaoImpl implements UrgeSettingDao {
+public class RemindSettingDaoImpl implements RemindSettingDao {
 
-    private final HibernateBatchBaseDao<LongIdKey, HibernateLongIdKey, UrgeSetting, HibernateUrgeSetting> batchBaseDao;
-    private final HibernateEntireLookupDao<UrgeSetting, HibernateUrgeSetting> entireLookupDao;
-    private final HibernatePresetLookupDao<UrgeSetting, HibernateUrgeSetting> presetLookupDao;
+    private final HibernateBatchBaseDao<LongIdKey, HibernateLongIdKey, RemindSetting, HibernateRemindSetting> batchBaseDao;
+    private final HibernateEntireLookupDao<RemindSetting, HibernateRemindSetting> entireLookupDao;
+    private final HibernatePresetLookupDao<RemindSetting, HibernateRemindSetting> presetLookupDao;
 
-    public UrgeSettingDaoImpl(
-            HibernateBatchBaseDao<LongIdKey, HibernateLongIdKey, UrgeSetting, HibernateUrgeSetting> batchBaseDao,
-            HibernateEntireLookupDao<UrgeSetting, HibernateUrgeSetting> entireLookupDao,
-            HibernatePresetLookupDao<UrgeSetting, HibernateUrgeSetting> presetLookupDao
+    public RemindSettingDaoImpl(
+            HibernateBatchBaseDao<LongIdKey, HibernateLongIdKey, RemindSetting, HibernateRemindSetting> batchBaseDao,
+            HibernateEntireLookupDao<RemindSetting, HibernateRemindSetting> entireLookupDao,
+            HibernatePresetLookupDao<RemindSetting, HibernateRemindSetting> presetLookupDao
     ) {
         this.batchBaseDao = batchBaseDao;
         this.entireLookupDao = entireLookupDao;
@@ -37,14 +37,14 @@ public class UrgeSettingDaoImpl implements UrgeSettingDao {
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public LongIdKey insert(UrgeSetting element) throws DaoException {
+    public LongIdKey insert(RemindSetting element) throws DaoException {
         return batchBaseDao.insert(element);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public void update(UrgeSetting element) throws DaoException {
+    public void update(RemindSetting element) throws DaoException {
         batchBaseDao.update(element);
     }
 
@@ -65,7 +65,7 @@ public class UrgeSettingDaoImpl implements UrgeSettingDao {
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public UrgeSetting get(LongIdKey key) throws DaoException {
+    public RemindSetting get(LongIdKey key) throws DaoException {
         return batchBaseDao.get(key);
     }
 
@@ -73,14 +73,14 @@ public class UrgeSettingDaoImpl implements UrgeSettingDao {
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public List<LongIdKey> batchInsert(@SkipRecord List<UrgeSetting> elements) throws DaoException {
+    public List<LongIdKey> batchInsert(@SkipRecord List<RemindSetting> elements) throws DaoException {
         return batchBaseDao.batchInsert(elements);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public void batchUpdate(@SkipRecord List<UrgeSetting> elements) throws DaoException {
+    public void batchUpdate(@SkipRecord List<RemindSetting> elements) throws DaoException {
         batchBaseDao.batchUpdate(elements);
     }
 
@@ -109,7 +109,7 @@ public class UrgeSettingDaoImpl implements UrgeSettingDao {
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public List<UrgeSetting> batchGet(@SkipRecord List<LongIdKey> keys) throws DaoException {
+    public List<RemindSetting> batchGet(@SkipRecord List<LongIdKey> keys) throws DaoException {
         return batchBaseDao.batchGet(keys);
     }
 
@@ -117,7 +117,7 @@ public class UrgeSettingDaoImpl implements UrgeSettingDao {
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public List<UrgeSetting> lookup() throws DaoException {
+    public List<RemindSetting> lookup() throws DaoException {
         return entireLookupDao.lookup();
     }
 
@@ -125,7 +125,7 @@ public class UrgeSettingDaoImpl implements UrgeSettingDao {
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public List<UrgeSetting> lookup(PagingInfo pagingInfo) throws DaoException {
+    public List<RemindSetting> lookup(PagingInfo pagingInfo) throws DaoException {
         return entireLookupDao.lookup(pagingInfo);
     }
 
@@ -140,7 +140,7 @@ public class UrgeSettingDaoImpl implements UrgeSettingDao {
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public List<UrgeSetting> lookup(String preset, Object[] objs) throws DaoException {
+    public List<RemindSetting> lookup(String preset, Object[] objs) throws DaoException {
         return presetLookupDao.lookup(preset, objs);
     }
 
@@ -148,7 +148,7 @@ public class UrgeSettingDaoImpl implements UrgeSettingDao {
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public List<UrgeSetting> lookup(String preset, Object[] objs, PagingInfo pagingInfo) throws DaoException {
+    public List<RemindSetting> lookup(String preset, Object[] objs, PagingInfo pagingInfo) throws DaoException {
         return presetLookupDao.lookup(preset, objs, pagingInfo);
     }
 

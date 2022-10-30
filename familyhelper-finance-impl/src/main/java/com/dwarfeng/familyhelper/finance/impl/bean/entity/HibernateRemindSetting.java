@@ -9,10 +9,10 @@ import java.util.Optional;
 
 @Entity
 @IdClass(HibernateLongIdKey.class)
-@Table(name = "tbl_urge_setting")
-public class HibernateUrgeSetting implements Bean {
+@Table(name = "tbl_remind_setting")
+public class HibernateRemindSetting implements Bean {
 
-    private static final long serialVersionUID = -6265864671177757244L;
+    private static final long serialVersionUID = 470242909262612050L;
 
     // -----------------------------------------------------------主键-----------------------------------------------------------
     @Id
@@ -39,7 +39,7 @@ public class HibernateUrgeSetting implements Bean {
     })
     private HibernateAccountBook accountBook;
 
-    public HibernateUrgeSetting() {
+    public HibernateRemindSetting() {
     }
 
     // -----------------------------------------------------------映射用属性区-----------------------------------------------------------

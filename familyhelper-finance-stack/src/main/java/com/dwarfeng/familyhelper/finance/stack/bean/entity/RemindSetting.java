@@ -4,14 +4,14 @@ import com.dwarfeng.subgrade.stack.bean.entity.Entity;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 
 /**
- * 敦促设置。
+ * 提醒设置。
  *
  * @author DwArFeng
  * @since 1.4.0
  */
-public class UrgeSetting implements Entity<LongIdKey> {
+public class RemindSetting implements Entity<LongIdKey> {
 
-    private static final long serialVersionUID = -906046370420062671L;
+    private static final long serialVersionUID = -7646856001061231198L;
 
     private LongIdKey key;
     private String cron;
@@ -19,10 +19,10 @@ public class UrgeSetting implements Entity<LongIdKey> {
     private int modifiedCount;
     private boolean enabled;
 
-    public UrgeSetting() {
+    public RemindSetting() {
     }
 
-    public UrgeSetting(LongIdKey key, String cron, String remark, int modifiedCount, boolean enabled) {
+    public RemindSetting(LongIdKey key, String cron, String remark, int modifiedCount, boolean enabled) {
         this.key = key;
         this.cron = cron;
         this.remark = remark;
@@ -74,7 +74,7 @@ public class UrgeSetting implements Entity<LongIdKey> {
 
     @Override
     public String toString() {
-        return "UrgeSetting{" +
+        return "RemindSetting{" +
                 "key=" + key +
                 ", cron='" + cron + '\'' +
                 ", remark='" + remark + '\'' +

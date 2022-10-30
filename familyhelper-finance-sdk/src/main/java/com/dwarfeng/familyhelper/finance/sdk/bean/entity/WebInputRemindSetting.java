@@ -2,7 +2,7 @@ package com.dwarfeng.familyhelper.finance.sdk.bean.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.dwarfeng.familyhelper.finance.sdk.util.Constraints;
-import com.dwarfeng.familyhelper.finance.stack.bean.entity.UrgeSetting;
+import com.dwarfeng.familyhelper.finance.stack.bean.entity.RemindSetting;
 import com.dwarfeng.subgrade.sdk.bean.key.WebInputLongIdKey;
 import com.dwarfeng.subgrade.stack.bean.Bean;
 import org.hibernate.validator.constraints.Length;
@@ -12,20 +12,20 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * WebInput 敦促设置。
+ * WebInput 提醒设置。
  *
  * @author DwArFeng
  * @since 1.4.0
  */
-public class WebInputUrgeSetting implements Bean {
+public class WebInputRemindSetting implements Bean {
 
-    private static final long serialVersionUID = 8765145241060790427L;
+    private static final long serialVersionUID = 1658270263523759480L;
 
-    public static UrgeSetting toStackBean(WebInputUrgeSetting webInput) {
+    public static RemindSetting toStackBean(WebInputRemindSetting webInput) {
         if (Objects.isNull(webInput)) {
             return null;
         } else {
-            return new UrgeSetting(
+            return new RemindSetting(
                     WebInputLongIdKey.toStackBean(webInput.getKey()),
                     webInput.getCron(), webInput.getRemark(),
                     webInput.getModifiedCount(), webInput.isEnabled()
@@ -53,7 +53,7 @@ public class WebInputUrgeSetting implements Bean {
     @JSONField(name = "enabled")
     private boolean enabled;
 
-    public WebInputUrgeSetting() {
+    public WebInputRemindSetting() {
     }
 
     public WebInputLongIdKey getKey() {
@@ -98,7 +98,7 @@ public class WebInputUrgeSetting implements Bean {
 
     @Override
     public String toString() {
-        return "WebInputUrgeSetting{" +
+        return "WebInputRemindSetting{" +
                 "key=" + key +
                 ", cron='" + cron + '\'' +
                 ", remark='" + remark + '\'' +

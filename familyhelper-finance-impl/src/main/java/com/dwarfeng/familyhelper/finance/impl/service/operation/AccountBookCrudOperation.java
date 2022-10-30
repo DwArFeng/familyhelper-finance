@@ -36,8 +36,8 @@ public class AccountBookCrudOperation implements BatchCrudOperation<LongIdKey, A
     private final BankCardBalanceHistoryDao bankCardBalanceHistoryDao;
     private final BankCardBalanceHistoryCache bankCardBalanceHistoryCache;
 
-    private final UrgeSettingDao urgeSettingDao;
-    private final UrgeSettingCache urgeSettingCache;
+    private final RemindSettingDao remindSettingDao;
+    private final RemindSettingCache remindSettingCache;
 
     @Value("${cache.timeout.entity.account_book}")
     private long accountBookTimeout;
@@ -49,7 +49,7 @@ public class AccountBookCrudOperation implements BatchCrudOperation<LongIdKey, A
             PoabDao poabDao, PoabCache poabCache,
             TotalBalanceHistoryDao totalBalanceHistoryDao, TotalBalanceHistoryCache totalBalanceHistoryCache,
             BankCardBalanceHistoryDao bankCardBalanceHistoryDao, BankCardBalanceHistoryCache bankCardBalanceHistoryCache,
-            UrgeSettingDao urgeSettingDao, UrgeSettingCache urgeSettingCache
+            RemindSettingDao remindSettingDao, RemindSettingCache remindSettingCache
     ) {
         this.accountBookDao = accountBookDao;
         this.accountBookCache = accountBookCache;
@@ -63,8 +63,8 @@ public class AccountBookCrudOperation implements BatchCrudOperation<LongIdKey, A
         this.totalBalanceHistoryCache = totalBalanceHistoryCache;
         this.bankCardBalanceHistoryDao = bankCardBalanceHistoryDao;
         this.bankCardBalanceHistoryCache = bankCardBalanceHistoryCache;
-        this.urgeSettingDao = urgeSettingDao;
-        this.urgeSettingCache = urgeSettingCache;
+        this.remindSettingDao = remindSettingDao;
+        this.remindSettingCache = remindSettingCache;
     }
 
     @Override
@@ -134,10 +134,10 @@ public class AccountBookCrudOperation implements BatchCrudOperation<LongIdKey, A
         totalBalanceHistoryCache.batchDelete(totalBalanceHistoryKeys);
         totalBalanceHistoryDao.batchDelete(totalBalanceHistoryKeys);
 
-        // 删除与账本相关的敦促设置。
-        if (urgeSettingDao.exists(key)) {
-            urgeSettingCache.delete(key);
-            urgeSettingDao.delete(key);
+        // 删除与账本相关的提醒设置。
+        if (remindSettingDao.exists(key)) {
+            remindSettingCache.delete(key);
+            remindSettingDao.delete(key);
         }
 
         // 删除账本实体自身。

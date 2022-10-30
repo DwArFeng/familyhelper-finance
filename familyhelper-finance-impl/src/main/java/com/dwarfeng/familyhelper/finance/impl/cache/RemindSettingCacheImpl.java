@@ -1,8 +1,8 @@
 package com.dwarfeng.familyhelper.finance.impl.cache;
 
-import com.dwarfeng.familyhelper.finance.sdk.bean.entity.FastJsonUrgeSetting;
-import com.dwarfeng.familyhelper.finance.stack.bean.entity.UrgeSetting;
-import com.dwarfeng.familyhelper.finance.stack.cache.UrgeSettingCache;
+import com.dwarfeng.familyhelper.finance.sdk.bean.entity.FastJsonRemindSetting;
+import com.dwarfeng.familyhelper.finance.stack.bean.entity.RemindSetting;
+import com.dwarfeng.familyhelper.finance.stack.cache.RemindSettingCache;
 import com.dwarfeng.subgrade.impl.cache.RedisBatchBaseCache;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.BehaviorAnalyse;
 import com.dwarfeng.subgrade.sdk.interceptor.analyse.SkipRecord;
@@ -14,84 +14,84 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Repository
-public class UrgeSettingCacheImpl implements UrgeSettingCache {
+public class RemindSettingCacheImpl implements RemindSettingCache {
 
-    private final RedisBatchBaseCache<LongIdKey, UrgeSetting, FastJsonUrgeSetting> urgeSettingBatchBaseDelegate;
+    private final RedisBatchBaseCache<LongIdKey, RemindSetting, FastJsonRemindSetting> remindSettingBatchBaseDelegate;
 
-    public UrgeSettingCacheImpl(
-            RedisBatchBaseCache<LongIdKey, UrgeSetting, FastJsonUrgeSetting> urgeSettingBatchBaseDelegate
+    public RemindSettingCacheImpl(
+            RedisBatchBaseCache<LongIdKey, RemindSetting, FastJsonRemindSetting> remindSettingBatchBaseDelegate
     ) {
-        this.urgeSettingBatchBaseDelegate = urgeSettingBatchBaseDelegate;
+        this.remindSettingBatchBaseDelegate = remindSettingBatchBaseDelegate;
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public boolean exists(LongIdKey key) throws CacheException {
-        return urgeSettingBatchBaseDelegate.exists(key);
+        return remindSettingBatchBaseDelegate.exists(key);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public UrgeSetting get(LongIdKey key) throws CacheException {
-        return urgeSettingBatchBaseDelegate.get(key);
+    public RemindSetting get(LongIdKey key) throws CacheException {
+        return remindSettingBatchBaseDelegate.get(key);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public void push(UrgeSetting value, long timeout) throws CacheException {
-        urgeSettingBatchBaseDelegate.push(value, timeout);
+    public void push(RemindSetting value, long timeout) throws CacheException {
+        remindSettingBatchBaseDelegate.push(value, timeout);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void delete(LongIdKey key) throws CacheException {
-        urgeSettingBatchBaseDelegate.delete(key);
+        remindSettingBatchBaseDelegate.delete(key);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void clear() throws CacheException {
-        urgeSettingBatchBaseDelegate.clear();
+        remindSettingBatchBaseDelegate.clear();
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public boolean allExists(@SkipRecord List<LongIdKey> keys) throws CacheException {
-        return urgeSettingBatchBaseDelegate.allExists(keys);
+        return remindSettingBatchBaseDelegate.allExists(keys);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public boolean nonExists(@SkipRecord List<LongIdKey> keys) throws CacheException {
-        return urgeSettingBatchBaseDelegate.nonExists(keys);
+        return remindSettingBatchBaseDelegate.nonExists(keys);
     }
 
     @Override
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public List<UrgeSetting> batchGet(@SkipRecord List<LongIdKey> keys) throws CacheException {
-        return urgeSettingBatchBaseDelegate.batchGet(keys);
+    public List<RemindSetting> batchGet(@SkipRecord List<LongIdKey> keys) throws CacheException {
+        return remindSettingBatchBaseDelegate.batchGet(keys);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public void batchPush(@SkipRecord List<UrgeSetting> entities, long timeout) throws CacheException {
-        urgeSettingBatchBaseDelegate.batchPush(entities, timeout);
+    public void batchPush(@SkipRecord List<RemindSetting> entities, long timeout) throws CacheException {
+        remindSettingBatchBaseDelegate.batchPush(entities, timeout);
     }
 
     @Override
     @BehaviorAnalyse
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
     public void batchDelete(@SkipRecord List<LongIdKey> keys) throws CacheException {
-        urgeSettingBatchBaseDelegate.batchDelete(keys);
+        remindSettingBatchBaseDelegate.batchDelete(keys);
     }
 }
