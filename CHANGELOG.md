@@ -4,6 +4,15 @@
 
 #### 功能构建
 
+- 增加依赖。
+  - 增加依赖 `protobuf` 以规避漏洞，版本为 `3.19.6`。
+  - 增加依赖 `guava` 以规避漏洞，版本为 `31.1-jre`。
+  - 增加依赖 `gson` 以规避漏洞，版本为 `2.8.9`。
+  - 增加依赖 `snakeyaml` 以规避漏洞，版本为 `1.33`。
+  - 增加依赖 `jackson` 以规避漏洞，版本为 `2.14.0`。
+  - 增加依赖 `javax.servlet-api` 以规避漏洞，版本为 `4.0.1`。
+  - 增加依赖 `jboss-logging` 以规避漏洞，版本为 `3.4.3.Final`。
+
 - 插件升级。
   - 升级 `maven-deploy-plugin` 插件版本为 `2.8.2`。
 
@@ -13,14 +22,19 @@
   - com.dwarfeng.familyhelper.finance.stack.bean.entity.RemindDriverSupport。
 
 - 依赖升级。
-  - 升级 `jetty` 依赖版本为 `9.4.48.v20220622` 以规避漏洞。
+  - 升级 `mysql` 依赖版本为 `8.0.31` 以规避漏洞。
+  - 升级 `jedis` 依赖版本为 `3.8.0` 以规避漏洞。
+  - 升级 `spring-data-redis` 依赖版本为 `2.7.5` 以规避漏洞。
   - 升级 `dubbo` 依赖版本为 `2.7.18` 以规避漏洞。
-  - 升级 `dutil` 依赖版本为 `beta-0.3.1.a` 以规避漏洞。
-  - 升级 `dwarfeng-ftp` 依赖版本为 `1.1.1.a` 以规避漏洞。
-  - 升级 `snowflake` 依赖版本为 `1.4.9.a` 以规避漏洞。
-  - 升级 `subgrade` 依赖版本为 `1.2.13.b` 以规避漏洞。
-  - 升级 `spring-terminator` 依赖版本为 `1.0.9.a` 以规避漏洞。
-  - 升级 `spring-telqos` 依赖版本为 `1.1.4.a` 以规避漏洞。
+  - 升级 `zookeeper` 依赖版本为 `3.5.7` 以规避漏洞。
+  - 升级 `curator` 依赖版本为 `4.3.0` 以规避漏洞。
+  - 升级 `hibernate-validator` 依赖版本为 `6.2.5.Final` 以规避漏洞。
+  - 升级 `dutil` 依赖版本为 `beta-0.3.2.a` 以规避漏洞。
+  - 升级 `snowflake` 依赖版本为 `1.4.10.a` 以规避漏洞。
+  - 升级 `subgrade` 依赖版本为 `1.2.14.a` 以规避漏洞。
+  - 升级 `dwarfeng-ftp` 依赖版本为 `1.1.2.a` 以规避漏洞。
+  - 升级 `spring-terminator` 依赖版本为 `1.0.10.a` 以规避漏洞。
+  - 升级 `spring-telqos` 依赖版本为 `1.1.5.a` 以规避漏洞。
 
 - 优化操作服务验证环节的代码结构。
 
@@ -44,6 +58,9 @@
   - 删除 `commons-io` 依赖。
   - 删除 `joda-time` 依赖。
   - 删除 `httpcomponents` 依赖。
+  - 删除 `el` 依赖。
+  - 删除 `zkclient` 依赖。
+  - 删除 `commons-net` 依赖。
 
 ---
 

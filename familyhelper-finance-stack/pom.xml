@@ -23,7 +23,7 @@
     </properties>
 
     <dependencies>
-        <!-- subgrade组件 -->
+        <!-- subgrade 组件 -->
         <dependency>
             <groupId>com.dwarfeng</groupId>
             <artifactId>subgrade-stack</artifactId>
