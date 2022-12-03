@@ -25,6 +25,9 @@ public class ServiceExceptionMapperConfiguration {
         destination.put(IllegalFundChangeStateException.class, ServiceExceptionCodes.ILLEGAL_FUND_CHANGE_STATE);
         destination.put(InvalidPermissionLevelException.class, ServiceExceptionCodes.INVALID_PERMISSION_LEVEL);
         destination.put(BillFileNotExistsException.class, ServiceExceptionCodes.BILL_FILE_NOT_EXISTS);
+        destination.put(RemindDriverInfoNotExistsException.class, ServiceExceptionCodes.REMIND_DRIVER_INFO_NOT_EXISTS);
+        destination.put(RemindDriverInfoDisabledException.class, ServiceExceptionCodes.REMIND_DRIVER_INFO_DISABLED);
+        destination.put(RemindScopeTypeMismatchException.class, ServiceExceptionCodes.REMIND_SCOPE_TYPE_MISMATCH);
         return new MapServiceExceptionMapper(destination, com.dwarfeng.subgrade.sdk.exception.ServiceExceptionCodes.UNDEFINE);
     }
 }

@@ -40,7 +40,7 @@ public final class Constants {
      * @since 1.4.0
      */
     @RemindScopeTypeItem
-    public static final int REMIND_SCOPE_TYPE_ALL_PERMITTED = 1;
+    public static final int REMIND_SCOPE_TYPE_ALL_PERMITTED = 2;
 
     private static final Lock LOCK = new ReentrantLock();
 

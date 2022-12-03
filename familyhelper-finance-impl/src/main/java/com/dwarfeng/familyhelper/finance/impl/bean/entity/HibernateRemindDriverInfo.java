@@ -5,7 +5,6 @@ import com.dwarfeng.subgrade.sdk.bean.key.HibernateLongIdKey;
 import com.dwarfeng.subgrade.stack.bean.Bean;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Optional;
 
 @Entity
@@ -13,7 +12,7 @@ import java.util.Optional;
 @Table(name = "tbl_remind_driver_info")
 public class HibernateRemindDriverInfo implements Bean {
 
-    private static final long serialVersionUID = -2879845058240662951L;
+    private static final long serialVersionUID = 8517165004649651358L;
 
     // -----------------------------------------------------------主键-----------------------------------------------------------
     @Id
@@ -36,9 +35,6 @@ public class HibernateRemindDriverInfo implements Bean {
 
     @Column(name = "remind_scope_type")
     private int remindScopeType;
-
-    @Column(name = "total_value")
-    private BigDecimal totalValue;
 
     @Column(name = "remark", length = Constraints.LENGTH_REMARK)
     private String remark;
@@ -119,14 +115,6 @@ public class HibernateRemindDriverInfo implements Bean {
         this.remindScopeType = remindScopeType;
     }
 
-    public BigDecimal getTotalValue() {
-        return totalValue;
-    }
-
-    public void setTotalValue(BigDecimal totalValue) {
-        this.totalValue = totalValue;
-    }
-
     public String getRemark() {
         return remark;
     }
@@ -152,7 +140,6 @@ public class HibernateRemindDriverInfo implements Bean {
                 "type = " + type + ", " +
                 "param = " + param + ", " +
                 "remindScopeType = " + remindScopeType + ", " +
-                "totalValue = " + totalValue + ", " +
                 "remark = " + remark + ", " +
                 "accountBook = " + accountBook + ")";
     }

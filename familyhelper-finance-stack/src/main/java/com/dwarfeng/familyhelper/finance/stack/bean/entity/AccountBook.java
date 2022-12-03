@@ -38,6 +38,7 @@ public class AccountBook implements Entity<LongIdKey> {
         return key;
     }
 
+
     @Override
     public void setKey(LongIdKey key) {
         this.key = key;

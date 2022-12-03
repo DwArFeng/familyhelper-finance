@@ -43,10 +43,9 @@ public class RemindDriverInfoPresetCriteriaMaker implements PresetCriteriaMaker 
         }
     }
 
-    @SuppressWarnings("DuplicatedCode")
     private void enabled(DetachedCriteria detachedCriteria, Object[] objects) {
         try {
-            detachedCriteria.add(Restrictions.like("enabled", true));
+            detachedCriteria.add(Restrictions.eq("enabled", true));
         } catch (Exception e) {
             throw new IllegalArgumentException("非法的参数:" + Arrays.toString(objects));
         }

@@ -60,3 +60,23 @@ buildNumber.properties
 #################
 /familyhelper-finance-impl/conf/
 /familyhelper-finance-node/conf/
+
+#################
+## Libext Files
+#################
+/familyhelper-finance-node/libext/
+
+#################
+## Opt Files
+#################
+/familyhelper-finance-node/opt/
+
+#################
+## Optext Files
+#################
+/familyhelper-finance-node/optext/
+
+#################
+## Confext Files
+#################
+/familyhelper-finance-node/confext/

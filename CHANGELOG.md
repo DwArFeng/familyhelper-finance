@@ -4,11 +4,13 @@
 
 #### 功能构建
 
+- 提醒逻辑实现。
+  - 提醒驱动机制实现。
+  - 分布式锁实现。
+
 - `OperateHandlerValidator` 重命名为 `HandlerValidator`。
 
 - 使用 `MapStruct` 重构 `BeanTransformer`。
-
-- 提醒驱动机制实现。
 
 - 增加依赖。
   - 增加依赖 `protobuf` 以规避漏洞，版本为 `3.19.6`。

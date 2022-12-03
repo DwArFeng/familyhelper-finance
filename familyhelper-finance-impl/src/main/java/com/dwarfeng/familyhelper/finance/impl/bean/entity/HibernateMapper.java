@@ -108,7 +108,6 @@ public interface HibernateMapper {
     @InheritInverseConfiguration
     Poab poabFromHibernate(HibernatePoab hibernatePoab);
 
-    @Mapping(target = "totalValue", ignore = true)
     @Mapping(target = "longId", ignore = true)
     @Mapping(target = "accountBookLongId", ignore = true)
     @Mapping(target = "accountBook", ignore = true)

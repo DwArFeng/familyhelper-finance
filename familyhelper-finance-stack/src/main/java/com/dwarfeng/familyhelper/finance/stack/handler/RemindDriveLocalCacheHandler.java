@@ -1,9 +1,7 @@
 package com.dwarfeng.familyhelper.finance.stack.handler;
 
-import com.dwarfeng.familyhelper.finance.stack.bean.dto.RemindDriveInfo;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
-import com.dwarfeng.subgrade.stack.exception.HandlerException;
-import com.dwarfeng.subgrade.stack.handler.Handler;
+import com.dwarfeng.subgrade.stack.handler.LocalCacheHandler;
 
 /**
  * 提醒驱动用本地缓存处理器。
@@ -15,24 +13,5 @@ import com.dwarfeng.subgrade.stack.handler.Handler;
  * @author DwArFeng
  * @since 1.4.0
  */
-public interface RemindDriveLocalCacheHandler extends Handler {
-
-    /**
-     * 获取指定账本的提醒驱动信息。
-     *
-     * <p>
-     * 如果指定的账本不存在，则返回 <code>null</code>。
-     *
-     * @param accountBookKey 指定的账本。
-     * @return 指定账本对应的的提醒驱动信息，或者是 <code>null</code>。
-     * @throws HandlerException 处理器异常。
-     */
-    RemindDriveInfo getRemindDriveInfo(LongIdKey accountBookKey) throws HandlerException;
-
-    /**
-     * 清除本地缓存。
-     *
-     * @throws HandlerException 处理器异常。
-     */
-    void clear() throws HandlerException;
+public interface RemindDriveLocalCacheHandler extends LocalCacheHandler<LongIdKey, RemindDriver> {
 }

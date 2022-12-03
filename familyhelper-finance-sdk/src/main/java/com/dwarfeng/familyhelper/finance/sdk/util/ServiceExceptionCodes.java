@@ -30,6 +30,12 @@ public final class ServiceExceptionCodes {
             new ServiceException.Code(offset(70), "invalid permission level");
     public static final ServiceException.Code BILL_FILE_NOT_EXISTS =
             new ServiceException.Code(offset(80), "bill file not exists");
+    public static final ServiceException.Code REMIND_DRIVER_INFO_NOT_EXISTS =
+            new ServiceException.Code(offset(90), "remind driver info not exists");
+    public static final ServiceException.Code REMIND_DRIVER_INFO_DISABLED =
+            new ServiceException.Code(offset(100), "remind driver info disabled");
+    public static final ServiceException.Code REMIND_SCOPE_TYPE_MISMATCH =
+            new ServiceException.Code(offset(110), "remind scope type mismatch");
 
     private static int offset(int i) {
         return EXCEPTION_CODE_OFFSET + i;
@@ -63,6 +69,9 @@ public final class ServiceExceptionCodes {
         ILLEGAL_FUND_CHANGE_STATE.setCode(offset(60));
         INVALID_PERMISSION_LEVEL.setCode(offset(70));
         BILL_FILE_NOT_EXISTS.setCode(offset(80));
+        REMIND_DRIVER_INFO_NOT_EXISTS.setCode(offset(90));
+        REMIND_DRIVER_INFO_DISABLED.setCode(offset(100));
+        REMIND_SCOPE_TYPE_MISMATCH.setCode(offset(110));
     }
 
     private ServiceExceptionCodes() {

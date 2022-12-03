@@ -4,6 +4,7 @@ import com.dwarfeng.familyhelper.finance.sdk.util.Constants;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.BankCard;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.FundChange;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.Poab;
+import com.dwarfeng.familyhelper.finance.stack.bean.entity.RemindDriverInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.key.PoabKey;
 import com.dwarfeng.familyhelper.finance.stack.exception.*;
 import com.dwarfeng.familyhelper.finance.stack.service.*;
@@ -13,6 +14,7 @@ import com.dwarfeng.subgrade.stack.exception.HandlerException;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -33,6 +35,7 @@ public class HandlerValidator {
     private final BankCardMaintainService bankCardMaintainService;
     private final FundChangeMaintainService fundChangeMaintainService;
     private final BillFileInfoMaintainService billFileInfoMaintainService;
+    private final RemindDriverInfoMaintainService remindDriverInfoMaintainService;
 
     public HandlerValidator(
             UserMaintainService userMaintainService,
@@ -40,7 +43,8 @@ public class HandlerValidator {
             PoabMaintainService poabMaintainService,
             BankCardMaintainService bankCardMaintainService,
             FundChangeMaintainService fundChangeMaintainService,
-            BillFileInfoMaintainService billFileInfoMaintainService
+            BillFileInfoMaintainService billFileInfoMaintainService,
+            RemindDriverInfoMaintainService remindDriverInfoMaintainService
     ) {
         this.userMaintainService = userMaintainService;
         this.accountBookMaintainService = accountBookMaintainService;
@@ -48,6 +52,7 @@ public class HandlerValidator {
         this.bankCardMaintainService = bankCardMaintainService;
         this.fundChangeMaintainService = fundChangeMaintainService;
         this.billFileInfoMaintainService = billFileInfoMaintainService;
+        this.remindDriverInfoMaintainService = remindDriverInfoMaintainService;
     }
 
     public void makeSureUserExists(StringIdKey userKey) throws HandlerException {
@@ -214,6 +219,35 @@ public class HandlerValidator {
 
             // 2. 取出资金变更的账本外键，判断用户是否拥有该账本的权限。
             makeSureUserModifyPermittedForAccountBook(userKey, fundChange.getAccountBookKey());
+        } catch (ServiceException e) {
+            throw new HandlerException(e);
+        }
+    }
+
+    public void makeSureRemindDriverInfoExists(LongIdKey remindDriverInfoKey) throws HandlerException {
+        try {
+            if (!remindDriverInfoMaintainService.exists(remindDriverInfoKey)) {
+                throw new RemindDriverInfoNotExistsException(remindDriverInfoKey);
+            }
+        } catch (ServiceException e) {
+            throw new HandlerException(e);
+        }
+    }
+
+    public void makeSureRemindDriverInfoValid(LongIdKey remindDriverInfoKey) throws HandlerException {
+        try {
+            if (!remindDriverInfoMaintainService.exists(remindDriverInfoKey)) {
+                throw new RemindDriverInfoNotExistsException(remindDriverInfoKey);
+            }
+            RemindDriverInfo remindDriverInfo = remindDriverInfoMaintainService.get(remindDriverInfoKey);
+            if (!remindDriverInfo.isEnabled()) {
+                throw new RemindDriverInfoDisabledException(remindDriverInfoKey);
+            }
+            int remindScopeType = remindDriverInfo.getRemindScopeType();
+            List<Integer> remindScopeTypeSpace = Constants.remindScopeTypeSpace();
+            if (!remindScopeTypeSpace.contains(remindScopeType)) {
+                throw new RemindScopeTypeMismatchException(remindScopeType, remindScopeTypeSpace);
+            }
         } catch (ServiceException e) {
             throw new HandlerException(e);
         }
