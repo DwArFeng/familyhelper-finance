@@ -29,20 +29,20 @@ public class BalanceOperateHandlerImpl implements BalanceOperateHandler {
     private final BankCardBalanceHistoryMaintainService bankCardBalanceHistoryMaintainService;
     private final TotalBalanceHistoryMaintainService totalBalanceHistoryMaintainService;
 
-    private final OperateHandlerValidator operateHandlerValidator;
+    private final HandlerValidator handlerValidator;
 
     public BalanceOperateHandlerImpl(
             BankCardMaintainService bankCardMaintainService,
             AccountBookMaintainService accountBookMaintainService,
             BankCardBalanceHistoryMaintainService bankCardBalanceHistoryMaintainService,
             TotalBalanceHistoryMaintainService totalBalanceHistoryMaintainService,
-            OperateHandlerValidator operateHandlerValidator
+            HandlerValidator handlerValidator
     ) {
         this.bankCardMaintainService = bankCardMaintainService;
         this.accountBookMaintainService = accountBookMaintainService;
         this.bankCardBalanceHistoryMaintainService = bankCardBalanceHistoryMaintainService;
         this.totalBalanceHistoryMaintainService = totalBalanceHistoryMaintainService;
-        this.operateHandlerValidator = operateHandlerValidator;
+        this.handlerValidator = handlerValidator;
     }
 
     @Override
@@ -53,13 +53,13 @@ public class BalanceOperateHandlerImpl implements BalanceOperateHandler {
             BigDecimal balance = bankCardBalanceRecordInfo.getBalance();
 
             // 1. 确认用户存在。
-            operateHandlerValidator.makeSureUserExists(userKey);
+            handlerValidator.makeSureUserExists(userKey);
 
             // 2. 确认银行卡存在。
-            operateHandlerValidator.makeSureBankCardExists(bankCardKey);
+            handlerValidator.makeSureBankCardExists(bankCardKey);
 
             // 3. 确认用户有权限操作指定的银行卡。
-            operateHandlerValidator.makeSureUserModifyPermittedForBankCard(userKey, bankCardKey);
+            handlerValidator.makeSureUserModifyPermittedForBankCard(userKey, bankCardKey);
 
             // 4. 将临时区的字段设置为指定的余额。
             BankCard bankCard = bankCardMaintainService.get(bankCardKey);
@@ -78,13 +78,13 @@ public class BalanceOperateHandlerImpl implements BalanceOperateHandler {
     public void recordCommit(StringIdKey userKey, LongIdKey accountBookKey) throws HandlerException {
         try {
             // 1. 确认用户存在。
-            operateHandlerValidator.makeSureUserExists(userKey);
+            handlerValidator.makeSureUserExists(userKey);
 
             // 2. 确认账本存在。
-            operateHandlerValidator.makeSureAccountBookExists(accountBookKey);
+            handlerValidator.makeSureAccountBookExists(accountBookKey);
 
             // 3. 确认用户有权限操作指定的账本。
-            operateHandlerValidator.makeSureUserModifyPermittedForAccountBook(userKey, accountBookKey);
+            handlerValidator.makeSureUserModifyPermittedForAccountBook(userKey, accountBookKey);
 
             // 4. 查询账本下的所有银行卡。
             List<BankCard> bankCards = bankCardMaintainService.lookup(
@@ -138,13 +138,13 @@ public class BalanceOperateHandlerImpl implements BalanceOperateHandler {
     public void rollbackBankCard(StringIdKey userKey, LongIdKey bankCardKey) throws HandlerException {
         try {
             // 1. 确认用户存在。
-            operateHandlerValidator.makeSureUserExists(userKey);
+            handlerValidator.makeSureUserExists(userKey);
 
             // 2. 确认银行卡存在。
-            operateHandlerValidator.makeSureBankCardExists(bankCardKey);
+            handlerValidator.makeSureBankCardExists(bankCardKey);
 
             // 3. 确认用户有权限操作指定的银行卡。
-            operateHandlerValidator.makeSureUserModifyPermittedForBankCard(userKey, bankCardKey);
+            handlerValidator.makeSureUserModifyPermittedForBankCard(userKey, bankCardKey);
 
             // 4. 设置临时使能为 false。
             BankCard bankCard = bankCardMaintainService.get(bankCardKey);
@@ -161,13 +161,13 @@ public class BalanceOperateHandlerImpl implements BalanceOperateHandler {
     public void rollbackAll(StringIdKey userKey, LongIdKey accountBookKey) throws HandlerException {
         try {
             // 1. 确认用户存在。
-            operateHandlerValidator.makeSureUserExists(userKey);
+            handlerValidator.makeSureUserExists(userKey);
 
             // 2. 确认账本存在。
-            operateHandlerValidator.makeSureAccountBookExists(accountBookKey);
+            handlerValidator.makeSureAccountBookExists(accountBookKey);
 
             // 3. 确认用户有权限操作指定的账本。
-            operateHandlerValidator.makeSureUserModifyPermittedForAccountBook(userKey, accountBookKey);
+            handlerValidator.makeSureUserModifyPermittedForAccountBook(userKey, accountBookKey);
 
             // 4. 查询账本下的所有银行卡，将每个银行卡设置临时使能为 false。
             List<BankCard> bankCards = bankCardMaintainService.lookup(

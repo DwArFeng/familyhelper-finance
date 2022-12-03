@@ -24,32 +24,32 @@ public class BillFileOperateHandlerImpl implements BillFileOperateHandler {
 
     private final KeyFetcher<LongIdKey> keyFetcher;
 
-    private final OperateHandlerValidator operateHandlerValidator;
+    private final HandlerValidator handlerValidator;
 
     public BillFileOperateHandlerImpl(
             BillFileInfoMaintainService billFileInfoMaintainService,
             FtpHandler ftpHandler,
             KeyFetcher<LongIdKey> keyFetcher,
-            OperateHandlerValidator operateHandlerValidator
+            HandlerValidator handlerValidator
     ) {
         this.billFileInfoMaintainService = billFileInfoMaintainService;
         this.ftpHandler = ftpHandler;
         this.keyFetcher = keyFetcher;
-        this.operateHandlerValidator = operateHandlerValidator;
+        this.handlerValidator = handlerValidator;
     }
 
     @Override
     public BillFile downloadBillFile(StringIdKey userKey, LongIdKey billFileKey) throws HandlerException {
         try {
             // 1. 确认用户存在。
-            operateHandlerValidator.makeSureUserExists(userKey);
+            handlerValidator.makeSureUserExists(userKey);
 
             // 2. 确认票据文件存在。
-            operateHandlerValidator.makeSureBillFileExists(billFileKey);
+            handlerValidator.makeSureBillFileExists(billFileKey);
 
             // 3. 获取票据文件对应的票据，并确认用户有权限操作票据。
             BillFileInfo billFileInfo = billFileInfoMaintainService.get(billFileKey);
-            operateHandlerValidator.makeSureUserInspectPermittedForFundChange(userKey, billFileInfo.getFundChangeKey());
+            handlerValidator.makeSureUserInspectPermittedForFundChange(userKey, billFileInfo.getFundChangeKey());
 
             // 4. 下载票据文件。
             byte[] content = ftpHandler.getFileContent(
@@ -69,14 +69,14 @@ public class BillFileOperateHandlerImpl implements BillFileOperateHandler {
     public void uploadBillFile(StringIdKey userKey, BillFileUploadInfo billFileUploadInfo) throws HandlerException {
         try {
             // 1. 确认用户存在。
-            operateHandlerValidator.makeSureUserExists(userKey);
+            handlerValidator.makeSureUserExists(userKey);
 
             // 2. 确认票据文件所属的票据存在。
             LongIdKey fundChangeKey = billFileUploadInfo.getFundChangeKey();
-            operateHandlerValidator.makeSureFundChangeExists(fundChangeKey);
+            handlerValidator.makeSureFundChangeExists(fundChangeKey);
 
             // 3. 确认用户有权限操作票据。
-            operateHandlerValidator.makeSureUserModifyPermittedForFundChange(userKey, fundChangeKey);
+            handlerValidator.makeSureUserModifyPermittedForFundChange(userKey, fundChangeKey);
 
             // 4. 分配主键。
             LongIdKey billFileKey = keyFetcher.fetchKey();
@@ -114,14 +114,14 @@ public class BillFileOperateHandlerImpl implements BillFileOperateHandler {
     public void removeBillFile(StringIdKey userKey, LongIdKey billFileKey) throws HandlerException {
         try {
             // 1. 确认用户存在。
-            operateHandlerValidator.makeSureUserExists(userKey);
+            handlerValidator.makeSureUserExists(userKey);
 
             // 2. 确认票据文件存在。
-            operateHandlerValidator.makeSureBillFileExists(billFileKey);
+            handlerValidator.makeSureBillFileExists(billFileKey);
 
             // 3. 获取票据文件对应的票据，并确认用户有权限操作票据。
             BillFileInfo billFileInfo = billFileInfoMaintainService.get(billFileKey);
-            operateHandlerValidator.makeSureUserModifyPermittedForFundChange(userKey, billFileInfo.getFundChangeKey());
+            handlerValidator.makeSureUserModifyPermittedForFundChange(userKey, billFileInfo.getFundChangeKey());
 
             // 4. 如果存在 BillFile 文件，则删除。
             if (ftpHandler.existsFile(new String[]{FtpConstants.PATH_BILL_FILE}, getFileName(billFileKey))) {

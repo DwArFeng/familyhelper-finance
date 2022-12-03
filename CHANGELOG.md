@@ -4,6 +4,8 @@
 
 #### 功能构建
 
+- `OperateHandlerValidator` 重命名为 `HandlerValidator`。
+
 - 使用 `MapStruct` 重构 `BeanTransformer`。
 
 - 提醒驱动机制实现。

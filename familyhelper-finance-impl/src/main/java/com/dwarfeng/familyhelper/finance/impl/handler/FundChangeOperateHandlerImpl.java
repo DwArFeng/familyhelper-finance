@@ -17,14 +17,14 @@ public class FundChangeOperateHandlerImpl implements FundChangeOperateHandler {
 
     private final FundChangeMaintainService fundChangeMaintainService;
 
-    private final OperateHandlerValidator operateHandlerValidator;
+    private final HandlerValidator handlerValidator;
 
     public FundChangeOperateHandlerImpl(
             FundChangeMaintainService fundChangeMaintainService,
-            OperateHandlerValidator operateHandlerValidator
+            HandlerValidator handlerValidator
     ) {
         this.fundChangeMaintainService = fundChangeMaintainService;
-        this.operateHandlerValidator = operateHandlerValidator;
+        this.handlerValidator = handlerValidator;
     }
 
     @Override
@@ -34,13 +34,13 @@ public class FundChangeOperateHandlerImpl implements FundChangeOperateHandler {
             LongIdKey accountBookKey = fundChangeRecordInfo.getAccountBookKey();
 
             // 1. 确认用户存在。
-            operateHandlerValidator.makeSureUserExists(userKey);
+            handlerValidator.makeSureUserExists(userKey);
 
             // 2. 确认账本存在。
-            operateHandlerValidator.makeSureAccountBookExists(accountBookKey);
+            handlerValidator.makeSureAccountBookExists(accountBookKey);
 
             // 3. 确认用户有权限操作指定的账本。
-            operateHandlerValidator.makeSureUserModifyPermittedForAccountBook(userKey, accountBookKey);
+            handlerValidator.makeSureUserModifyPermittedForAccountBook(userKey, accountBookKey);
 
             // 4. 根据 fundChangeRecordInfo 以及创建的规则组合 资金变更 实体。
             FundChange fundChange = new FundChange(
@@ -64,13 +64,13 @@ public class FundChangeOperateHandlerImpl implements FundChangeOperateHandler {
             LongIdKey fundChangeKey = fundChangeUpdateInfo.getFundChangeKey();
 
             // 1. 确认用户存在。
-            operateHandlerValidator.makeSureUserExists(userKey);
+            handlerValidator.makeSureUserExists(userKey);
 
             // 2. 确认资金变更存在。
-            operateHandlerValidator.makeSureFundChangeExists(fundChangeKey);
+            handlerValidator.makeSureFundChangeExists(fundChangeKey);
 
             // 3. 确认用户有权限操作指定的资金变更记录。
-            operateHandlerValidator.makeSureUserModifyPermittedForFundChange(userKey, fundChangeKey);
+            handlerValidator.makeSureUserModifyPermittedForFundChange(userKey, fundChangeKey);
 
             // 4. 根据 fundChangeUpdateInfo 以及更新的规则设置 资金变更 实体。
             FundChange fundChange = fundChangeMaintainService.get(fundChangeKey);
@@ -91,13 +91,13 @@ public class FundChangeOperateHandlerImpl implements FundChangeOperateHandler {
     public void removeFundChange(StringIdKey userKey, LongIdKey fundChangeKey) throws HandlerException {
         try {
             // 1. 确认用户存在。
-            operateHandlerValidator.makeSureUserExists(userKey);
+            handlerValidator.makeSureUserExists(userKey);
 
             // 2. 确认资金变更存在。
-            operateHandlerValidator.makeSureFundChangeExists(fundChangeKey);
+            handlerValidator.makeSureFundChangeExists(fundChangeKey);
 
             // 3. 确认用户有权限操作指定的资金变更。
-            operateHandlerValidator.makeSureUserModifyPermittedForFundChange(userKey, fundChangeKey);
+            handlerValidator.makeSureUserModifyPermittedForFundChange(userKey, fundChangeKey);
 
             // 4. 存在删除指定的资金变更。
             fundChangeMaintainService.deleteIfExists(fundChangeKey);

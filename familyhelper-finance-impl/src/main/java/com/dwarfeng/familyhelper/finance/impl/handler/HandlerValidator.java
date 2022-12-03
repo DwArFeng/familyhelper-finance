@@ -25,7 +25,7 @@ import java.util.Objects;
  * @since 1.4.0
  */
 @Component
-public class OperateHandlerValidator {
+public class HandlerValidator {
 
     private final UserMaintainService userMaintainService;
     private final AccountBookMaintainService accountBookMaintainService;
@@ -34,7 +34,7 @@ public class OperateHandlerValidator {
     private final FundChangeMaintainService fundChangeMaintainService;
     private final BillFileInfoMaintainService billFileInfoMaintainService;
 
-    public OperateHandlerValidator(
+    public HandlerValidator(
             UserMaintainService userMaintainService,
             AccountBookMaintainService accountBookMaintainService,
             PoabMaintainService poabMaintainService,

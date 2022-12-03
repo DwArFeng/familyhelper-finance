@@ -26,16 +26,16 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
     private final AccountBookMaintainService accountBookMaintainService;
     private final PoabMaintainService poabMaintainService;
 
-    private final OperateHandlerValidator operateHandlerValidator;
+    private final HandlerValidator handlerValidator;
 
     public AccountBookOperateHandlerImpl(
             AccountBookMaintainService accountBookMaintainService,
             PoabMaintainService poabMaintainService,
-            OperateHandlerValidator operateHandlerValidator
+            HandlerValidator handlerValidator
     ) {
         this.accountBookMaintainService = accountBookMaintainService;
         this.poabMaintainService = poabMaintainService;
-        this.operateHandlerValidator = operateHandlerValidator;
+        this.handlerValidator = handlerValidator;
     }
 
 
@@ -44,7 +44,7 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
             throws HandlerException {
         try {
             // 1. 确认用户存在。
-            operateHandlerValidator.makeSureUserExists(userKey);
+            handlerValidator.makeSureUserExists(userKey);
 
             // 2. 根据 accountBookCreateInfo 以及创建的规则组合 账本 实体。
             AccountBook accountBook = new AccountBook(
@@ -79,13 +79,13 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
             LongIdKey accountBookKey = accountBookUpdateInfo.getAccountBookKey();
 
             // 1. 确认用户存在。
-            operateHandlerValidator.makeSureUserExists(userKey);
+            handlerValidator.makeSureUserExists(userKey);
 
             // 2. 确认账本存在。
-            operateHandlerValidator.makeSureAccountBookExists(accountBookKey);
+            handlerValidator.makeSureAccountBookExists(accountBookKey);
 
             // 3. 确认用户有权限操作指定的账本。
-            operateHandlerValidator.makeSureUserModifyPermittedForAccountBook(userKey, accountBookKey);
+            handlerValidator.makeSureUserModifyPermittedForAccountBook(userKey, accountBookKey);
 
             // 4. 根据 accountBookUpdateInfo 以及更新的规则设置 账本 实体。
             AccountBook accountBook = accountBookMaintainService.get(accountBookKey);
@@ -105,13 +105,13 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
     public void removeAccountBook(StringIdKey userKey, LongIdKey accountBookKey) throws HandlerException {
         try {
             // 1. 确认用户存在。
-            operateHandlerValidator.makeSureUserExists(userKey);
+            handlerValidator.makeSureUserExists(userKey);
 
             // 2. 确认账本存在。
-            operateHandlerValidator.makeSureAccountBookExists(accountBookKey);
+            handlerValidator.makeSureAccountBookExists(accountBookKey);
 
             // 3. 确认用户有权限操作指定的账本。
-            operateHandlerValidator.makeSureUserModifyPermittedForAccountBook(userKey, accountBookKey);
+            handlerValidator.makeSureUserModifyPermittedForAccountBook(userKey, accountBookKey);
 
             // 4. 删除指定主键的账本。
             accountBookMaintainService.delete(accountBookKey);
@@ -137,17 +137,17 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
             }
 
             // 2. 确认 permissionLevel 有效。
-            operateHandlerValidator.makeSurePermissionLevelValid(permissionLevel);
+            handlerValidator.makeSurePermissionLevelValid(permissionLevel);
 
             // 3. 确认用户存在。
-            operateHandlerValidator.makeSureUserExists(ownerUserKey);
-            operateHandlerValidator.makeSureUserExists(targetUserKey);
+            handlerValidator.makeSureUserExists(ownerUserKey);
+            handlerValidator.makeSureUserExists(targetUserKey);
 
             // 4. 确认账本存在。
-            operateHandlerValidator.makeSureAccountBookExists(accountBookKey);
+            handlerValidator.makeSureAccountBookExists(accountBookKey);
 
             // 5. 确认用户有权限操作指定的账本。
-            operateHandlerValidator.makeSureUserModifyPermittedForAccountBook(ownerUserKey, accountBookKey);
+            handlerValidator.makeSureUserModifyPermittedForAccountBook(ownerUserKey, accountBookKey);
 
             // 6. 通过入口信息组合权限实体，并进行插入或更新操作。
             String permissionLabel;
@@ -188,14 +188,14 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
             }
 
             // 2. 确认用户存在。
-            operateHandlerValidator.makeSureUserExists(ownerUserKey);
-            operateHandlerValidator.makeSureUserExists(targetUserKey);
+            handlerValidator.makeSureUserExists(ownerUserKey);
+            handlerValidator.makeSureUserExists(targetUserKey);
 
             // 3. 确认账本存在。
-            operateHandlerValidator.makeSureAccountBookExists(accountBookKey);
+            handlerValidator.makeSureAccountBookExists(accountBookKey);
 
             // 4. 确认用户有权限操作指定的账本。
-            operateHandlerValidator.makeSureUserModifyPermittedForAccountBook(ownerUserKey, accountBookKey);
+            handlerValidator.makeSureUserModifyPermittedForAccountBook(ownerUserKey, accountBookKey);
 
             // 5. 通过入口信息组合权限实体主键，并进行存在删除操作。
             PoabKey poabKey = new PoabKey(accountBookKey.getLongId(), targetUserKey.getStringId());
