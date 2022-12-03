@@ -4,6 +4,8 @@
 
 #### 功能构建
 
+- 使用 `MapStruct` 重构 `BeanTransformer`。
+
 - 提醒驱动机制实现。
 
 - 增加依赖。
@@ -33,7 +35,7 @@
   - 升级 `hibernate-validator` 依赖版本为 `6.2.5.Final` 以规避漏洞。
   - 升级 `dutil` 依赖版本为 `beta-0.3.2.a` 以规避漏洞。
   - 升级 `snowflake` 依赖版本为 `1.4.10.a` 以规避漏洞。
-  - 升级 `subgrade` 依赖版本为 `1.2.14.a` 以规避漏洞。
+  - 升级 `subgrade` 依赖版本为 `1.3.0.a` 以规避漏洞。
   - 升级 `dwarfeng-ftp` 依赖版本为 `1.1.2.a` 以规避漏洞。
   - 升级 `spring-terminator` 依赖版本为 `1.0.10.a` 以规避漏洞。
   - 升级 `spring-telqos` 依赖版本为 `1.1.5.a` 以规避漏洞。
@@ -63,6 +65,7 @@
   - 删除 `el` 依赖。
   - 删除 `zkclient` 依赖。
   - 删除 `commons-net` 依赖。
+  - 删除 `dozer` 依赖。
 
 ---
 

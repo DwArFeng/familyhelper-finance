@@ -4,13 +4,12 @@ import com.dwarfeng.familyhelper.finance.sdk.bean.entity.*;
 import com.dwarfeng.familyhelper.finance.sdk.bean.key.formatter.PoabStringKeyFormatter;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.*;
 import com.dwarfeng.familyhelper.finance.stack.bean.key.PoabKey;
-import com.dwarfeng.subgrade.impl.bean.DozerBeanTransformer;
+import com.dwarfeng.subgrade.impl.bean.MapStructBeanTransformer;
 import com.dwarfeng.subgrade.impl.cache.RedisBatchBaseCache;
 import com.dwarfeng.subgrade.sdk.redis.formatter.LongIdStringKeyFormatter;
 import com.dwarfeng.subgrade.sdk.redis.formatter.StringIdStringKeyFormatter;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
-import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +19,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 public class CacheConfiguration {
 
     private final RedisTemplate<String, ?> template;
-    private final Mapper mapper;
 
     @Value("${cache.prefix.entity.account_book}")
     private String accountBookPrefix;
@@ -47,9 +45,8 @@ public class CacheConfiguration {
     @Value("${cache.prefix.entity.remind_driver_support}")
     private String remindDriverSupportPrefix;
 
-    public CacheConfiguration(RedisTemplate<String, ?> template, Mapper mapper) {
+    public CacheConfiguration(RedisTemplate<String, ?> template) {
         this.template = template;
-        this.mapper = mapper;
     }
 
     @Bean
@@ -58,7 +55,7 @@ public class CacheConfiguration {
         return new RedisBatchBaseCache<>(
                 (RedisTemplate<String, FastJsonAccountBook>) template,
                 new LongIdStringKeyFormatter(accountBookPrefix),
-                new DozerBeanTransformer<>(AccountBook.class, FastJsonAccountBook.class, mapper)
+                new MapStructBeanTransformer<>(AccountBook.class, FastJsonAccountBook.class, FastJsonMapper.class)
         );
     }
 
@@ -68,7 +65,7 @@ public class CacheConfiguration {
         return new RedisBatchBaseCache<>(
                 (RedisTemplate<String, FastJsonBankCard>) template,
                 new LongIdStringKeyFormatter(bankCardPrefix),
-                new DozerBeanTransformer<>(BankCard.class, FastJsonBankCard.class, mapper)
+                new MapStructBeanTransformer<>(BankCard.class, FastJsonBankCard.class, FastJsonMapper.class)
         );
     }
 
@@ -79,7 +76,9 @@ public class CacheConfiguration {
         return new RedisBatchBaseCache<>(
                 (RedisTemplate<String, FastJsonBankCardTypeIndicator>) template,
                 new StringIdStringKeyFormatter(bankCardTypeIndicatorPrefix),
-                new DozerBeanTransformer<>(BankCardTypeIndicator.class, FastJsonBankCardTypeIndicator.class, mapper)
+                new MapStructBeanTransformer<>(
+                        BankCardTypeIndicator.class, FastJsonBankCardTypeIndicator.class, FastJsonMapper.class
+                )
         );
     }
 
@@ -89,7 +88,7 @@ public class CacheConfiguration {
         return new RedisBatchBaseCache<>(
                 (RedisTemplate<String, FastJsonFundChange>) template,
                 new LongIdStringKeyFormatter(fundChangePrefix),
-                new DozerBeanTransformer<>(FundChange.class, FastJsonFundChange.class, mapper)
+                new MapStructBeanTransformer<>(FundChange.class, FastJsonFundChange.class, FastJsonMapper.class)
         );
     }
 
@@ -100,7 +99,9 @@ public class CacheConfiguration {
         return new RedisBatchBaseCache<>(
                 (RedisTemplate<String, FastJsonFundChangeTypeIndicator>) template,
                 new StringIdStringKeyFormatter(fundChangeTypeIndicatorPrefix),
-                new DozerBeanTransformer<>(FundChangeTypeIndicator.class, FastJsonFundChangeTypeIndicator.class, mapper)
+                new MapStructBeanTransformer<>(
+                        FundChangeTypeIndicator.class, FastJsonFundChangeTypeIndicator.class, FastJsonMapper.class
+                )
         );
     }
 
@@ -110,7 +111,7 @@ public class CacheConfiguration {
         return new RedisBatchBaseCache<>(
                 (RedisTemplate<String, FastJsonPoab>) template,
                 new PoabStringKeyFormatter(poabPrefix),
-                new DozerBeanTransformer<>(Poab.class, FastJsonPoab.class, mapper)
+                new MapStructBeanTransformer<>(Poab.class, FastJsonPoab.class, FastJsonMapper.class)
         );
     }
 
@@ -120,7 +121,7 @@ public class CacheConfiguration {
         return new RedisBatchBaseCache<>(
                 (RedisTemplate<String, FastJsonUser>) template,
                 new StringIdStringKeyFormatter(userPrefix),
-                new DozerBeanTransformer<>(User.class, FastJsonUser.class, mapper)
+                new MapStructBeanTransformer<>(User.class, FastJsonUser.class, FastJsonMapper.class)
         );
     }
 
@@ -131,7 +132,9 @@ public class CacheConfiguration {
         return new RedisBatchBaseCache<>(
                 (RedisTemplate<String, FastJsonTotalBalanceHistory>) template,
                 new LongIdStringKeyFormatter(totalBalanceHistoryPrefix),
-                new DozerBeanTransformer<>(TotalBalanceHistory.class, FastJsonTotalBalanceHistory.class, mapper)
+                new MapStructBeanTransformer<>(
+                        TotalBalanceHistory.class, FastJsonTotalBalanceHistory.class, FastJsonMapper.class
+                )
         );
     }
 
@@ -142,7 +145,9 @@ public class CacheConfiguration {
         return new RedisBatchBaseCache<>(
                 (RedisTemplate<String, FastJsonBankCardBalanceHistory>) template,
                 new LongIdStringKeyFormatter(bankCardBalanceHistoryPrefix),
-                new DozerBeanTransformer<>(BankCardBalanceHistory.class, FastJsonBankCardBalanceHistory.class, mapper)
+                new MapStructBeanTransformer<>(
+                        BankCardBalanceHistory.class, FastJsonBankCardBalanceHistory.class, FastJsonMapper.class
+                )
         );
     }
 
@@ -152,7 +157,7 @@ public class CacheConfiguration {
         return new RedisBatchBaseCache<>(
                 (RedisTemplate<String, FastJsonBillFileInfo>) template,
                 new LongIdStringKeyFormatter(billFileInfoPrefix),
-                new DozerBeanTransformer<>(BillFileInfo.class, FastJsonBillFileInfo.class, mapper)
+                new MapStructBeanTransformer<>(BillFileInfo.class, FastJsonBillFileInfo.class, FastJsonMapper.class)
         );
     }
 
@@ -163,7 +168,9 @@ public class CacheConfiguration {
         return new RedisBatchBaseCache<>(
                 (RedisTemplate<String, FastJsonRemindDriverInfo>) template,
                 new LongIdStringKeyFormatter(remindDriverInfoPrefix),
-                new DozerBeanTransformer<>(RemindDriverInfo.class, FastJsonRemindDriverInfo.class, mapper)
+                new MapStructBeanTransformer<>(
+                        RemindDriverInfo.class, FastJsonRemindDriverInfo.class, FastJsonMapper.class
+                )
         );
     }
 
@@ -174,7 +181,9 @@ public class CacheConfiguration {
         return new RedisBatchBaseCache<>(
                 (RedisTemplate<String, FastJsonRemindDriverSupport>) template,
                 new StringIdStringKeyFormatter(remindDriverSupportPrefix),
-                new DozerBeanTransformer<>(RemindDriverSupport.class, FastJsonRemindDriverSupport.class, mapper)
+                new MapStructBeanTransformer<>(
+                        RemindDriverSupport.class, FastJsonRemindDriverSupport.class, FastJsonMapper.class
+                )
         );
     }
 }
