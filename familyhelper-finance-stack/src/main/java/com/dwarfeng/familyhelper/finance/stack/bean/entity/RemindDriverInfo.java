@@ -18,6 +18,10 @@ public class RemindDriverInfo implements Entity<LongIdKey> {
     private boolean enabled;
     private String type;
     private String param;
+
+    /**
+     * 提醒人员的范围。
+     */
     private int remindScopeType;
     private String remark;
 

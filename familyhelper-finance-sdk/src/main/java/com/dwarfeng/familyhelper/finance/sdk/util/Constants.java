@@ -36,6 +36,12 @@ public final class Constants {
     @RemindScopeTypeItem
     public static final int REMIND_SCOPE_TYPE_OWNER_AND_MODIFIER = 1;
 
+    /**
+     * @since 1.4.0
+     */
+    @RemindScopeTypeItem
+    public static final int REMIND_SCOPE_TYPE_ALL_PERMITTED = 1;
+
     private static final Lock LOCK = new ReentrantLock();
 
     private static List<Integer> remindScopeTypeSpace = null;
