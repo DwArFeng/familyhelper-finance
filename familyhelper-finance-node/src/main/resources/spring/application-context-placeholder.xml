@@ -36,6 +36,8 @@
                 <value>file:conf/ftp/*.properties</value>
                 <!--suppress SpringXmlModelInspection -->
                 <value>file:conf/curator/*.properties</value>
+                <!--suppress SpringXmlModelInspection -->
+                <value>file:confext/*.properties</value>
             </list>
         </property>
     </bean>
