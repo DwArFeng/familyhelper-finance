@@ -4,7 +4,9 @@
 
 #### 功能构建
 
-- (无)
+- 增加运维指令。
+  - com.dwarfeng.familyhelper.finance.impl.service.telqos.RemindDriveCommand。
+  - com.dwarfeng.familyhelper.finance.impl.service.telqos.RemindDriveLocalCacheCommand。
 
 #### Bug修复
 
