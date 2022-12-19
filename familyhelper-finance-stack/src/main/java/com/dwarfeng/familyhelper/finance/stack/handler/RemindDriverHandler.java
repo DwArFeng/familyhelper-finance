@@ -15,8 +15,8 @@ public interface RemindDriverHandler extends Handler {
      * 寻找指定的提醒驱动器。
      *
      * @param type 提醒驱动器的类型。
-     * @return 符合驱动类型的指定的提醒驱动器。
-     * @throws HandlerException 执行器。
+     * @return 符合驱动类型的提醒驱动器。
+     * @throws HandlerException 处理器异常。
      */
     RemindDriver find(String type) throws HandlerException;
 }
