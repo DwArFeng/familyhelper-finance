@@ -11,6 +11,8 @@ import com.dwarfeng.subgrade.stack.exception.ServiceExceptionMapper;
 import com.dwarfeng.subgrade.stack.log.LogLevel;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PreDestroy;
+
 @Service
 public class RemindDriveQosServiceImpl implements RemindDriveQosService {
 
@@ -27,6 +29,12 @@ public class RemindDriveQosServiceImpl implements RemindDriveQosService {
         this.remindDriveHandler = remindDriveHandler;
         this.remindDriveLocalCacheHandler = remindDriveLocalCacheHandler;
         this.sem = sem;
+    }
+
+    @PreDestroy
+    public void dispose() throws Exception {
+        remindDriveHandler.stop();
+        remindDriveHandler.offline();
     }
 
     @Override
