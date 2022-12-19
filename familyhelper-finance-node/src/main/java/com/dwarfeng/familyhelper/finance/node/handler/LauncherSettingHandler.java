@@ -15,6 +15,9 @@ public class LauncherSettingHandler implements Handler {
     @Value("${launcher.start_remind_drive_delay}")
     private long startRemindDriveDelay;
 
+    @Value("${launcher.start_reset_delay}")
+    private long startResetDelay;
+
     public boolean isResetRemindDriverSupport() {
         return resetRemindDriverSupport;
     }
@@ -25,5 +28,9 @@ public class LauncherSettingHandler implements Handler {
 
     public long getStartRemindDriveDelay() {
         return startRemindDriveDelay;
+    }
+
+    public long getStartResetDelay() {
+        return startResetDelay;
     }
 }

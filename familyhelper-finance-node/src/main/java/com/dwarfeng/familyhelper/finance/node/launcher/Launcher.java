@@ -3,6 +3,7 @@ package com.dwarfeng.familyhelper.finance.node.launcher;
 import com.dwarfeng.familyhelper.finance.node.handler.LauncherSettingHandler;
 import com.dwarfeng.familyhelper.finance.stack.service.RemindDriveQosService;
 import com.dwarfeng.familyhelper.finance.stack.service.RemindDriverSupportMaintainService;
+import com.dwarfeng.familyhelper.finance.stack.service.ResetQosService;
 import com.dwarfeng.springterminator.sdk.util.ApplicationUtil;
 import com.dwarfeng.subgrade.stack.exception.ServiceException;
 import org.slf4j.Logger;
@@ -71,16 +72,16 @@ public class Launcher {
                 );
             }
             // 提醒驱动处理器是否启动提醒驱动服务。
-            long enableDriveDelay = launcherSettingHandler.getStartRemindDriveDelay();
-            if (enableDriveDelay == 0) {
+            long startRemindDriveDelay = launcherSettingHandler.getStartRemindDriveDelay();
+            if (startRemindDriveDelay == 0) {
                 LOGGER.info("立即启动提醒驱动服务...");
                 try {
                     remindDriveQosService.online();
                 } catch (ServiceException e) {
                     LOGGER.error("无法启动提醒驱动服务，异常原因如下", e);
                 }
-            } else if (enableDriveDelay > 0) {
-                LOGGER.info(enableDriveDelay + " 毫秒后启动提醒驱动服务...");
+            } else if (startRemindDriveDelay > 0) {
+                LOGGER.info(startRemindDriveDelay + " 毫秒后启动提醒驱动服务...");
                 scheduler.schedule(
                         () -> {
                             LOGGER.info("启动提醒驱动服务...");
@@ -90,7 +91,33 @@ public class Launcher {
                                 LOGGER.error("无法启动提醒驱动服务，异常原因如下", e);
                             }
                         },
-                        new Date(System.currentTimeMillis() + enableDriveDelay)
+                        new Date(System.currentTimeMillis() + startRemindDriveDelay)
+                );
+            }
+
+            // 处理重置处理器的启动选项。
+            ResetQosService resetQosService = ctx.getBean(ResetQosService.class);
+            // 重置处理器是否启动重置服务。
+            long startResetDelay = launcherSettingHandler.getStartResetDelay();
+            if (startResetDelay == 0) {
+                LOGGER.info("立即启动重置服务...");
+                try {
+                    resetQosService.start();
+                } catch (ServiceException e) {
+                    LOGGER.error("无法启动重置服务，异常原因如下", e);
+                }
+            } else if (startResetDelay > 0) {
+                LOGGER.info(startResetDelay + " 毫秒后启动重置服务...");
+                scheduler.schedule(
+                        () -> {
+                            LOGGER.info("启动重置服务...");
+                            try {
+                                resetQosService.start();
+                            } catch (ServiceException e) {
+                                LOGGER.error("无法启动重置服务，异常原因如下", e);
+                            }
+                        },
+                        new Date(System.currentTimeMillis() + startResetDelay)
                 );
             }
         });

@@ -23,6 +23,9 @@
         <context:exclude-filter
                 type="regex" expression="^com\.dwarfeng\.familyhelper\.finance\.impl\.handler\.pusher\..*$"
         />
+        <context:exclude-filter
+                type="regex" expression="^com\.dwarfeng\.familyhelper\.finance\.impl\.handler\.resetter\..*$"
+        />
     </context:component-scan>
     <!--扫描配置类所在的包。 -->
     <context:component-scan base-package="com.dwarfeng.familyhelper.finance.node.configuration"/>

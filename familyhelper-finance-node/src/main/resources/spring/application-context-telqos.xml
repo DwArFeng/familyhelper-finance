@@ -20,6 +20,7 @@
             <telqos:command-impl ref="memoryCommand"/>
             <telqos:command-impl ref="remindDriveCommand"/>
             <telqos:command-impl ref="remindDriveLocalCacheCommand"/>
+            <telqos:command-impl ref="resetCommand"/>
         </telqos:command>
     </telqos:config>
 
