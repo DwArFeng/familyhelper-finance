@@ -38,7 +38,6 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
         this.handlerValidator = handlerValidator;
     }
 
-
     @Override
     public LongIdKey createAccountBook(StringIdKey userKey, AccountBookCreateInfo accountBookCreateInfo)
             throws HandlerException {

@@ -46,7 +46,6 @@ public class RemindDriverHandlerImpl implements RemindDriverHandler {
                 .findAny().orElseThrow(() -> new UnsupportedRemindDriverTypeException(type));
     }
 
-
     private class InternalRemindDriverContext implements RemindDriver.Context {
 
         @Override
