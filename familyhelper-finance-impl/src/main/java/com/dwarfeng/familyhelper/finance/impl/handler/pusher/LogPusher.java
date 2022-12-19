@@ -2,6 +2,7 @@ package com.dwarfeng.familyhelper.finance.impl.handler.pusher;
 
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.RemindInfo;
 import com.dwarfeng.subgrade.stack.exception.HandlerException;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -39,6 +40,13 @@ public class LogPusher extends AbstractPusher {
     public void remindHappened(RemindInfo remindInfo) throws HandlerException {
         String title = "提醒事件:";
         String message = Objects.toString(remindInfo);
+        logData(title, message);
+    }
+
+    @Override
+    public void remindDriveReset() throws HandlerException {
+        String title = "提醒驱动重置事件:";
+        String message = StringUtils.EMPTY;
         logData(title, message);
     }
 

@@ -59,6 +59,17 @@ public class MultiPusher extends AbstractPusher {
     }
 
     @Override
+    public void remindDriveReset() {
+        for (Pusher delegate : delegates) {
+            try {
+                delegate.remindDriveReset();
+            } catch (Exception e) {
+                LOGGER.warn(EXCEPTION_MESSAGE, e);
+            }
+        }
+    }
+
+    @Override
     public String toString() {
         return "MultiPusher{" +
                 "pusherType='" + pusherType + '\'' +

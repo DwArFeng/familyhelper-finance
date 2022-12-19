@@ -35,4 +35,9 @@ public class PushHandlerImpl implements PushHandler {
     public void remindHappened(RemindInfo remindInfo) throws HandlerException {
         pusher.remindHappened(remindInfo);
     }
+
+    @Override
+    public void remindDriveReset() throws HandlerException {
+        pusher.remindDriveReset();
+    }
 }

@@ -25,4 +25,11 @@ public interface Pusher {
      * @throws HandlerException 处理器异常。
      */
     void remindHappened(RemindInfo remindInfo) throws HandlerException;
+
+    /**
+     * 提醒驱动重置时执行的调度。
+     *
+     * @throws HandlerException 处理器异常。
+     */
+    void remindDriveReset() throws HandlerException;
 }

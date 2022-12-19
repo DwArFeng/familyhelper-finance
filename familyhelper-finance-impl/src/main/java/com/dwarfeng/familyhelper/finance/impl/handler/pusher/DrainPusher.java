@@ -23,6 +23,10 @@ public class DrainPusher extends AbstractPusher {
     }
 
     @Override
+    public void remindDriveReset() {
+    }
+
+    @Override
     public String toString() {
         return "DrainPusher{" +
                 "pusherType='" + pusherType + '\'' +
