@@ -4,7 +4,7 @@
 
 #### 功能构建
 
-- (无)
+- 优化 RemindDriver.Context 中抛出异常的类型。
 
 #### Bug修复
 

@@ -50,8 +50,8 @@ public interface RemindDriver {
          * 执行提醒动作。
          *
          * @param remindDriverInfoKey 被触发的提醒驱动信息的主键。
-         * @throws RemindDriverException 提醒驱动器异常。
+         * @throws Exception 执行动作时抛出的任何异常。
          */
-        void remind(LongIdKey remindDriverInfoKey) throws RemindDriverException;
+        void remind(LongIdKey remindDriverInfoKey) throws Exception;
     }
 }

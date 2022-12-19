@@ -1,6 +1,5 @@
 package com.dwarfeng.familyhelper.finance.impl.handler;
 
-import com.dwarfeng.familyhelper.finance.stack.exception.RemindDriverException;
 import com.dwarfeng.familyhelper.finance.stack.exception.UnsupportedRemindDriverTypeException;
 import com.dwarfeng.familyhelper.finance.stack.handler.RemindDriver;
 import com.dwarfeng.familyhelper.finance.stack.handler.RemindDriverHandler;
@@ -51,14 +50,8 @@ public class RemindDriverHandlerImpl implements RemindDriverHandler {
     private class InternalRemindDriverContext implements RemindDriver.Context {
 
         @Override
-        public void remind(LongIdKey remindDriverInfoKey) throws RemindDriverException {
-            try {
-                remindHandler.remind(remindDriverInfoKey);
-            } catch (RemindDriverException e) {
-                throw e;
-            } catch (Exception e) {
-                throw new RemindDriverException(e);
-            }
+        public void remind(LongIdKey remindDriverInfoKey) throws Exception {
+            remindHandler.remind(remindDriverInfoKey);
         }
     }
 }
