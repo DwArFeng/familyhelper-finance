@@ -8,7 +8,7 @@
 
 #### Bug修复
 
-- (无)
+- 修正 `ResetterHandlerImpl` 中 `LOGGER` 构造中的错误。
 
 #### 功能移除
 

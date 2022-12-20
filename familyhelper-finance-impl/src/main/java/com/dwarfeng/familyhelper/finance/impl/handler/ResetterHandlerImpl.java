@@ -14,7 +14,7 @@ import java.util.Optional;
 @Component
 public class ResetterHandlerImpl implements ResetterHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RemindDriverHandlerImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ResetterHandlerImpl.class);
 
     private final ResetProcessor resetProcessor;
 
