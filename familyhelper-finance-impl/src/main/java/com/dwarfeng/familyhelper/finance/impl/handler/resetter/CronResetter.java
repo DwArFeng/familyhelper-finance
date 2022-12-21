@@ -59,7 +59,7 @@ public class CronResetter extends AbstractResetter {
                 context.resetRemindDrive();
             } catch (Exception e) {
                 String message = "重置器 " + CronResetter.this +
-                        " 指定重置调度时发生异常, 提醒驱动将不会重置, 异常信息如下: ";
+                        " 执行重置调度时发生异常, 提醒驱动将不会重置, 异常信息如下: ";
                 LOGGER.warn(message, e);
             }
         }
