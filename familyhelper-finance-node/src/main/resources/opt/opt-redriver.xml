@@ -10,6 +10,45 @@
         http://www.springframework.org/schema/context/spring-context.xsd"
 >
 
-    <!--扫描handler的实现包。 -->
-    <context:component-scan base-package="com.dwarfeng.familyhelper.finance.impl.handler.redriver"/>
+    <!-- 扫描 handler 的实现包。 -->
+    <context:component-scan
+            base-package="com.dwarfeng.familyhelper.finance.impl.handler.redriver"
+            use-default-filters="false"
+    >
+        <!-- 加载 CronRemindDriver -->
+        <!--
+        <context:include-filter
+                type="assignable"
+                expression="com.dwarfeng.familyhelper.finance.impl.handler.redriver.CronRemindDriverProvider"
+        />
+        <context:include-filter
+                type="assignable"
+                expression="com.dwarfeng.familyhelper.finance.impl.handler.redriver.CronRemindDriverSupporter"
+        />
+        -->
+
+        <!-- 加载 FixedDelayRemindDriver -->
+        <!--
+        <context:include-filter
+                type="assignable"
+                expression="com.dwarfeng.familyhelper.finance.impl.handler.redriver.FixedDelayRemindDriverProvider"
+        />
+        <context:include-filter
+                type="assignable"
+                expression="com.dwarfeng.familyhelper.finance.impl.handler.redriver.FixedDelayRemindDriverSupporter"
+        />
+        -->
+
+        <!-- 加载 FixedRateRemindDriver -->
+        <!--
+        <context:include-filter
+                type="assignable"
+                expression="com.dwarfeng.familyhelper.finance.impl.handler.redriver.FixedRateRemindDriverProvider"
+        />
+        <context:include-filter
+                type="assignable"
+                expression="com.dwarfeng.familyhelper.finance.impl.handler.redriver.FixedRateRemindDriverSupporter"
+        />
+        -->
+    </context:component-scan>
 </beans>

@@ -4,7 +4,10 @@
 
 #### 功能构建
 
-- (无)
+- 优化可选加载项的文件结构。
+  - opt/opt-pusher.xml。
+  - opt/opt-redriver.xml。
+  - opt/opt-resetter.xml。
 
 #### Bug修复
 

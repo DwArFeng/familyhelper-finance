@@ -10,6 +10,30 @@
         http://www.springframework.org/schema/context/spring-context.xsd"
 >
 
-    <!--扫描handler的实现包。 -->
-    <context:component-scan base-package="com.dwarfeng.familyhelper.finance.impl.handler.pusher"/>
+    <!-- 扫描 handler 的实现包。 -->
+    <context:component-scan
+            base-package="com.dwarfeng.familyhelper.finance.impl.handler.pusher"
+            use-default-filters="false"
+    >
+        <!-- 加载 DrainPusher -->
+        <!--
+        <context:include-filter
+                type="assignable" expression="com.dwarfeng.familyhelper.finance.impl.handler.pusher.DrainPusher"
+        />
+        -->
+
+        <!-- 加载 LogPusher -->
+        <!--
+        <context:include-filter
+                type="assignable" expression="com.dwarfeng.familyhelper.finance.impl.handler.pusher.LogPusher"
+        />
+        -->
+
+        <!-- 加载 MultiPusher -->
+        <!--
+        <context:include-filter
+                type="assignable" expression="com.dwarfeng.familyhelper.finance.impl.handler.pusher.MultiPusher"
+        />
+        -->
+    </context:component-scan>
 </beans>
