@@ -10,7 +10,7 @@
     <parent>
         <artifactId>familyhelper-finance</artifactId>
         <groupId>com.dwarfeng</groupId>
-        <version>1.4.4.a-SNAPSHOT</version>
+        <version>1.4.4.a</version>
     </parent>
 
     <artifactId>familyhelper-finance-sdk</artifactId>
