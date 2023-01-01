@@ -117,7 +117,6 @@ public interface HibernateMapper {
     RemindDriverInfo remindDriverInfoFromHibernate(HibernateRemindDriverInfo hibernateRemindDriverInfo);
 
     @Mapping(target = "stringId", ignore = true)
-    @Mapping(target = "exampleContent", ignore = true)
     HibernateRemindDriverSupport remindDriverSupportToHibernate(RemindDriverSupport remindDriverSupport);
 
     @InheritInverseConfiguration

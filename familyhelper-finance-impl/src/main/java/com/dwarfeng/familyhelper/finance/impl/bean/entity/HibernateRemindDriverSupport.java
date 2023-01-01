@@ -26,8 +26,8 @@ public class HibernateRemindDriverSupport implements Bean {
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "example_content", columnDefinition = "TEXT")
-    private String exampleContent;
+    @Column(name = "example_param", columnDefinition = "TEXT")
+    private String exampleParam;
 
     public HibernateRemindDriverSupport() {
     }
@@ -66,12 +66,12 @@ public class HibernateRemindDriverSupport implements Bean {
         this.description = description;
     }
 
-    public String getExampleContent() {
-        return exampleContent;
+    public String getExampleParam() {
+        return exampleParam;
     }
 
-    public void setExampleContent(String exampleContent) {
-        this.exampleContent = exampleContent;
+    public void setExampleParam(String exampleParam) {
+        this.exampleParam = exampleParam;
     }
 
     @Override
@@ -80,6 +80,6 @@ public class HibernateRemindDriverSupport implements Bean {
                 "stringId = " + stringId + ", " +
                 "label = " + label + ", " +
                 "description = " + description + ", " +
-                "exampleContent = " + exampleContent + ")";
+                "exampleParam = " + exampleParam + ")";
     }
 }

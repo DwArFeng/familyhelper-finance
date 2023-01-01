@@ -8,7 +8,7 @@
 
 #### Bug修复
 
-- (无)
+- 修正 `HibernateRemindDriverSupport` 中的字段名称错误。
 
 #### 功能移除
 
