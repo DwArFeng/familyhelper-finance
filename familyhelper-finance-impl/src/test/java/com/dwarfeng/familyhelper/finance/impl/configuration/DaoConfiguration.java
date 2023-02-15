@@ -1,5 +1,6 @@
 package com.dwarfeng.familyhelper.finance.impl.configuration;
 
+import com.dwarfeng.familyhelper.finance.impl.bean.HibernateMapper;
 import com.dwarfeng.familyhelper.finance.impl.bean.entity.*;
 import com.dwarfeng.familyhelper.finance.impl.bean.key.HibernatePoabKey;
 import com.dwarfeng.familyhelper.finance.impl.dao.preset.*;

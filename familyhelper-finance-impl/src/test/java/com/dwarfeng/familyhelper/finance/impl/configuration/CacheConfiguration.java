@@ -1,5 +1,6 @@
 package com.dwarfeng.familyhelper.finance.impl.configuration;
 
+import com.dwarfeng.familyhelper.finance.sdk.bean.FastJsonMapper;
 import com.dwarfeng.familyhelper.finance.sdk.bean.entity.*;
 import com.dwarfeng.familyhelper.finance.sdk.bean.key.formatter.PoabStringKeyFormatter;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.*;

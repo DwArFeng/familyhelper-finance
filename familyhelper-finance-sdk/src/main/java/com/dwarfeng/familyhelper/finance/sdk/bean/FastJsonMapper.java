@@ -1,5 +1,6 @@
-package com.dwarfeng.familyhelper.finance.sdk.bean.entity;
+package com.dwarfeng.familyhelper.finance.sdk.bean;
 
+import com.dwarfeng.familyhelper.finance.sdk.bean.entity.*;
 import com.dwarfeng.familyhelper.finance.sdk.bean.key.FastJsonPoabKey;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.*;
 import com.dwarfeng.familyhelper.finance.stack.bean.key.PoabKey;
