@@ -1,18 +1,18 @@
 package com.dwarfeng.familyhelper.finance.impl.service.telqos;
 
 import com.dwarfeng.familyhelper.finance.stack.service.RemindDriveQosService;
+import com.dwarfeng.springtelqos.node.config.TelqosCommand;
 import com.dwarfeng.springtelqos.sdk.command.CliCommand;
 import com.dwarfeng.springtelqos.stack.command.Context;
 import com.dwarfeng.springtelqos.stack.exception.TelqosException;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.lang3.tuple.Pair;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@TelqosCommand
 public class RemindDriveCommand extends CliCommand {
 
     private static final String COMMAND_OPTION_ONLINE = "online";
@@ -29,6 +29,8 @@ public class RemindDriveCommand extends CliCommand {
             COMMAND_OPTION_STATUS
     };
 
+    // 指令标识符，系专有术语，忽略相关的拼写检查。
+    @SuppressWarnings("SpellCheckingInspection")
     private static final String IDENTITY = "redrive";
     private static final String DESCRIPTION = "驱动处理器操作/查看";
 

@@ -4,6 +4,10 @@
 
 #### 功能构建
 
+- 升级 spring-telqos 并应用其新功能。
+  - 使用包扫描的方式注册指令。
+  - 优化 `telqos/connection.properties` 中配置的键名。
+
 - 优化 `node` 模块部分服务启停脚本的注释。
   - binres/familyhelper-start.bat。
   - binres/familyhelper-start.sh。

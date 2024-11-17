@@ -2,6 +2,7 @@ package com.dwarfeng.familyhelper.finance.impl.service.telqos;
 
 import com.dwarfeng.familyhelper.finance.stack.handler.RemindDriver;
 import com.dwarfeng.familyhelper.finance.stack.service.RemindDriveQosService;
+import com.dwarfeng.springtelqos.node.config.TelqosCommand;
 import com.dwarfeng.springtelqos.sdk.command.CliCommand;
 import com.dwarfeng.springtelqos.stack.command.Context;
 import com.dwarfeng.springtelqos.stack.exception.TelqosException;
@@ -12,13 +13,12 @@ import org.apache.commons.cli.ParseException;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Component
+@TelqosCommand
 public class RemindDriveLocalCacheCommand extends CliCommand {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RemindDriveLocalCacheCommand.class);
