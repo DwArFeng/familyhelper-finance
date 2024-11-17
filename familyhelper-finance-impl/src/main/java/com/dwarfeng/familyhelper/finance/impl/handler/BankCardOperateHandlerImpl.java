@@ -7,6 +7,7 @@ import com.dwarfeng.familyhelper.finance.stack.bean.entity.BankCard;
 import com.dwarfeng.familyhelper.finance.stack.handler.BankCardOperateHandler;
 import com.dwarfeng.familyhelper.finance.stack.service.AccountBookMaintainService;
 import com.dwarfeng.familyhelper.finance.stack.service.BankCardMaintainService;
+import com.dwarfeng.subgrade.sdk.exception.HandlerExceptionHelper;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.HandlerException;
@@ -56,10 +57,8 @@ public class BankCardOperateHandlerImpl implements BankCardOperateHandler {
 
             // 4. 插入银行卡实体，并返回生成的主键。
             return bankCardMaintainService.insert(bankCard);
-        } catch (HandlerException e) {
-            throw e;
         } catch (Exception e) {
-            throw new HandlerException(e);
+            throw HandlerExceptionHelper.parse(e);
         }
     }
 
@@ -85,10 +84,8 @@ public class BankCardOperateHandlerImpl implements BankCardOperateHandler {
 
             // 5. 更新银行卡实体。
             bankCardMaintainService.update(bankCard);
-        } catch (HandlerException e) {
-            throw e;
         } catch (Exception e) {
-            throw new HandlerException(e);
+            throw HandlerExceptionHelper.parse(e);
         }
     }
 
@@ -117,10 +114,8 @@ public class BankCardOperateHandlerImpl implements BankCardOperateHandler {
             ).getData().stream().map(BankCard::getBalanceValue).reduce(BigDecimal.ZERO, BigDecimal::add);
             accountBook.setTotalValue(totalBalance);
             accountBookMaintainService.update(accountBook);
-        } catch (HandlerException e) {
-            throw e;
         } catch (Exception e) {
-            throw new HandlerException(e);
+            throw HandlerExceptionHelper.parse(e);
         }
     }
 }

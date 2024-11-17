@@ -29,7 +29,7 @@ public class BillFileOperateServiceImpl implements BillFileOperateService {
         try {
             return billFileOperateHandler.downloadBillFile(userKey, billFileKey);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("下载票据文件时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("下载票据文件时发生异常", LogLevel.WARN, e, sem);
         }
     }
 
@@ -38,7 +38,7 @@ public class BillFileOperateServiceImpl implements BillFileOperateService {
         try {
             billFileOperateHandler.uploadBillFile(userKey, billFileUploadInfo);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("上传票据文件时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("上传票据文件时发生异常", LogLevel.WARN, e, sem);
         }
     }
 
@@ -47,7 +47,7 @@ public class BillFileOperateServiceImpl implements BillFileOperateService {
         try {
             billFileOperateHandler.removeBillFile(userKey, billFileKey);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("删除票据文件时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("删除票据文件时发生异常", LogLevel.WARN, e, sem);
         }
     }
 }

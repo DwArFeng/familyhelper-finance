@@ -12,6 +12,7 @@ import com.dwarfeng.familyhelper.finance.stack.service.AccountBookMaintainServic
 import com.dwarfeng.familyhelper.finance.stack.service.PoabMaintainService;
 import com.dwarfeng.familyhelper.finance.stack.service.RemindDriverInfoMaintainService;
 import com.dwarfeng.familyhelper.finance.stack.service.UserMaintainService;
+import com.dwarfeng.subgrade.sdk.exception.HandlerExceptionHelper;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.HandlerException;
@@ -70,10 +71,8 @@ public class RemindHandlerImpl implements RemindHandler {
 
             // 调用推送处理器推送事件。
             pushHandler.remindHappened(remindInfo);
-        } catch (HandlerException e) {
-            throw e;
         } catch (Exception e) {
-            throw new HandlerException(e);
+            throw HandlerExceptionHelper.parse(e);
         }
     }
 

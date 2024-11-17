@@ -18,9 +18,9 @@ import com.dwarfeng.subgrade.stack.log.LogLevel;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,11 +44,7 @@ public class RemindDriverSupportMaintainServiceImpl implements RemindDriverSuppo
         this.crudService = crudService;
         this.entireLookupService = entireLookupService;
         this.presetLookupService = presetLookupService;
-        if (Objects.isNull(remindDriverSupporters)) {
-            this.remindDriverSupporters = new ArrayList<>();
-        } else {
-            this.remindDriverSupporters = remindDriverSupporters;
-        }
+        this.remindDriverSupporters = Optional.ofNullable(remindDriverSupporters).orElse(Collections.emptyList());
         this.sem = sem;
     }
 
@@ -174,12 +170,23 @@ public class RemindDriverSupportMaintainServiceImpl implements RemindDriverSuppo
         return crudService.batchGetIfExists(keys);
     }
 
+    @Deprecated
     @Override
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public List<StringIdKey> batchInsertIfExists(@SkipRecord List<RemindDriverSupport> elements) throws ServiceException {
+    public List<StringIdKey> batchInsertIfExists(@SkipRecord List<RemindDriverSupport> elements)
+            throws ServiceException {
         return crudService.batchInsertIfExists(elements);
+    }
+
+    @Override
+    @BehaviorAnalyse
+    @SkipRecord
+    @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
+    public List<StringIdKey> batchInsertIfNotExists(@SkipRecord List<RemindDriverSupport> elements)
+            throws ServiceException {
+        return crudService.batchInsertIfNotExists(elements);
     }
 
     @Override
@@ -200,7 +207,8 @@ public class RemindDriverSupportMaintainServiceImpl implements RemindDriverSuppo
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", rollbackFor = Exception.class)
-    public List<StringIdKey> batchInsertOrUpdate(@SkipRecord List<RemindDriverSupport> elements) throws ServiceException {
+    public List<StringIdKey> batchInsertOrUpdate(@SkipRecord List<RemindDriverSupport> elements)
+            throws ServiceException {
         return crudService.batchInsertOrUpdate(elements);
     }
 
@@ -224,6 +232,38 @@ public class RemindDriverSupportMaintainServiceImpl implements RemindDriverSuppo
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
+    public List<RemindDriverSupport> lookupAsList() throws ServiceException {
+        return entireLookupService.lookupAsList();
+    }
+
+    @Override
+    @BehaviorAnalyse
+    @SkipRecord
+    @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
+    public List<RemindDriverSupport> lookupAsList(PagingInfo pagingInfo) throws ServiceException {
+        return entireLookupService.lookupAsList(pagingInfo);
+    }
+
+    @Override
+    @BehaviorAnalyse
+    @SkipRecord
+    @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
+    public RemindDriverSupport lookupFirst() throws ServiceException {
+        return entireLookupService.lookupFirst();
+    }
+
+    @Override
+    @BehaviorAnalyse
+    @SkipRecord
+    @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
+    public int lookupCount() throws ServiceException {
+        return entireLookupService.lookupCount();
+    }
+
+    @Override
+    @BehaviorAnalyse
+    @SkipRecord
+    @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
     public PagedData<RemindDriverSupport> lookup(String preset, Object[] objs) throws ServiceException {
         return presetLookupService.lookup(preset, objs);
     }
@@ -232,28 +272,62 @@ public class RemindDriverSupportMaintainServiceImpl implements RemindDriverSuppo
     @BehaviorAnalyse
     @SkipRecord
     @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
-    public PagedData<RemindDriverSupport> lookup(String preset, Object[] objs, PagingInfo pagingInfo) throws ServiceException {
+    public PagedData<RemindDriverSupport> lookup(String preset, Object[] objs, PagingInfo pagingInfo)
+            throws ServiceException {
         return presetLookupService.lookup(preset, objs, pagingInfo);
+    }
+
+    @Override
+    @BehaviorAnalyse
+    @SkipRecord
+    @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
+    public List<RemindDriverSupport> lookupAsList(String preset, Object[] objs) throws ServiceException {
+        return presetLookupService.lookupAsList(preset, objs);
+    }
+
+    @Override
+    @BehaviorAnalyse
+    @SkipRecord
+    @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
+    public List<RemindDriverSupport> lookupAsList(String preset, Object[] objs, PagingInfo pagingInfo)
+            throws ServiceException {
+        return presetLookupService.lookupAsList(preset, objs, pagingInfo);
+    }
+
+    @Override
+    @BehaviorAnalyse
+    @SkipRecord
+    @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
+    public RemindDriverSupport lookupFirst(String preset, Object[] objs) throws ServiceException {
+        return presetLookupService.lookupFirst(preset, objs);
+    }
+
+    @Override
+    @BehaviorAnalyse
+    @SkipRecord
+    @Transactional(transactionManager = "hibernateTransactionManager", readOnly = true, rollbackFor = Exception.class)
+    public int lookupCount(String preset, Object[] objs) throws ServiceException {
+        return presetLookupService.lookupCount(preset, objs);
     }
 
     @Override
     @BehaviorAnalyse
     public void reset() throws ServiceException {
         try {
-            List<StringIdKey> remindDriverKeys = entireLookupService.lookup().getData().stream()
+            List<StringIdKey> providerKeys = entireLookupService.lookupAsList().stream()
                     .map(RemindDriverSupport::getKey).collect(Collectors.toList());
-            crudService.batchDelete(remindDriverKeys);
-            List<RemindDriverSupport> remindDriverSupports = remindDriverSupporters.stream().map(supporter -> new RemindDriverSupport(
+            crudService.batchDelete(providerKeys);
+            List<RemindDriverSupport> remindDriverSupports = remindDriverSupporters.stream().map(
+                    supporter -> new RemindDriverSupport(
                     new StringIdKey(supporter.provideType()),
                     supporter.provideLabel(),
                     supporter.provideDescription(),
                     supporter.provideExampleParam()
-            )).collect(Collectors.toList());
+                    )
+            ).collect(Collectors.toList());
             crudService.batchInsert(remindDriverSupports);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("重置调度器支持时发生异常",
-                    LogLevel.WARN, sem, e
-            );
+            throw ServiceExceptionHelper.logParse("重置映射器支持时发生异常", LogLevel.WARN, e, sem);
         }
     }
 }

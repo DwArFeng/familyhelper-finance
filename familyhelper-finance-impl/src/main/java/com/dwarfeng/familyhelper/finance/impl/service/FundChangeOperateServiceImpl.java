@@ -30,7 +30,7 @@ public class FundChangeOperateServiceImpl implements FundChangeOperateService {
         try {
             return fundChangeOperateHandler.recordFundChange(userKey, fundChangeRecordInfo);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("记录资金变更时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("记录资金变更时发生异常", LogLevel.WARN, e, sem);
         }
     }
 
@@ -40,7 +40,7 @@ public class FundChangeOperateServiceImpl implements FundChangeOperateService {
         try {
             fundChangeOperateHandler.updateFundChange(userKey, fundChangeUpdateInfo);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("更新资金变更时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("更新资金变更时发生异常", LogLevel.WARN, e, sem);
         }
     }
 
@@ -49,7 +49,7 @@ public class FundChangeOperateServiceImpl implements FundChangeOperateService {
         try {
             fundChangeOperateHandler.removeFundChange(userKey, fundChangeKey);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("删除资金变更时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("删除资金变更时发生异常", LogLevel.WARN, e, sem);
         }
     }
 }

@@ -10,6 +10,7 @@ import com.dwarfeng.familyhelper.finance.stack.service.AccountBookMaintainServic
 import com.dwarfeng.familyhelper.finance.stack.service.BankCardBalanceHistoryMaintainService;
 import com.dwarfeng.familyhelper.finance.stack.service.BankCardMaintainService;
 import com.dwarfeng.familyhelper.finance.stack.service.TotalBalanceHistoryMaintainService;
+import com.dwarfeng.subgrade.sdk.exception.HandlerExceptionHelper;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.HandlerException;
@@ -67,10 +68,8 @@ public class BalanceOperateHandlerImpl implements BalanceOperateHandler {
             bankCard.setTempLastRecordedDate(new Date());
             bankCard.setTempFlag(true);
             bankCardMaintainService.update(bankCard);
-        } catch (HandlerException e) {
-            throw e;
         } catch (Exception e) {
-            throw new HandlerException(e);
+            throw HandlerExceptionHelper.parse(e);
         }
     }
 
@@ -127,10 +126,8 @@ public class BalanceOperateHandlerImpl implements BalanceOperateHandler {
                     "记录提交时自动创建的银行卡余额历史"
             );
             totalBalanceHistoryMaintainService.insert(totalBalanceHistory);
-        } catch (HandlerException e) {
-            throw e;
         } catch (Exception e) {
-            throw new HandlerException(e);
+            throw HandlerExceptionHelper.parse(e);
         }
     }
 
@@ -150,10 +147,8 @@ public class BalanceOperateHandlerImpl implements BalanceOperateHandler {
             BankCard bankCard = bankCardMaintainService.get(bankCardKey);
             bankCard.setTempFlag(false);
             bankCardMaintainService.update(bankCard);
-        } catch (HandlerException e) {
-            throw e;
         } catch (Exception e) {
-            throw new HandlerException(e);
+            throw HandlerExceptionHelper.parse(e);
         }
     }
 
@@ -177,10 +172,8 @@ public class BalanceOperateHandlerImpl implements BalanceOperateHandler {
                 bankCard.setTempFlag(false);
             }
             bankCardMaintainService.batchUpdate(bankCards);
-        } catch (HandlerException e) {
-            throw e;
         } catch (Exception e) {
-            throw new HandlerException(e);
+            throw HandlerExceptionHelper.parse(e);
         }
     }
 }

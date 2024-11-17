@@ -5,6 +5,7 @@ import com.dwarfeng.familyhelper.finance.stack.bean.dto.FundChangeUpdateInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.FundChange;
 import com.dwarfeng.familyhelper.finance.stack.handler.FundChangeOperateHandler;
 import com.dwarfeng.familyhelper.finance.stack.service.FundChangeMaintainService;
+import com.dwarfeng.subgrade.sdk.exception.HandlerExceptionHelper;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.HandlerException;
@@ -50,10 +51,8 @@ public class FundChangeOperateHandlerImpl implements FundChangeOperateHandler {
 
             // 4. 插入资金变更实体，并返回生成的主键。
             return fundChangeMaintainService.insert(fundChange);
-        } catch (HandlerException e) {
-            throw e;
         } catch (Exception e) {
-            throw new HandlerException(e);
+            throw HandlerExceptionHelper.parse(e);
         }
     }
 
@@ -80,10 +79,8 @@ public class FundChangeOperateHandlerImpl implements FundChangeOperateHandler {
 
             // 5. 更新资金变更实体。
             fundChangeMaintainService.update(fundChange);
-        } catch (HandlerException e) {
-            throw e;
         } catch (Exception e) {
-            throw new HandlerException(e);
+            throw HandlerExceptionHelper.parse(e);
         }
     }
 
@@ -101,10 +98,8 @@ public class FundChangeOperateHandlerImpl implements FundChangeOperateHandler {
 
             // 4. 存在删除指定的资金变更。
             fundChangeMaintainService.deleteIfExists(fundChangeKey);
-        } catch (HandlerException e) {
-            throw e;
         } catch (Exception e) {
-            throw new HandlerException(e);
+            throw HandlerExceptionHelper.parse(e);
         }
     }
 }

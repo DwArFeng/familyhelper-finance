@@ -26,7 +26,7 @@ public class RemindServiceImpl implements RemindService {
         try {
             remindHandler.remind(remindDriverInfoKey);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("指定的部件调用执行动作时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("指定的部件调用执行动作时发生异常", LogLevel.WARN, e, sem);
         }
     }
 }

@@ -34,7 +34,7 @@ public class AccountBookOperateServiceImpl implements AccountBookOperateService 
         try {
             return accountBookOperateHandler.createAccountBook(userKey, accountBookCreateInfo);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("创建账本时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("创建账本时发生异常", LogLevel.WARN, e, sem);
         }
     }
 
@@ -44,7 +44,7 @@ public class AccountBookOperateServiceImpl implements AccountBookOperateService 
         try {
             accountBookOperateHandler.updateAccountBook(userKey, accountBookUpdateInfo);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("更新账本时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("更新账本时发生异常", LogLevel.WARN, e, sem);
         }
     }
 
@@ -53,7 +53,7 @@ public class AccountBookOperateServiceImpl implements AccountBookOperateService 
         try {
             accountBookOperateHandler.removeAccountBook(userKey, accountBookKey);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("删除账本时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("删除账本时发生异常", LogLevel.WARN, e, sem);
         }
     }
 
@@ -64,7 +64,7 @@ public class AccountBookOperateServiceImpl implements AccountBookOperateService 
         try {
             accountBookOperateHandler.upsertPermission(ownerUserKey, accountBookPermissionUpsertInfo);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("添加账本的访客权限时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("添加账本的访客权限时发生异常", LogLevel.WARN, e, sem);
         }
     }
 
@@ -75,7 +75,7 @@ public class AccountBookOperateServiceImpl implements AccountBookOperateService 
         try {
             accountBookOperateHandler.removePermission(ownerUserKey, accountBookPermissionRemoveInfo);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("移除账本的访客权限时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("移除账本的访客权限时发生异常", LogLevel.WARN, e, sem);
         }
     }
 }

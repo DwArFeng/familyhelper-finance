@@ -31,7 +31,7 @@ public class BalanceOperateServiceImpl implements BalanceOperateService {
         try {
             balanceOperateHandler.recordBankCardBalance(userKey, bankCardBalanceRecordInfo);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("记录银行卡的余额时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("记录银行卡的余额时发生异常", LogLevel.WARN, e, sem);
         }
     }
 
@@ -41,7 +41,7 @@ public class BalanceOperateServiceImpl implements BalanceOperateService {
         try {
             balanceOperateHandler.recordCommit(userKey, accountBookKey);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("提交银行卡的余额时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("提交银行卡的余额时发生异常", LogLevel.WARN, e, sem);
         }
     }
 
@@ -51,7 +51,7 @@ public class BalanceOperateServiceImpl implements BalanceOperateService {
         try {
             balanceOperateHandler.rollbackBankCard(userKey, bankCardKey);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("回滚单个银行卡的余额时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("回滚单个银行卡的余额时发生异常", LogLevel.WARN, e, sem);
         }
     }
 
@@ -61,7 +61,7 @@ public class BalanceOperateServiceImpl implements BalanceOperateService {
         try {
             balanceOperateHandler.rollbackAll(userKey, accountBookKey);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("回滚整个账本的所有余额时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("回滚整个账本的所有余额时发生异常", LogLevel.WARN, e, sem);
         }
     }
 }

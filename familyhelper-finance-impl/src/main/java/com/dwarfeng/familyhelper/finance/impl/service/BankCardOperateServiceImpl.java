@@ -30,7 +30,7 @@ public class BankCardOperateServiceImpl implements BankCardOperateService {
         try {
             return bankCardOperateHandler.createBankCard(userKey, bankCardCreateInfo);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("创建银行卡时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("创建银行卡时发生异常", LogLevel.WARN, e, sem);
         }
     }
 
@@ -39,7 +39,7 @@ public class BankCardOperateServiceImpl implements BankCardOperateService {
         try {
             bankCardOperateHandler.updateBankCard(userKey, bankCardUpdateInfo);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("创建银行卡时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("创建银行卡时发生异常", LogLevel.WARN, e, sem);
         }
     }
 
@@ -48,7 +48,7 @@ public class BankCardOperateServiceImpl implements BankCardOperateService {
         try {
             bankCardOperateHandler.removeBankCard(userKey, bankCardKey);
         } catch (Exception e) {
-            throw ServiceExceptionHelper.logAndThrow("移除银行卡时发生异常", LogLevel.WARN, sem, e);
+            throw ServiceExceptionHelper.logParse("移除银行卡时发生异常", LogLevel.WARN, e, sem);
         }
     }
 }

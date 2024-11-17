@@ -11,6 +11,7 @@ import com.dwarfeng.familyhelper.finance.stack.bean.key.PoabKey;
 import com.dwarfeng.familyhelper.finance.stack.handler.AccountBookOperateHandler;
 import com.dwarfeng.familyhelper.finance.stack.service.AccountBookMaintainService;
 import com.dwarfeng.familyhelper.finance.stack.service.PoabMaintainService;
+import com.dwarfeng.subgrade.sdk.exception.HandlerExceptionHelper;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.HandlerException;
@@ -64,10 +65,8 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
 
             // 5. 返回生成的主键。
             return accountBookKey;
-        } catch (HandlerException e) {
-            throw e;
         } catch (Exception e) {
-            throw new HandlerException(e);
+            throw HandlerExceptionHelper.parse(e);
         }
     }
 
@@ -93,10 +92,8 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
 
             // 5. 更新账本实体。
             accountBookMaintainService.update(accountBook);
-        } catch (HandlerException e) {
-            throw e;
         } catch (Exception e) {
-            throw new HandlerException(e);
+            throw HandlerExceptionHelper.parse(e);
         }
     }
 
@@ -114,10 +111,8 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
 
             // 4. 删除指定主键的账本。
             accountBookMaintainService.delete(accountBookKey);
-        } catch (HandlerException e) {
-            throw e;
         } catch (Exception e) {
-            throw new HandlerException(e);
+            throw HandlerExceptionHelper.parse(e);
         }
     }
 
@@ -166,10 +161,8 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
                     "赋予用户 " + targetUserKey.getStringId() + " " + permissionLabel + "权限"
             );
             poabMaintainService.insertOrUpdate(poab);
-        } catch (HandlerException e) {
-            throw e;
         } catch (Exception e) {
-            throw new HandlerException(e);
+            throw HandlerExceptionHelper.parse(e);
         }
     }
 
@@ -199,10 +192,8 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
             // 5. 通过入口信息组合权限实体主键，并进行存在删除操作。
             PoabKey poabKey = new PoabKey(accountBookKey.getLongId(), targetUserKey.getStringId());
             poabMaintainService.deleteIfExists(poabKey);
-        } catch (HandlerException e) {
-            throw e;
         } catch (Exception e) {
-            throw new HandlerException(e);
+            throw HandlerExceptionHelper.parse(e);
         }
     }
 }

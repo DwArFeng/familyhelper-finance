@@ -28,6 +28,6 @@ public class ServiceExceptionMapperConfiguration {
         destination.put(RemindDriverInfoNotExistsException.class, ServiceExceptionCodes.REMIND_DRIVER_INFO_NOT_EXISTS);
         destination.put(RemindDriverInfoDisabledException.class, ServiceExceptionCodes.REMIND_DRIVER_INFO_DISABLED);
         destination.put(RemindScopeTypeMismatchException.class, ServiceExceptionCodes.REMIND_SCOPE_TYPE_MISMATCH);
-        return new MapServiceExceptionMapper(destination, com.dwarfeng.subgrade.sdk.exception.ServiceExceptionCodes.UNDEFINE);
+        return new MapServiceExceptionMapper(destination, com.dwarfeng.subgrade.sdk.exception.ServiceExceptionCodes.UNDEFINED);
     }
 }

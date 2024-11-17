@@ -7,10 +7,11 @@ import com.dwarfeng.familyhelper.finance.stack.bean.entity.BillFileInfo;
 import com.dwarfeng.familyhelper.finance.stack.handler.BillFileOperateHandler;
 import com.dwarfeng.familyhelper.finance.stack.service.BillFileInfoMaintainService;
 import com.dwarfeng.ftp.handler.FtpHandler;
-import com.dwarfeng.subgrade.stack.bean.key.KeyFetcher;
+import com.dwarfeng.subgrade.sdk.exception.HandlerExceptionHelper;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
 import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.HandlerException;
+import com.dwarfeng.subgrade.stack.generation.KeyGenerator;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -22,19 +23,19 @@ public class BillFileOperateHandlerImpl implements BillFileOperateHandler {
     private final BillFileInfoMaintainService billFileInfoMaintainService;
     private final FtpHandler ftpHandler;
 
-    private final KeyFetcher<LongIdKey> keyFetcher;
+    private final KeyGenerator<LongIdKey> keyGenerator;
 
     private final HandlerValidator handlerValidator;
 
     public BillFileOperateHandlerImpl(
             BillFileInfoMaintainService billFileInfoMaintainService,
             FtpHandler ftpHandler,
-            KeyFetcher<LongIdKey> keyFetcher,
+            KeyGenerator<LongIdKey> keyGenerator,
             HandlerValidator handlerValidator
     ) {
         this.billFileInfoMaintainService = billFileInfoMaintainService;
         this.ftpHandler = ftpHandler;
-        this.keyFetcher = keyFetcher;
+        this.keyGenerator = keyGenerator;
         this.handlerValidator = handlerValidator;
     }
 
@@ -52,16 +53,14 @@ public class BillFileOperateHandlerImpl implements BillFileOperateHandler {
             handlerValidator.makeSureUserInspectPermittedForFundChange(userKey, billFileInfo.getFundChangeKey());
 
             // 4. 下载票据文件。
-            byte[] content = ftpHandler.getFileContent(
+            byte[] content = ftpHandler.retrieveFile(
                     new String[]{FtpConstants.PATH_BILL_FILE}, getFileName(billFileKey)
             );
 
             // 6. 拼接 BillFile 并返回。
             return new BillFile(billFileInfo.getOriginName(), content);
-        } catch (HandlerException e) {
-            throw e;
         } catch (Exception e) {
-            throw new HandlerException(e);
+            throw HandlerExceptionHelper.parse(e);
         }
     }
 
@@ -79,7 +78,7 @@ public class BillFileOperateHandlerImpl implements BillFileOperateHandler {
             handlerValidator.makeSureUserModifyPermittedForFundChange(userKey, fundChangeKey);
 
             // 4. 分配主键。
-            LongIdKey billFileKey = keyFetcher.fetchKey();
+            LongIdKey billFileKey = keyGenerator.generate();
 
             // 5. 票据文件内容并存储（覆盖）。
             byte[] content = billFileUploadInfo.getContent();
@@ -103,10 +102,8 @@ public class BillFileOperateHandlerImpl implements BillFileOperateHandler {
             billFileInfo.setCreatedDate(currentDate);
             billFileInfo.setRemark("通过 familyhelper-finance 服务上传/更新票据文件");
             billFileInfoMaintainService.insertOrUpdate(billFileInfo);
-        } catch (HandlerException e) {
-            throw e;
         } catch (Exception e) {
-            throw new HandlerException(e);
+            throw HandlerExceptionHelper.parse(e);
         }
     }
 
@@ -130,10 +127,8 @@ public class BillFileOperateHandlerImpl implements BillFileOperateHandler {
 
             // 5. 如果存在 BillFileInfo 实体，则删除。
             billFileInfoMaintainService.deleteIfExists(billFileKey);
-        } catch (HandlerException e) {
-            throw e;
         } catch (Exception e) {
-            throw new HandlerException(e);
+            throw HandlerExceptionHelper.parse(e);
         }
     }
 
