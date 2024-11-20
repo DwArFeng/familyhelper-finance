@@ -3,10 +3,14 @@ package com.dwarfeng.familyhelper.finance.impl.handler;
 import com.dwarfeng.familyhelper.finance.stack.handler.PushHandler;
 import com.dwarfeng.familyhelper.finance.stack.handler.RemindDriveHandler;
 import com.dwarfeng.familyhelper.finance.stack.handler.RemindDriveLocalCacheHandler;
+import com.dwarfeng.subgrade.sdk.exception.HandlerExceptionHelper;
 import com.dwarfeng.subgrade.stack.exception.HandlerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * 重置处理器。
@@ -24,6 +28,8 @@ class ResetProcessor {
 
     private final PushHandler pushHandler;
 
+    private final Lock lock = new ReentrantLock();
+
     public ResetProcessor(
             RemindDriveHandler remindDriveHandler,
             RemindDriveLocalCacheHandler remindDriveLocalCacheHandler,
@@ -35,6 +41,17 @@ class ResetProcessor {
     }
 
     public void resetRemindDrive() throws HandlerException {
+        lock.lock();
+        try {
+            doResetRemindDrive();
+        } catch (Exception e) {
+            throw HandlerExceptionHelper.parse(e);
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    private void doResetRemindDrive() throws HandlerException {
         remindDriveHandler.stop();
         remindDriveLocalCacheHandler.clear();
         remindDriveHandler.start();
