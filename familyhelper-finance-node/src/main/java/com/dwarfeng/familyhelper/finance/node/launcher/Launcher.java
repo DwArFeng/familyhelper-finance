@@ -76,7 +76,7 @@ public class Launcher {
             if (startRemindDriveDelay == 0) {
                 LOGGER.info("立即启动提醒驱动服务...");
                 try {
-                    remindDriveQosService.online();
+                    remindDriveQosService.start();
                 } catch (ServiceException e) {
                     LOGGER.error("无法启动提醒驱动服务，异常原因如下", e);
                 }
