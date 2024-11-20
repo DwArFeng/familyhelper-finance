@@ -17,7 +17,7 @@ import java.util.Objects;
  */
 public class JSFixedFastJsonFundChange implements Bean {
 
-    private static final long serialVersionUID = 425011182159130846L;
+    private static final long serialVersionUID = -574180808071457802L;
 
     public static JSFixedFastJsonFundChange of(FundChange fundChange) {
         if (Objects.isNull(fundChange)) {
@@ -29,7 +29,8 @@ public class JSFixedFastJsonFundChange implements Bean {
                     fundChange.getDelta(),
                     fundChange.getChangeType(),
                     fundChange.getHappenedDate(),
-                    fundChange.getRemark()
+                    fundChange.getRemark(),
+                    fundChange.getRecordedDate()
             );
         }
     }
@@ -52,12 +53,15 @@ public class JSFixedFastJsonFundChange implements Bean {
     @JSONField(name = "remark", ordinal = 6)
     private String remark;
 
+    @JSONField(name = "recorded_date", ordinal = 7)
+    private Date recordedDate;
+
     public JSFixedFastJsonFundChange() {
     }
 
     public JSFixedFastJsonFundChange(
-            JSFixedFastJsonLongIdKey key, JSFixedFastJsonLongIdKey accountBookKey, BigDecimal delta,
-            String changeType, Date happenedDate, String remark
+            JSFixedFastJsonLongIdKey key, JSFixedFastJsonLongIdKey accountBookKey, BigDecimal delta, String changeType,
+            Date happenedDate, String remark, Date recordedDate
     ) {
         this.key = key;
         this.accountBookKey = accountBookKey;
@@ -65,6 +69,7 @@ public class JSFixedFastJsonFundChange implements Bean {
         this.changeType = changeType;
         this.happenedDate = happenedDate;
         this.remark = remark;
+        this.recordedDate = recordedDate;
     }
 
     public JSFixedFastJsonLongIdKey getKey() {
@@ -115,6 +120,14 @@ public class JSFixedFastJsonFundChange implements Bean {
         this.remark = remark;
     }
 
+    public Date getRecordedDate() {
+        return recordedDate;
+    }
+
+    public void setRecordedDate(Date recordedDate) {
+        this.recordedDate = recordedDate;
+    }
+
     @Override
     public String toString() {
         return "JSFixedFastJsonFundChange{" +
@@ -124,6 +137,7 @@ public class JSFixedFastJsonFundChange implements Bean {
                 ", changeType='" + changeType + '\'' +
                 ", happenedDate=" + happenedDate +
                 ", remark='" + remark + '\'' +
+                ", recordedDate=" + recordedDate +
                 '}';
     }
 }

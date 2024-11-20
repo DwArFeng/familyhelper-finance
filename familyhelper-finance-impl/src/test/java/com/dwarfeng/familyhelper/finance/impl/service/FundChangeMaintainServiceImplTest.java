@@ -37,7 +37,7 @@ public class FundChangeMaintainServiceImplTest {
         fundChanges = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             FundChange fundChange = new FundChange(
-                    null, null, BigDecimal.ZERO, "change_type", new Date(), "remark"
+                    null, null, BigDecimal.ZERO, "change_type", new Date(), "remark", new Date()
             );
             fundChanges.add(fundChange);
         }

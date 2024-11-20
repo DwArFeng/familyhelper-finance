@@ -1,13 +1,16 @@
 package com.dwarfeng.familyhelper.finance.sdk.bean.dto;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.dwarfeng.familyhelper.finance.sdk.util.Constraints;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.FundChangeUpdateInfo;
 import com.dwarfeng.subgrade.sdk.bean.key.WebInputLongIdKey;
 import com.dwarfeng.subgrade.stack.bean.dto.Dto;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -18,7 +21,7 @@ import java.util.Objects;
  */
 public class WebInputFundChangeUpdateInfo implements Dto {
 
-    private static final long serialVersionUID = 6862927934191227195L;
+    private static final long serialVersionUID = -8252293487980599266L;
 
     public static FundChangeUpdateInfo toStackBean(WebInputFundChangeUpdateInfo webInputFundChangeUpdateInfo) {
         if (Objects.isNull(webInputFundChangeUpdateInfo)) {
@@ -28,7 +31,8 @@ public class WebInputFundChangeUpdateInfo implements Dto {
                     WebInputLongIdKey.toStackBean(webInputFundChangeUpdateInfo.getFundChangeKey()),
                     webInputFundChangeUpdateInfo.getDelta(),
                     webInputFundChangeUpdateInfo.getChangeType(),
-                    webInputFundChangeUpdateInfo.getRemark()
+                    webInputFundChangeUpdateInfo.getRemark(),
+                    webInputFundChangeUpdateInfo.getHappenedDate()
             );
         }
     }
@@ -46,7 +50,11 @@ public class WebInputFundChangeUpdateInfo implements Dto {
     private String changeType;
 
     @JSONField(name = "remark")
+    @Length(max = Constraints.LENGTH_REMARK)
     private String remark;
+
+    @JSONField(name = "happened_date")
+    private Date happenedDate;
 
     public WebInputFundChangeUpdateInfo() {
     }
@@ -83,6 +91,14 @@ public class WebInputFundChangeUpdateInfo implements Dto {
         this.remark = remark;
     }
 
+    public Date getHappenedDate() {
+        return happenedDate;
+    }
+
+    public void setHappenedDate(Date happenedDate) {
+        this.happenedDate = happenedDate;
+    }
+
     @Override
     public String toString() {
         return "WebInputFundChangeUpdateInfo{" +
@@ -90,6 +106,7 @@ public class WebInputFundChangeUpdateInfo implements Dto {
                 ", delta=" + delta +
                 ", changeType='" + changeType + '\'' +
                 ", remark='" + remark + '\'' +
+                ", happenedDate=" + happenedDate +
                 '}';
     }
 }

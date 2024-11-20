@@ -1,9 +1,11 @@
 package com.dwarfeng.familyhelper.finance.sdk.bean.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.dwarfeng.familyhelper.finance.sdk.util.Constraints;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.FundChange;
 import com.dwarfeng.subgrade.sdk.bean.key.WebInputLongIdKey;
 import com.dwarfeng.subgrade.stack.bean.Bean;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -18,7 +20,7 @@ import java.util.Date;
  */
 public class WebInputFundChange implements Bean {
 
-    private static final long serialVersionUID = -8550815589001548982L;
+    private static final long serialVersionUID = 705745635724703044L;
 
     public static FundChange toStackBean(WebInputFundChange webInputFundChange) {
         return new FundChange(
@@ -27,7 +29,8 @@ public class WebInputFundChange implements Bean {
                 webInputFundChange.getDelta(),
                 webInputFundChange.getChangeType(),
                 webInputFundChange.getHappenedDate(),
-                webInputFundChange.getRemark()
+                webInputFundChange.getRemark(),
+                webInputFundChange.getRecordedDate()
         );
     }
 
@@ -50,7 +53,12 @@ public class WebInputFundChange implements Bean {
     private Date happenedDate;
 
     @JSONField(name = "remark")
+    @Length(max = Constraints.LENGTH_REMARK)
     private String remark;
+
+    @JSONField(name = "recorded_date")
+    @NotNull
+    private Date recordedDate;
 
     public WebInputFundChange() {
     }
@@ -103,6 +111,14 @@ public class WebInputFundChange implements Bean {
         this.remark = remark;
     }
 
+    public Date getRecordedDate() {
+        return recordedDate;
+    }
+
+    public void setRecordedDate(Date recordedDate) {
+        this.recordedDate = recordedDate;
+    }
+
     @Override
     public String toString() {
         return "WebInputFundChange{" +
@@ -112,6 +128,7 @@ public class WebInputFundChange implements Bean {
                 ", changeType='" + changeType + '\'' +
                 ", happenedDate=" + happenedDate +
                 ", remark='" + remark + '\'' +
+                ", recordedDate=" + recordedDate +
                 '}';
     }
 }

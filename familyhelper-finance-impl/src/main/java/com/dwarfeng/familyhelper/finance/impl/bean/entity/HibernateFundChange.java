@@ -16,7 +16,7 @@ import java.util.Set;
 @Table(name = "tbl_fund_change")
 public class HibernateFundChange implements Bean {
 
-    private static final long serialVersionUID = 8851437529624806941L;
+    private static final long serialVersionUID = 5167982927296557870L;
 
     // -----------------------------------------------------------主键-----------------------------------------------------------
     @Id
@@ -40,6 +40,10 @@ public class HibernateFundChange implements Bean {
 
     @Column(name = "remark", length = Constraints.LENGTH_REMARK)
     private String remark;
+
+    @Column(name = "recorded_date", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date recordedDate;
 
     // -----------------------------------------------------------多对一-----------------------------------------------------------
     @ManyToOne(targetEntity = HibernateAccountBook.class)
@@ -121,6 +125,14 @@ public class HibernateFundChange implements Bean {
         this.remark = remark;
     }
 
+    public Date getRecordedDate() {
+        return recordedDate;
+    }
+
+    public void setRecordedDate(Date recordedDate) {
+        this.recordedDate = recordedDate;
+    }
+
     public HibernateAccountBook getAccountBook() {
         return accountBook;
     }
@@ -146,6 +158,7 @@ public class HibernateFundChange implements Bean {
                 "changeType = " + changeType + ", " +
                 "happenedDate = " + happenedDate + ", " +
                 "remark = " + remark + ", " +
+                "recordedDate = " + recordedDate + ", " +
                 "accountBook = " + accountBook + ")";
     }
 }

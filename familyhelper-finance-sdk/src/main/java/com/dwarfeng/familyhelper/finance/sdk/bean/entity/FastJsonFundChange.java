@@ -17,7 +17,7 @@ import java.util.Objects;
  */
 public class FastJsonFundChange implements Bean {
 
-    private static final long serialVersionUID = 2732376571681108651L;
+    private static final long serialVersionUID = 1161242779769123086L;
 
     public static FastJsonFundChange of(FundChange fundChange) {
         if (Objects.isNull(fundChange)) {
@@ -29,7 +29,8 @@ public class FastJsonFundChange implements Bean {
                     fundChange.getDelta(),
                     fundChange.getChangeType(),
                     fundChange.getHappenedDate(),
-                    fundChange.getRemark()
+                    fundChange.getRemark(),
+                    fundChange.getRecordedDate()
             );
         }
     }
@@ -52,12 +53,15 @@ public class FastJsonFundChange implements Bean {
     @JSONField(name = "remark", ordinal = 6)
     private String remark;
 
+    @JSONField(name = "recorded_date", ordinal = 7)
+    private Date recordedDate;
+
     public FastJsonFundChange() {
     }
 
     public FastJsonFundChange(
             FastJsonLongIdKey key, FastJsonLongIdKey accountBookKey, BigDecimal delta, String changeType,
-            Date happenedDate, String remark
+            Date happenedDate, String remark, Date recordedDate
     ) {
         this.key = key;
         this.accountBookKey = accountBookKey;
@@ -65,6 +69,7 @@ public class FastJsonFundChange implements Bean {
         this.changeType = changeType;
         this.happenedDate = happenedDate;
         this.remark = remark;
+        this.recordedDate = recordedDate;
     }
 
     public FastJsonLongIdKey getKey() {
@@ -115,6 +120,14 @@ public class FastJsonFundChange implements Bean {
         this.remark = remark;
     }
 
+    public Date getRecordedDate() {
+        return recordedDate;
+    }
+
+    public void setRecordedDate(Date recordedDate) {
+        this.recordedDate = recordedDate;
+    }
+
     @Override
     public String toString() {
         return "FastJsonFundChange{" +
@@ -124,6 +137,7 @@ public class FastJsonFundChange implements Bean {
                 ", changeType='" + changeType + '\'' +
                 ", happenedDate=" + happenedDate +
                 ", remark='" + remark + '\'' +
+                ", recordedDate=" + recordedDate +
                 '}';
     }
 }

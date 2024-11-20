@@ -11,7 +11,9 @@ import com.dwarfeng.subgrade.stack.bean.key.StringIdKey;
 import com.dwarfeng.subgrade.stack.exception.HandlerException;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Objects;
 
 @Component
 public class FundChangeOperateHandlerImpl implements FundChangeOperateHandler {
@@ -32,24 +34,36 @@ public class FundChangeOperateHandlerImpl implements FundChangeOperateHandler {
     public LongIdKey recordFundChange(StringIdKey userKey, FundChangeRecordInfo fundChangeRecordInfo)
             throws HandlerException {
         try {
+            // 展开参数。
             LongIdKey accountBookKey = fundChangeRecordInfo.getAccountBookKey();
+            BigDecimal delta = fundChangeRecordInfo.getDelta();
+            String changeType = fundChangeRecordInfo.getChangeType();
+            String remark = fundChangeRecordInfo.getRemark();
+            Date happenedDate = fundChangeRecordInfo.getHappenedDate();
 
-            // 1. 确认用户存在。
+            // 确认用户存在。
             handlerValidator.makeSureUserExists(userKey);
 
-            // 2. 确认账本存在。
+            // 确认账本存在。
             handlerValidator.makeSureAccountBookExists(accountBookKey);
 
-            // 3. 确认用户有权限操作指定的账本。
+            // 确认用户有权限操作指定的账本。
             handlerValidator.makeSureUserModifyPermittedForAccountBook(userKey, accountBookKey);
 
-            // 4. 根据 fundChangeRecordInfo 以及创建的规则组合 资金变更 实体。
+            // 设置当前日期。
+            Date currentDate = new Date();
+
+            // 如果 happenedDate 为 null，则设置为当前系统时间。
+            if (Objects.isNull(happenedDate)) {
+                happenedDate = currentDate;
+            }
+
+            // 根据 fundChangeRecordInfo 以及创建的规则组合 资金变更 实体。
             FundChange fundChange = new FundChange(
-                    null, accountBookKey, fundChangeRecordInfo.getDelta(), fundChangeRecordInfo.getChangeType(),
-                    new Date(), fundChangeRecordInfo.getRemark()
+                    null, accountBookKey, delta, changeType, happenedDate, remark, currentDate
             );
 
-            // 4. 插入资金变更实体，并返回生成的主键。
+            // 插入资金变更实体，并返回生成的主键。
             return fundChangeMaintainService.insert(fundChange);
         } catch (Exception e) {
             throw HandlerExceptionHelper.parse(e);
@@ -60,24 +74,39 @@ public class FundChangeOperateHandlerImpl implements FundChangeOperateHandler {
     public void updateFundChange(StringIdKey userKey, FundChangeUpdateInfo fundChangeUpdateInfo)
             throws HandlerException {
         try {
+            // 展开参数。
             LongIdKey fundChangeKey = fundChangeUpdateInfo.getFundChangeKey();
+            BigDecimal delta = fundChangeUpdateInfo.getDelta();
+            String changeType = fundChangeUpdateInfo.getChangeType();
+            String remark = fundChangeUpdateInfo.getRemark();
+            Date happenedDate = fundChangeUpdateInfo.getHappenedDate();
 
-            // 1. 确认用户存在。
+            // 确认用户存在。
             handlerValidator.makeSureUserExists(userKey);
 
-            // 2. 确认资金变更存在。
+            // 确认资金变更存在。
             handlerValidator.makeSureFundChangeExists(fundChangeKey);
 
-            // 3. 确认用户有权限操作指定的资金变更记录。
+            // 确认用户有权限操作指定的资金变更记录。
             handlerValidator.makeSureUserModifyPermittedForFundChange(userKey, fundChangeKey);
 
-            // 4. 根据 fundChangeUpdateInfo 以及更新的规则设置 资金变更 实体。
-            FundChange fundChange = fundChangeMaintainService.get(fundChangeKey);
-            fundChange.setDelta(fundChangeUpdateInfo.getDelta());
-            fundChange.setChangeType(fundChangeUpdateInfo.getChangeType());
-            fundChange.setRemark(fundChangeUpdateInfo.getRemark());
+            // 设置当前日期。
+            Date currentDate = new Date();
 
-            // 5. 更新资金变更实体。
+            // 如果 happenedDate 为 null，则设置为当前系统时间。
+            if (Objects.isNull(happenedDate)) {
+                happenedDate = currentDate;
+            }
+
+            // 根据 fundChangeUpdateInfo 以及更新的规则设置 资金变更 实体。
+            FundChange fundChange = fundChangeMaintainService.get(fundChangeKey);
+            fundChange.setDelta(delta);
+            fundChange.setChangeType(changeType);
+            fundChange.setRemark(remark);
+            fundChange.setHappenedDate(happenedDate);
+            fundChange.setRecordedDate(currentDate);
+
+            // 更新资金变更实体。
             fundChangeMaintainService.update(fundChange);
         } catch (Exception e) {
             throw HandlerExceptionHelper.parse(e);
@@ -87,16 +116,16 @@ public class FundChangeOperateHandlerImpl implements FundChangeOperateHandler {
     @Override
     public void removeFundChange(StringIdKey userKey, LongIdKey fundChangeKey) throws HandlerException {
         try {
-            // 1. 确认用户存在。
+            // 确认用户存在。
             handlerValidator.makeSureUserExists(userKey);
 
-            // 2. 确认资金变更存在。
+            // 确认资金变更存在。
             handlerValidator.makeSureFundChangeExists(fundChangeKey);
 
-            // 3. 确认用户有权限操作指定的资金变更。
+            // 确认用户有权限操作指定的资金变更。
             handlerValidator.makeSureUserModifyPermittedForFundChange(userKey, fundChangeKey);
 
-            // 4. 存在删除指定的资金变更。
+            // 存在删除指定的资金变更。
             fundChangeMaintainService.deleteIfExists(fundChangeKey);
         } catch (Exception e) {
             throw HandlerExceptionHelper.parse(e);

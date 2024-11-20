@@ -44,7 +44,7 @@ public class BillFileInfoMaintainServiceImplTest {
             billFileInfos.add(billFileInfo);
         }
         fundChange = new FundChange(
-                null, null, BigDecimal.ZERO, "change_type", new Date(), "remark"
+                null, null, BigDecimal.ZERO, "change_type", new Date(), "remark", new Date()
         );
     }
 
