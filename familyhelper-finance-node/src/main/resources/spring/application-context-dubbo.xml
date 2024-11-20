@@ -27,41 +27,97 @@
     <dubbo:provider protocol="dubbo"/>
 
     <!-- 向注册中心注册暴露服务地址,注册服务 -->
-    <dubbo:service interface="com.dwarfeng.familyhelper.finance.stack.service.AccountBookMaintainService"
-                   ref="accountBookMaintainServiceImpl"/>
-    <dubbo:service interface="com.dwarfeng.familyhelper.finance.stack.service.BankCardBalanceHistoryMaintainService"
-                   ref="bankCardBalanceHistoryMaintainServiceImpl"/>
-    <dubbo:service interface="com.dwarfeng.familyhelper.finance.stack.service.BankCardMaintainService"
-                   ref="bankCardMaintainServiceImpl"/>
-    <dubbo:service interface="com.dwarfeng.familyhelper.finance.stack.service.BankCardTypeIndicatorMaintainService"
-                   ref="bankCardTypeIndicatorMaintainServiceImpl"/>
-    <dubbo:service interface="com.dwarfeng.familyhelper.finance.stack.service.FundChangeMaintainService"
-                   ref="fundChangeMaintainServiceImpl"/>
-    <dubbo:service interface="com.dwarfeng.familyhelper.finance.stack.service.FundChangeTypeIndicatorMaintainService"
-                   ref="fundChangeTypeIndicatorMaintainServiceImpl"/>
-    <dubbo:service interface="com.dwarfeng.familyhelper.finance.stack.service.PoabMaintainService"
-                   ref="poabMaintainServiceImpl"/>
-    <dubbo:service interface="com.dwarfeng.familyhelper.finance.stack.service.TotalBalanceHistoryMaintainService"
-                   ref="totalBalanceHistoryMaintainServiceImpl"/>
-    <dubbo:service interface="com.dwarfeng.familyhelper.finance.stack.service.UserMaintainService"
-                   ref="userMaintainServiceImpl"/>
-    <dubbo:service interface="com.dwarfeng.familyhelper.finance.stack.service.BalanceOperateService"
-                   ref="balanceOperateServiceImpl"/>
-    <dubbo:service interface="com.dwarfeng.familyhelper.finance.stack.service.AccountBookOperateService"
-                   ref="accountBookOperateServiceImpl"/>
-    <dubbo:service interface="com.dwarfeng.familyhelper.finance.stack.service.BankCardOperateService"
-                   ref="bankCardOperateServiceImpl"/>
-    <dubbo:service interface="com.dwarfeng.familyhelper.finance.stack.service.FundChangeOperateService"
-                   ref="fundChangeOperateServiceImpl"/>
-    <dubbo:service interface="com.dwarfeng.familyhelper.finance.stack.service.BillFileInfoMaintainService"
-                   ref="billFileInfoMaintainServiceImpl"/>
-    <dubbo:service interface="com.dwarfeng.familyhelper.finance.stack.service.BillFileOperateService"
-                   ref="billFileOperateServiceImpl" protocol="hessian"/>
-    <dubbo:service interface="com.dwarfeng.familyhelper.finance.stack.service.RemindDriverInfoMaintainService"
-                   ref="remindDriverInfoMaintainServiceImpl"/>
-    <dubbo:service interface="com.dwarfeng.familyhelper.finance.stack.service.RemindDriverSupportMaintainService"
-                   ref="remindDriverSupportMaintainServiceImpl"/>
+    <dubbo:service
+            interface="com.dwarfeng.familyhelper.finance.stack.service.AccountBookMaintainService"
+            ref="accountBookMaintainServiceImpl"
+            group="${dubbo.provider.group}"
+    />
+    <dubbo:service
+            interface="com.dwarfeng.familyhelper.finance.stack.service.BankCardBalanceHistoryMaintainService"
+            ref="bankCardBalanceHistoryMaintainServiceImpl"
+            group="${dubbo.provider.group}"
+    />
+    <dubbo:service
+            interface="com.dwarfeng.familyhelper.finance.stack.service.BankCardMaintainService"
+            ref="bankCardMaintainServiceImpl"
+            group="${dubbo.provider.group}"
+    />
+    <dubbo:service
+            interface="com.dwarfeng.familyhelper.finance.stack.service.BankCardTypeIndicatorMaintainService"
+            ref="bankCardTypeIndicatorMaintainServiceImpl"
+            group="${dubbo.provider.group}"
+    />
+    <dubbo:service
+            interface="com.dwarfeng.familyhelper.finance.stack.service.FundChangeMaintainService"
+            ref="fundChangeMaintainServiceImpl"
+            group="${dubbo.provider.group}"
+    />
+    <dubbo:service
+            interface="com.dwarfeng.familyhelper.finance.stack.service.FundChangeTypeIndicatorMaintainService"
+            ref="fundChangeTypeIndicatorMaintainServiceImpl"
+            group="${dubbo.provider.group}"
+    />
+    <dubbo:service
+            interface="com.dwarfeng.familyhelper.finance.stack.service.PoabMaintainService"
+            ref="poabMaintainServiceImpl"
+            group="${dubbo.provider.group}"
+    />
+    <dubbo:service
+            interface="com.dwarfeng.familyhelper.finance.stack.service.TotalBalanceHistoryMaintainService"
+            ref="totalBalanceHistoryMaintainServiceImpl"
+            group="${dubbo.provider.group}"
+    />
+    <dubbo:service
+            interface="com.dwarfeng.familyhelper.finance.stack.service.UserMaintainService"
+            ref="userMaintainServiceImpl"
+            group="${dubbo.provider.group}"
+    />
+    <dubbo:service
+            interface="com.dwarfeng.familyhelper.finance.stack.service.BalanceOperateService"
+            ref="balanceOperateServiceImpl"
+            group="${dubbo.provider.group}"
+    />
+    <dubbo:service
+            interface="com.dwarfeng.familyhelper.finance.stack.service.AccountBookOperateService"
+            ref="accountBookOperateServiceImpl"
+            group="${dubbo.provider.group}"
+    />
+    <dubbo:service
+            interface="com.dwarfeng.familyhelper.finance.stack.service.BankCardOperateService"
+            ref="bankCardOperateServiceImpl"
+            group="${dubbo.provider.group}"
+    />
+    <dubbo:service
+            interface="com.dwarfeng.familyhelper.finance.stack.service.FundChangeOperateService"
+            ref="fundChangeOperateServiceImpl"
+            group="${dubbo.provider.group}"
+    />
+    <dubbo:service
+            interface="com.dwarfeng.familyhelper.finance.stack.service.BillFileInfoMaintainService"
+            ref="billFileInfoMaintainServiceImpl"
+            group="${dubbo.provider.group}"
+    />
+    <dubbo:service
+            interface="com.dwarfeng.familyhelper.finance.stack.service.BillFileOperateService"
+            ref="billFileOperateServiceImpl"
+            protocol="hessian"
+            group="${dubbo.provider.group}"
+    />
+    <dubbo:service
+            interface="com.dwarfeng.familyhelper.finance.stack.service.RemindDriverInfoMaintainService"
+            ref="remindDriverInfoMaintainServiceImpl"
+            group="${dubbo.provider.group}"
+    />
+    <dubbo:service
+            interface="com.dwarfeng.familyhelper.finance.stack.service.RemindDriverSupportMaintainService"
+            ref="remindDriverSupportMaintainServiceImpl"
+            group="${dubbo.provider.group}"
+    />
 
     <!-- 向注册中心注册暴露服务地址,注册消费者服务 -->
-    <dubbo:reference id="snowflakeGenerateService" interface="com.dwarfeng.sfds.stack.service.GenerateService"/>
+    <dubbo:reference
+            id="snowflakeGenerateService"
+            interface="com.dwarfeng.sfds.stack.service.GenerateService"
+            group="${dubbo.consumer.snowflake.group}"
+    />
 </beans>
