@@ -52,10 +52,19 @@ class ResetProcessor {
     }
 
     private void doResetRemindDrive() throws HandlerException {
+        // 获取当前的提醒驱动处理器的状态。
+        boolean started = remindDriveHandler.isStarted();
+
+        // 提醒驱动处理器停止，且清空本地缓存。
         remindDriveHandler.stop();
         remindDriveLocalCacheHandler.clear();
-        remindDriveHandler.start();
 
+        // 如果提醒驱动处理器之前是启动的，则重新启动。
+        if (started) {
+            remindDriveHandler.start();
+        }
+
+        // 推送提醒驱动重置消息。
         try {
             pushHandler.remindDriveReset();
         } catch (Exception e) {
