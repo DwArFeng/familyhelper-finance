@@ -26,6 +26,7 @@
     <dubbo:reference
             id="snowflakeGenerateService"
             interface="com.dwarfeng.sfds.stack.service.GenerateService"
+            check="false"
             group="${dubbo.consumer.snowflake.group}"
     />
 </beans>

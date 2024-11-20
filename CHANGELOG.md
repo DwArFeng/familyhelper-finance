@@ -4,6 +4,9 @@
 
 #### 功能构建
 
+- 部分 dubbo 消费者服务注册配置添加 `check="false"` 属性。
+  - snowflakeGenerateService。
+
 - Dubbo 微服务增加分组配置。
 
 - 为 dubbo 增加超时时间的配置选项。
