@@ -54,7 +54,7 @@ public class BillFileOperateHandlerImpl implements BillFileOperateHandler {
 
             // 4. 下载票据文件。
             byte[] content = ftpHandler.retrieveFile(
-                    new String[]{FtpConstants.PATH_BILL_FILE}, getFileName(billFileKey)
+                    FtpConstants.PATH_BILL_FILE, getFileName(billFileKey)
             );
 
             // 6. 拼接 BillFile 并返回。
@@ -82,7 +82,7 @@ public class BillFileOperateHandlerImpl implements BillFileOperateHandler {
 
             // 5. 票据文件内容并存储（覆盖）。
             byte[] content = billFileUploadInfo.getContent();
-            ftpHandler.storeFile(new String[]{FtpConstants.PATH_BILL_FILE}, getFileName(billFileKey), content);
+            ftpHandler.storeFile(FtpConstants.PATH_BILL_FILE, getFileName(billFileKey), content);
 
             // 6. 查询当前资金变更的票据的最高 maxIndex，令新的 index = maxIndex + 1。
             BillFileInfo lastBillFileInfo = billFileInfoMaintainService.lookupFirst(
@@ -121,8 +121,8 @@ public class BillFileOperateHandlerImpl implements BillFileOperateHandler {
             handlerValidator.makeSureUserModifyPermittedForFundChange(userKey, billFileInfo.getFundChangeKey());
 
             // 4. 如果存在 BillFile 文件，则删除。
-            if (ftpHandler.existsFile(new String[]{FtpConstants.PATH_BILL_FILE}, getFileName(billFileKey))) {
-                ftpHandler.deleteFile(new String[]{FtpConstants.PATH_BILL_FILE}, getFileName(billFileKey));
+            if (ftpHandler.existsFile(FtpConstants.PATH_BILL_FILE, getFileName(billFileKey))) {
+                ftpHandler.deleteFile(FtpConstants.PATH_BILL_FILE, getFileName(billFileKey));
             }
 
             // 5. 如果存在 BillFileInfo 实体，则删除。

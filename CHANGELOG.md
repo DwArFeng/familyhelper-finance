@@ -4,6 +4,9 @@
 
 #### 功能构建
 
+- dwarfeng-ftp 优化。
+  - 优化 FtpConstants 中的常量类型，使其更加符合 dwarfeng-ftp 的接口标准。
+
 - 增加 `PusherAdapter`。
   - 建议任何插件的推送器实现都继承自该适配器。
   - 适配器对所有的事件推送方法都进行了空实现。
