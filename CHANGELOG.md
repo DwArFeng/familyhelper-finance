@@ -4,6 +4,9 @@
 
 #### 功能构建
 
+- 启动器优化。
+  - 将入口方法中完整独立的功能封装在子方法中，使入口方法代码结构更加清晰。
+
 - 增加预设查询。
   - FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK_WITH_CONDITION_DISPLAY。
 
