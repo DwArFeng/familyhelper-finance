@@ -3,7 +3,9 @@ package com.dwarfeng.familyhelper.finance.impl.dao.preset;
 import com.dwarfeng.familyhelper.finance.stack.service.FundChangeMaintainService;
 import com.dwarfeng.subgrade.sdk.hibernate.criteria.PresetCriteriaMaker;
 import com.dwarfeng.subgrade.stack.bean.key.LongIdKey;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
@@ -35,6 +37,9 @@ public class FundChangePresetCriteriaMaker implements PresetCriteriaMaker {
                 break;
             case FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK_TYPE_EQUALS_DESC:
                 childForAccountBookTypeEqualsDesc(detachedCriteria, objects);
+                break;
+            case FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK_WITH_CONDITION_DISPLAY:
+                childForAccountBookWithConditionDisplay(detachedCriteria, objects);
                 break;
             default:
                 throw new IllegalArgumentException("无法识别的预设: " + s);
@@ -149,6 +154,32 @@ public class FundChangePresetCriteriaMaker implements PresetCriteriaMaker {
             String changeType = (String) objects[1];
             detachedCriteria.add(Restrictions.eq("changeType", changeType));
             detachedCriteria.addOrder(Order.desc("happenedDate"));
+        } catch (Exception e) {
+            throw new IllegalArgumentException("非法的参数:" + Arrays.toString(objects));
+        }
+    }
+
+    private void childForAccountBookWithConditionDisplay(DetachedCriteria detachedCriteria, Object[] objects) {
+        try {
+            // 账本主键。
+            LongIdKey accountBookKey = (LongIdKey) objects[0];
+            if (Objects.isNull(accountBookKey)) {
+                detachedCriteria.add(Restrictions.isNull("accountBookLongId"));
+            } else {
+                detachedCriteria.add(
+                        Restrictions.eqOrIsNull("accountBookLongId", accountBookKey.getLongId())
+                );
+            }
+            // 变更类型。
+            String changeType = (String) objects[1];
+            if (StringUtils.isNotBlank(changeType)) {
+                detachedCriteria.add(Restrictions.eq("changeType", changeType));
+            }
+            // 备注 Pattern。
+            String remarkPattern = (String) objects[2];
+            if (StringUtils.isNotBlank(remarkPattern)) {
+                detachedCriteria.add(Restrictions.like("remark", remarkPattern, MatchMode.ANYWHERE));
+            }
         } catch (Exception e) {
             throw new IllegalArgumentException("非法的参数:" + Arrays.toString(objects));
         }

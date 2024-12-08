@@ -4,6 +4,9 @@
 
 #### 功能构建
 
+- 增加预设查询。
+  - FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK_WITH_CONDITION_DISPLAY。
+
 - 部分 dubbo 消费者服务注册配置添加 `check="false"` 属性。
   - snowflakeGenerateService。
 
