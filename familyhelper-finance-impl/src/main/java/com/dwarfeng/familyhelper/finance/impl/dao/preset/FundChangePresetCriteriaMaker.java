@@ -180,6 +180,8 @@ public class FundChangePresetCriteriaMaker implements PresetCriteriaMaker {
             if (StringUtils.isNotBlank(remarkPattern)) {
                 detachedCriteria.add(Restrictions.like("remark", remarkPattern, MatchMode.ANYWHERE));
             }
+            // 按照 happenedDate 降序排序。
+            detachedCriteria.addOrder(Order.desc("happenedDate"));
         } catch (Exception e) {
             throw new IllegalArgumentException("非法的参数:" + Arrays.toString(objects));
         }

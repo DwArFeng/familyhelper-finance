@@ -8,7 +8,8 @@
 
 #### Bug修复
 
-- (无)
+- 修复预设查询中的错误。
+  - FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK_WITH_CONDITION_DISPLAY。
 
 #### 功能移除
 
