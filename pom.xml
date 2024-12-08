@@ -9,7 +9,7 @@
 
     <groupId>com.dwarfeng</groupId>
     <artifactId>familyhelper-finance</artifactId>
-    <version>1.5.0.b-SNAPSHOT</version>
+    <version>1.5.0.b</version>
 
     <packaging>pom</packaging>
 
@@ -448,22 +448,22 @@
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>familyhelper-finance-stack</artifactId>
-                <version>1.5.0.b-SNAPSHOT</version>
+                <version>1.5.0.b</version>
             </dependency>
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>familyhelper-finance-sdk</artifactId>
-                <version>1.5.0.b-SNAPSHOT</version>
+                <version>1.5.0.b</version>
             </dependency>
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>familyhelper-finance-impl</artifactId>
-                <version>1.5.0.b-SNAPSHOT</version>
+                <version>1.5.0.b</version>
             </dependency>
             <dependency>
                 <groupId>com.dwarfeng</groupId>
                 <artifactId>familyhelper-finance-node</artifactId>
-                <version>1.5.0.b-SNAPSHOT</version>
+                <version>1.5.0.b</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
