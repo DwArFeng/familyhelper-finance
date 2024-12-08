@@ -43,7 +43,6 @@ public class BankCardBalanceHistoryPresetCriteriaMaker implements PresetCriteria
         }
     }
 
-    @SuppressWarnings("DuplicatedCode")
     private void childForBankCard(DetachedCriteria detachedCriteria, Object[] objects) {
         try {
             if (Objects.isNull(objects[0])) {
@@ -59,7 +58,6 @@ public class BankCardBalanceHistoryPresetCriteriaMaker implements PresetCriteria
         }
     }
 
-    @SuppressWarnings("DuplicatedCode")
     private void childForBankCardDesc(DetachedCriteria detachedCriteria, Object[] objects) {
         try {
             if (Objects.isNull(objects[0])) {

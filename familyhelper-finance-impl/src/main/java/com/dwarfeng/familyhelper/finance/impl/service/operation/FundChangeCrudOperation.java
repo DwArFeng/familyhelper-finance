@@ -69,7 +69,6 @@ public class FundChangeCrudOperation implements BatchCrudOperation<LongIdKey, Fu
         fundChangeDao.update(fundChange);
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @Override
     public void delete(LongIdKey key) throws Exception {
         // 查询与账本相关的银行卡余额历史。

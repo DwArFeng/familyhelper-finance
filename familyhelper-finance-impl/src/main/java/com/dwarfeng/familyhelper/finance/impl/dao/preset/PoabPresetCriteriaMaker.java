@@ -34,7 +34,6 @@ public class PoabPresetCriteriaMaker implements PresetCriteriaMaker {
         }
     }
 
-    @SuppressWarnings("DuplicatedCode")
     private void childForAccountBook(DetachedCriteria detachedCriteria, Object[] objects) {
         try {
             if (Objects.isNull(objects[0])) {
@@ -65,7 +64,6 @@ public class PoabPresetCriteriaMaker implements PresetCriteriaMaker {
         }
     }
 
-    @SuppressWarnings("DuplicatedCode")
     private void childForAccountBookPermissionLevelEquals(DetachedCriteria detachedCriteria, Object[] objects) {
         try {
             if (Objects.isNull(objects[0])) {
@@ -83,7 +81,6 @@ public class PoabPresetCriteriaMaker implements PresetCriteriaMaker {
         }
     }
 
-    @SuppressWarnings("DuplicatedCode")
     private void childForUserPermissionLevelEquals(DetachedCriteria detachedCriteria, Object[] objects) {
         try {
             if (Objects.isNull(objects[0])) {

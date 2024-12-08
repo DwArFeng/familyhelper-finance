@@ -116,6 +116,8 @@ public class AccountBookOperateHandlerImpl implements AccountBookOperateHandler 
         }
     }
 
+    // 为了程序的可读性，此处不做代码提取。
+    @SuppressWarnings("ExtractMethodRecommender")
     @Override
     public void upsertPermission(
             StringIdKey ownerUserKey, AccountBookPermissionUpsertInfo accountBookPermissionUpsertInfo

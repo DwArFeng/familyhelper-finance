@@ -70,7 +70,6 @@ public class BankCardCrudOperation implements BatchCrudOperation<LongIdKey, Bank
         bankCardDao.update(bankCard);
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @Override
     public void delete(LongIdKey key) throws Exception {
         // 查询与账本相关的银行卡余额历史。

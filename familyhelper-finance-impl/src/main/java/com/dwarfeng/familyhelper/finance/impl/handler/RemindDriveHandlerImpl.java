@@ -132,7 +132,7 @@ public class RemindDriveHandlerImpl implements RemindDriveHandler {
                 usedRemindDrivers.add(remindDriver);
                 return true;
             } catch (Exception e) {
-                LOGGER.warn("提醒驱动信息 " + remindDriverInfo + " 注册失败，将忽略此条注册信息", e);
+                LOGGER.warn("提醒驱动信息 {} 注册失败，将忽略此条注册信息", remindDriverInfo, e);
                 return false;
             }
         }

@@ -44,7 +44,6 @@ public class BankCardPresetCriteriaMaker implements PresetCriteriaMaker {
         }
     }
 
-    @SuppressWarnings("DuplicatedCode")
     private void nameLike(DetachedCriteria detachedCriteria, Object[] objects) {
         try {
             String pattern = (String) objects[0];

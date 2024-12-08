@@ -121,10 +121,10 @@ public class FixedRateRemindDriverProvider implements RemindDriverProvider {
                     return;
                 }
 
-                LOGGER.debug("计划时间已到达, fixed rate 提醒驱动器 " + remindDriverInfoKey + " 执行提醒动作...");
+                LOGGER.debug("计划时间已到达, fixed rate 提醒驱动器 {} 执行提醒动作...", remindDriverInfoKey);
                 context.remind(remindDriverInfoKey);
             } catch (Exception e) {
-                LOGGER.warn("Fixed rate 提醒驱动器 " + remindDriverInfoKey + " 执行提醒动作时出现异常, 放弃本次提醒", e);
+                LOGGER.warn("Fixed rate 提醒驱动器 {} 执行提醒动作时出现异常, 放弃本次提醒", remindDriverInfoKey, e);
             } finally {
                 lock.unlock();
             }

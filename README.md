@@ -164,30 +164,30 @@
 
    * `PersistenceValueMaintainService`
 
-     |样板名称|样板说明|传输参数|
-                                     |---|---|---|
-     |child_for_point|属于指定数据点的所有持久数据|数据点的longIdKey|
-     |child_for_point_between|属于指定数据点，并且在指定时间区间内的所有持久数据|数据点的longIdKey, 起始时间, 结束时间
+     | 样板名称                    | 样板说明                      | 传输参数                      |
+     |-------------------------|---------------------------|---------------------------|
+     | child_for_point         | 属于指定数据点的所有持久数据            | 数据点的longIdKey             |
+     | child_for_point_between | 属于指定数据点，并且在指定时间区间内的所有持久数据 | 数据点的longIdKey, 起始时间, 结束时间 |
 
    * `FilteredValueMaintainService`
 
-     |样板名称|样板说明|传输参数|
-                                     |---|---|---|
-     |child_for_point|属于指定数据点的所有被过滤数据|数据点的longIdKey|
-     |child_for_point_between|属于指定数据点，并且在指定时间区间内的所有被过滤数据|数据点的longIdKey, 起始时间, 结束时间
-     |child_for_filter|属于指定过滤器的所有被过滤数据|过滤器的longIdKey|
-     |child_for_filter_between|属于指定过滤器，并且在指定时间区间内的所有被过滤数据|过滤器的longIdKey, 起始时间, 结束时间
-     |child_for_set|属于指定过滤器集合的所有被过滤数据|过滤器的longIdKey组成的List|
+     | 样板名称                     | 样板说明                       | 传输参数                      |
+     |--------------------------|----------------------------|---------------------------|
+     | child_for_point          | 属于指定数据点的所有被过滤数据            | 数据点的longIdKey             |
+     | child_for_point_between  | 属于指定数据点，并且在指定时间区间内的所有被过滤数据 | 数据点的longIdKey, 起始时间, 结束时间 |
+     | child_for_filter         | 属于指定过滤器的所有被过滤数据            | 过滤器的longIdKey             |
+     | child_for_filter_between | 属于指定过滤器，并且在指定时间区间内的所有被过滤数据 | 过滤器的longIdKey, 起始时间, 结束时间 |
+     | child_for_set            | 属于指定过滤器集合的所有被过滤数据          | 过滤器的longIdKey组成的List      |
 
    * `TriggeredValueMaintainService`
 
-     |样板名称|样板说明|传输参数|
-                                     |---|---|---|
-     |child_for_point|属于指定数据点的所有被触发数据|数据点的longIdKey|
-     |child_for_point_between|属于指定数据点，并且在指定时间区间内的所有被触发数据|数据点的longIdKey, 起始时间, 结束时间
-     |child_for_trigger|属于指定触发器的所有被触发数据|触发器的longIdKey|
-     |child_for_trigger_between|属于指定触发器，并且在指定时间区间内的所有被触发数据|触发器的longIdKey, 起始时间, 结束时间
-     |child_for_set|属于指定触发器集合的所有被触发数据|触发器的longIdKey组成的List|
+     | 样板名称                      | 样板说明                       | 传输参数                      |
+     |---------------------------|----------------------------|---------------------------|
+     | child_for_point           | 属于指定数据点的所有被触发数据            | 数据点的longIdKey             |
+     | child_for_point_between   | 属于指定数据点，并且在指定时间区间内的所有被触发数据 | 数据点的longIdKey, 起始时间, 结束时间 |
+     | child_for_trigger         | 属于指定触发器的所有被触发数据            | 触发器的longIdKey             |
+     | child_for_trigger_between | 属于指定触发器，并且在指定时间区间内的所有被触发数据 | 触发器的longIdKey, 起始时间, 结束时间 |
+     | child_for_set             | 属于指定触发器集合的所有被触发数据          | 触发器的longIdKey组成的List      |
 
 2. 数据查询接口
 

@@ -98,7 +98,6 @@ public class AccountBookCrudOperation implements BatchCrudOperation<LongIdKey, A
         accountBookDao.update(accountBook);
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @Override
     public void delete(LongIdKey key) throws Exception {
         // 找到与账本相关的银行卡。

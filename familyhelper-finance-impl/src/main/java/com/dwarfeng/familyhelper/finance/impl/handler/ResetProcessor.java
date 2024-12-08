@@ -19,7 +19,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @since 1.4.2
  */
 @Component
-class ResetProcessor {
+public class ResetProcessor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ResetProcessor.class);
 

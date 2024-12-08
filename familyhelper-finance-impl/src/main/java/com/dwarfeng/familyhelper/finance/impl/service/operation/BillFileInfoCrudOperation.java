@@ -65,7 +65,6 @@ public class BillFileInfoCrudOperation implements BatchCrudOperation<LongIdKey, 
         billFileInfoDao.update(billFileInfo);
     }
 
-    @SuppressWarnings("DuplicatedCode")
     @Override
     public void delete(LongIdKey key) throws Exception {
         // 如果存在票据文件，则删除票据文件。
