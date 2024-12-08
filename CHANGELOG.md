@@ -4,6 +4,9 @@
 
 #### 功能构建
 
+- 优化配置文件。
+  - 优化 `application-context-database.xml`，使得更多属性可以在配置文件中配置。
+
 - dwarfeng-ftp 优化。
   - 优化 FtpConstants 中的常量类型，使其更加符合 dwarfeng-ftp 的接口标准。
 
