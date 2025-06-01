@@ -140,6 +140,14 @@
             </includes>
             <fileMode>0644</fileMode>
         </fileSet>
+        <fileSet>
+            <outputDirectory>temp</outputDirectory>
+            <directory>src/main/resources/temp</directory>
+            <includes>
+                <include>README.md</include>
+            </includes>
+            <fileMode>0644</fileMode>
+        </fileSet>
     </fileSets>
 
     <files>
