@@ -1,8 +1,5 @@
 package com.dwarfeng.familyhelper.finance.impl.handler.pusher;
 
-import com.dwarfeng.familyhelper.finance.stack.bean.dto.RemindInfo;
-import com.dwarfeng.subgrade.stack.exception.HandlerException;
-
 /**
  * 推送器适配器。
  *
@@ -17,32 +14,17 @@ import com.dwarfeng.subgrade.stack.exception.HandlerException;
  * </ul>
  *
  * @author DwArFeng
+ * @see com.dwarfeng.familyhelper.finance.sdk.handler.pusher.PusherAdapter
  * @since 1.5.0
+ * @deprecated 该对象已经被废弃，请使用 sdk 模块下的对应对象代替。
  */
-public abstract class PusherAdapter extends AbstractPusher {
+@Deprecated
+public abstract class PusherAdapter extends com.dwarfeng.familyhelper.finance.sdk.handler.pusher.PusherAdapter {
 
     public PusherAdapter() {
-        super();
     }
 
     public PusherAdapter(String pusherType) {
         super(pusherType);
-    }
-
-    @SuppressWarnings("RedundantThrows")
-    @Override
-    public void remindHappened(RemindInfo remindInfo) throws HandlerException {
-    }
-
-    @SuppressWarnings("RedundantThrows")
-    @Override
-    public void remindDriveReset() throws HandlerException {
-    }
-
-    @Override
-    public String toString() {
-        return "PusherAdapter{" +
-                "pusherType='" + pusherType + '\'' +
-                '}';
     }
 }

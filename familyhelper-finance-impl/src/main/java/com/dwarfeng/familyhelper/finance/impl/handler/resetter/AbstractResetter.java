@@ -1,26 +1,16 @@
 package com.dwarfeng.familyhelper.finance.impl.handler.resetter;
 
-import com.dwarfeng.familyhelper.finance.stack.handler.Resetter;
-
 /**
  * 重置器的抽象实现。
  *
  * @author DwArFeng
+ * @see com.dwarfeng.familyhelper.finance.sdk.handler.resetter.AbstractResetter
  * @since 1.4.2
+ * @deprecated 该对象已经被废弃，请使用 sdk 模块下的对应对象代替。
  */
-public abstract class AbstractResetter implements Resetter {
+@Deprecated
+public abstract class AbstractResetter extends com.dwarfeng.familyhelper.finance.sdk.handler.resetter.AbstractResetter {
 
-    protected Context context;
-
-    @Override
-    public void init(Context context) {
-        this.context = context;
-    }
-
-    @Override
-    public String toString() {
-        return "AbstractResetter{" +
-                "context=" + context +
-                '}';
+    public AbstractResetter() {
     }
 }

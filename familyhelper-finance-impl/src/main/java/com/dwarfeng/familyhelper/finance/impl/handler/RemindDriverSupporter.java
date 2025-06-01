@@ -4,35 +4,10 @@ package com.dwarfeng.familyhelper.finance.impl.handler;
  * 提醒驱动器支持器。
  *
  * @author DwArFeng
+ * @see com.dwarfeng.familyhelper.finance.sdk.handler.RemindDriverSupporter
  * @since 1.4.0
+ * @deprecated 该对象已经被废弃，请使用 sdk 模块下的对应对象代替。
  */
-public interface RemindDriverSupporter {
-
-    /**
-     * 提供类型。
-     *
-     * @return 类型。
-     */
-    String provideType();
-
-    /**
-     * 提供标签。
-     *
-     * @return 标签。
-     */
-    String provideLabel();
-
-    /**
-     * 提供描述。
-     *
-     * @return 描述。
-     */
-    String provideDescription();
-
-    /**
-     * 提供示例参数。
-     *
-     * @return 示例参数。
-     */
-    String provideExampleParam();
+@Deprecated
+public interface RemindDriverSupporter extends com.dwarfeng.familyhelper.finance.sdk.handler.RemindDriverSupporter {
 }
