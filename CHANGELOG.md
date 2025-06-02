@@ -4,6 +4,20 @@
 
 #### 功能构建
 
+- 优化部分单元测试代码，以规避潜在的 bug。
+  - com.dwarfeng.familyhelper.finance.impl.service.AccountBookMaintainServiceImplTest。
+  - com.dwarfeng.familyhelper.finance.impl.service.BankCardBalanceHistoryMaintainServiceImplTest。
+  - com.dwarfeng.familyhelper.finance.impl.service.BankCardMaintainServiceImplTest。
+  - com.dwarfeng.familyhelper.finance.impl.service.BankCardTypeIndicatorMaintainServiceImplTest。
+  - com.dwarfeng.familyhelper.finance.impl.service.BillFileInfoMaintainServiceImplTest。
+  - com.dwarfeng.familyhelper.finance.impl.service.FundChangeMaintainServiceImplTest。
+  - com.dwarfeng.familyhelper.finance.impl.service.FundChangeTypeIndicatorMaintainServiceImplTest。
+  - com.dwarfeng.familyhelper.finance.impl.service.PoabMaintainServiceImplTest。
+  - com.dwarfeng.familyhelper.finance.impl.service.RemindDriverInfoMaintainServiceImplTest。
+  - com.dwarfeng.familyhelper.finance.impl.service.RemindDriverSupportMaintainServiceImplTest。
+  - com.dwarfeng.familyhelper.finance.impl.service.TotalBalanceHistoryMaintainServiceImplTest。
+  - com.dwarfeng.familyhelper.finance.impl.service.UserMaintainServiceImplTest。
+
 - 导入运维指令。
   - com.dwarfeng.datamark.service.telqos.*。
 

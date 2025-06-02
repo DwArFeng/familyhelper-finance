@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 
@@ -41,9 +42,7 @@ public class FundChangeMaintainServiceImplTest {
             );
             fundChanges.add(fundChange);
         }
-        accountBook = new AccountBook(
-                null, "name", new Date(), BigDecimal.ZERO, "remark"
-        );
+        accountBook = new AccountBook(null, "name", new Date(), BigDecimal.ZERO, "remark");
     }
 
     @After
@@ -66,6 +65,9 @@ public class FundChangeMaintainServiceImplTest {
             }
         } finally {
             for (FundChange fundChange : fundChanges) {
+                if (Objects.isNull(fundChange.getKey())) {
+                    continue;
+                }
                 fundChangeMaintainService.deleteIfExists(fundChange.getKey());
             }
         }
@@ -90,9 +92,14 @@ public class FundChangeMaintainServiceImplTest {
                     FundChangeMaintainService.CHILD_FOR_ACCOUNT_BOOK, new Object[]{accountBook.getKey()}
             ).getCount());
         } finally {
-            accountBookMaintainService.deleteIfExists(accountBook.getKey());
             for (FundChange fundChange : fundChanges) {
+                if (Objects.isNull(fundChange.getKey())) {
+                    continue;
+                }
                 fundChangeMaintainService.deleteIfExists(fundChange.getKey());
+            }
+            if (Objects.nonNull(accountBook.getKey())) {
+                accountBookMaintainService.deleteIfExists(accountBook.getKey());
             }
         }
     }

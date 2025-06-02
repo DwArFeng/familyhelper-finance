@@ -18,6 +18,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 
@@ -42,13 +43,7 @@ public class RemindDriverInfoMaintainServiceImplTest {
             );
             remindDriverInfos.add(remindDriverInfo);
         }
-        accountBook = new AccountBook(
-                null,
-                "name",
-                new Date(),
-                BigDecimal.ZERO,
-                "remark"
-        );
+        accountBook = new AccountBook(null, "name", new Date(), BigDecimal.ZERO, "remark");
     }
 
     @After
@@ -71,6 +66,9 @@ public class RemindDriverInfoMaintainServiceImplTest {
             }
         } finally {
             for (RemindDriverInfo remindDriverInfo : remindDriverInfos) {
+                if (Objects.isNull(remindDriverInfo.getKey())) {
+                    continue;
+                }
                 remindDriverInfoMaintainService.deleteIfExists(remindDriverInfo.getKey());
             }
         }
@@ -95,9 +93,14 @@ public class RemindDriverInfoMaintainServiceImplTest {
                     RemindDriverInfoMaintainService.CHILD_FOR_ACCOUNT_BOOK, new Object[]{accountBook.getKey()}
             ).getCount());
         } finally {
-            accountBookMaintainService.deleteIfExists(accountBook.getKey());
             for (RemindDriverInfo remindDriverInfo : remindDriverInfos) {
+                if (Objects.isNull(remindDriverInfo.getKey())) {
+                    continue;
+                }
                 remindDriverInfoMaintainService.deleteIfExists(remindDriverInfo.getKey());
+            }
+            if (Objects.nonNull(accountBook.getKey())) {
+                accountBookMaintainService.deleteIfExists(accountBook.getKey());
             }
         }
     }

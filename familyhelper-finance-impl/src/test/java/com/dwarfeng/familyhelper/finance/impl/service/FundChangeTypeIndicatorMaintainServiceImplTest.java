@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 
@@ -31,9 +32,7 @@ public class FundChangeTypeIndicatorMaintainServiceImplTest {
         fundChangeTypeIndicators = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             FundChangeTypeIndicator fundChangeTypeIndicator = new FundChangeTypeIndicator(
-                    new StringIdKey("fund_change_type_indicator_test" + i),
-                    "label",
-                    "remark"
+                    new StringIdKey("fund_change_type_indicator_test" + i), "label", "remark"
             );
             fundChangeTypeIndicators.add(fundChangeTypeIndicator);
         }
@@ -59,6 +58,9 @@ public class FundChangeTypeIndicatorMaintainServiceImplTest {
             }
         } finally {
             for (FundChangeTypeIndicator fundChangeTypeIndicator : fundChangeTypeIndicators) {
+                if (Objects.isNull(fundChangeTypeIndicator.getKey())) {
+                    continue;
+                }
                 fundChangeTypeIndicatorMaintainService.deleteIfExists(fundChangeTypeIndicator.getKey());
             }
         }

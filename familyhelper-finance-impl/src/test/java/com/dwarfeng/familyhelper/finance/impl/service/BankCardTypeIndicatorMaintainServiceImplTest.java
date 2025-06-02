@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 
@@ -31,9 +32,7 @@ public class BankCardTypeIndicatorMaintainServiceImplTest {
         bankCardTypeIndicators = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             BankCardTypeIndicator bankCardTypeIndicator = new BankCardTypeIndicator(
-                    new StringIdKey("fund_change_type_indicator_test" + i),
-                    "label",
-                    "remark"
+                    new StringIdKey("fund_change_type_indicator_test" + i), "label", "remark"
             );
             bankCardTypeIndicators.add(bankCardTypeIndicator);
         }
@@ -59,6 +58,9 @@ public class BankCardTypeIndicatorMaintainServiceImplTest {
             }
         } finally {
             for (BankCardTypeIndicator bankCardTypeIndicator : bankCardTypeIndicators) {
+                if (Objects.isNull(bankCardTypeIndicator.getKey())) {
+                    continue;
+                }
                 bankCardTypeIndicatorMaintainService.deleteIfExists(bankCardTypeIndicator.getKey());
             }
         }

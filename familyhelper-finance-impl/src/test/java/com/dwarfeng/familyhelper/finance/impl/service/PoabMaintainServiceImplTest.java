@@ -20,6 +20,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -44,13 +45,7 @@ public class PoabMaintainServiceImplTest {
 
     @Before
     public void setUp() {
-        accountBook = new AccountBook(
-                new LongIdKey(ACCOUNT_BOOK_ID),
-                "name",
-                new Date(),
-                BigDecimal.ZERO,
-                "remark"
-        );
+        accountBook = new AccountBook(new LongIdKey(ACCOUNT_BOOK_ID), "name", new Date(), BigDecimal.ZERO, "remark");
         user = new User(new StringIdKey(USER_ID), "remark");
         poab = new Poab(new PoabKey(ACCOUNT_BOOK_ID, USER_ID), 233, "remark");
     }
@@ -75,9 +70,15 @@ public class PoabMaintainServiceImplTest {
             testPoab = poabMaintainService.get(poab.getKey());
             assertEquals(BeanUtils.describe(poab), BeanUtils.describe(testPoab));
         } finally {
-            accountBookMaintainService.deleteIfExists(accountBook.getKey());
-            userMaintainService.deleteIfExists(user.getKey());
-            poabMaintainService.deleteIfExists(poab.getKey());
+            if (Objects.nonNull(poab.getKey())) {
+                poabMaintainService.deleteIfExists(poab.getKey());
+            }
+            if (Objects.nonNull(user.getKey())) {
+                userMaintainService.deleteIfExists(user.getKey());
+            }
+            if (Objects.nonNull(accountBook.getKey())) {
+                accountBookMaintainService.deleteIfExists(accountBook.getKey());
+            }
         }
     }
 
@@ -91,9 +92,15 @@ public class PoabMaintainServiceImplTest {
             accountBookMaintainService.deleteIfExists(accountBook.getKey());
             assertFalse(poabMaintainService.exists(poab.getKey()));
         } finally {
-            accountBookMaintainService.deleteIfExists(accountBook.getKey());
-            userMaintainService.deleteIfExists(user.getKey());
-            poabMaintainService.deleteIfExists(poab.getKey());
+            if (Objects.nonNull(poab.getKey())) {
+                poabMaintainService.deleteIfExists(poab.getKey());
+            }
+            if (Objects.nonNull(user.getKey())) {
+                userMaintainService.deleteIfExists(user.getKey());
+            }
+            if (Objects.nonNull(accountBook.getKey())) {
+                accountBookMaintainService.deleteIfExists(accountBook.getKey());
+            }
         }
     }
 
@@ -107,9 +114,15 @@ public class PoabMaintainServiceImplTest {
             userMaintainService.deleteIfExists(user.getKey());
             assertFalse(poabMaintainService.exists(poab.getKey()));
         } finally {
-            accountBookMaintainService.deleteIfExists(accountBook.getKey());
-            userMaintainService.deleteIfExists(user.getKey());
-            poabMaintainService.deleteIfExists(poab.getKey());
+            if (Objects.nonNull(poab.getKey())) {
+                poabMaintainService.deleteIfExists(poab.getKey());
+            }
+            if (Objects.nonNull(user.getKey())) {
+                userMaintainService.deleteIfExists(user.getKey());
+            }
+            if (Objects.nonNull(accountBook.getKey())) {
+                accountBookMaintainService.deleteIfExists(accountBook.getKey());
+            }
         }
     }
 }

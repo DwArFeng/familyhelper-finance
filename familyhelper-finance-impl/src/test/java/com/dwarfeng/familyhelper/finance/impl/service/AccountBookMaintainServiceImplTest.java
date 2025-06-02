@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 
@@ -31,13 +32,7 @@ public class AccountBookMaintainServiceImplTest {
     public void setUp() {
         accountBooks = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            AccountBook accountBook = new AccountBook(
-                    null,
-                    "name",
-                    new Date(),
-                    BigDecimal.ZERO,
-                    "remark"
-            );
+            AccountBook accountBook = new AccountBook(null, "name", new Date(), BigDecimal.ZERO, "remark");
             accountBooks.add(accountBook);
         }
     }
@@ -61,6 +56,9 @@ public class AccountBookMaintainServiceImplTest {
             }
         } finally {
             for (AccountBook accountBook : accountBooks) {
+                if (Objects.isNull(accountBook.getKey())) {
+                    continue;
+                }
                 accountBookMaintainService.deleteIfExists(accountBook.getKey());
             }
         }

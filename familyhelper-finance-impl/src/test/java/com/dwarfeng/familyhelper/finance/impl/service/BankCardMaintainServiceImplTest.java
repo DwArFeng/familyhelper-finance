@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 
@@ -37,26 +38,12 @@ public class BankCardMaintainServiceImplTest {
         bankCards = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             BankCard bankCard = new BankCard(
-                    null,
-                    null,
-                    "name",
-                    "card_type",
-                    new Date(),
-                    BigDecimal.ZERO,
-                    true,
-                    new Date(),
-                    BigDecimal.ZERO,
+                    null, null, "name", "card_type", new Date(), BigDecimal.ZERO, true, new Date(), BigDecimal.ZERO,
                     "remark"
             );
             bankCards.add(bankCard);
         }
-        accountBook = new AccountBook(
-                null,
-                "name",
-                new Date(),
-                BigDecimal.ZERO,
-                "remark"
-        );
+        accountBook = new AccountBook(null, "name", new Date(), BigDecimal.ZERO, "remark");
     }
 
     @After
@@ -79,6 +66,9 @@ public class BankCardMaintainServiceImplTest {
             }
         } finally {
             for (BankCard bankCard : bankCards) {
+                if (Objects.isNull(bankCard.getKey())) {
+                    continue;
+                }
                 bankCardMaintainService.deleteIfExists(bankCard.getKey());
             }
         }
@@ -103,9 +93,14 @@ public class BankCardMaintainServiceImplTest {
                     BankCardMaintainService.CHILD_FOR_ACCOUNT_BOOK, new Object[]{accountBook.getKey()}
             ).getCount());
         } finally {
-            accountBookMaintainService.deleteIfExists(accountBook.getKey());
             for (BankCard bankCard : bankCards) {
+                if (Objects.isNull(bankCard.getKey())) {
+                    continue;
+                }
                 bankCardMaintainService.deleteIfExists(bankCard.getKey());
+            }
+            if (Objects.nonNull(accountBook.getKey())) {
+                accountBookMaintainService.deleteIfExists(accountBook.getKey());
             }
         }
     }

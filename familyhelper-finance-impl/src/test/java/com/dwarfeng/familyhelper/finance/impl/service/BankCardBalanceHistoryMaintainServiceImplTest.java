@@ -19,6 +19,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 
@@ -42,31 +43,13 @@ public class BankCardBalanceHistoryMaintainServiceImplTest {
         bankCardBalanceHistories = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             BankCardBalanceHistory bankCardBalanceHistory = new BankCardBalanceHistory(
-                    null,
-                    null,
-                    BigDecimal.ZERO,
-                    new Date(),
-                    "remark"
+                    null, null, BigDecimal.ZERO, new Date(), "remark"
             );
             bankCardBalanceHistories.add(bankCardBalanceHistory);
         }
-        accountBook = new AccountBook(
-                null,
-                "name",
-                new Date(),
-                BigDecimal.ZERO,
-                "remark"
-        );
+        accountBook = new AccountBook(null, "name", new Date(), BigDecimal.ZERO, "remark");
         bankCard = new BankCard(
-                null,
-                null,
-                "name",
-                "card_type",
-                new Date(),
-                BigDecimal.ZERO,
-                true,
-                new Date(),
-                BigDecimal.ZERO,
+                null, null, "name", "card_type", new Date(), BigDecimal.ZERO, true, new Date(), BigDecimal.ZERO,
                 "remark"
         );
     }
@@ -119,10 +102,17 @@ public class BankCardBalanceHistoryMaintainServiceImplTest {
                     BankCardBalanceHistoryMaintainService.CHILD_FOR_BANK_CARD, new Object[]{bankCard.getKey()}
             ).getCount());
         } finally {
-            accountBookMaintainService.deleteIfExists(accountBook.getKey());
-            bankCardMaintainService.deleteIfExists(bankCard.getKey());
             for (BankCardBalanceHistory bankCardBalanceHistory : bankCardBalanceHistories) {
+                if (Objects.isNull(bankCardBalanceHistory.getKey())) {
+                    continue;
+                }
                 bankCardBalanceHistoryMaintainService.deleteIfExists(bankCardBalanceHistory.getKey());
+            }
+            if (Objects.nonNull(bankCard.getKey())) {
+                bankCardMaintainService.deleteIfExists(bankCard.getKey());
+            }
+            if (Objects.nonNull(accountBook.getKey())) {
+                accountBookMaintainService.deleteIfExists(accountBook.getKey());
             }
         }
     }
@@ -146,9 +136,14 @@ public class BankCardBalanceHistoryMaintainServiceImplTest {
                     BankCardBalanceHistoryMaintainService.CHILD_FOR_BANK_CARD, new Object[]{bankCard.getKey()}
             ).getCount());
         } finally {
-            bankCardMaintainService.deleteIfExists(bankCard.getKey());
             for (BankCardBalanceHistory bankCardBalanceHistory : bankCardBalanceHistories) {
+                if (Objects.isNull(bankCardBalanceHistory.getKey())) {
+                    continue;
+                }
                 bankCardBalanceHistoryMaintainService.deleteIfExists(bankCardBalanceHistory.getKey());
+            }
+            if (Objects.nonNull(bankCard.getKey())) {
+                bankCardMaintainService.deleteIfExists(bankCard.getKey());
             }
         }
     }

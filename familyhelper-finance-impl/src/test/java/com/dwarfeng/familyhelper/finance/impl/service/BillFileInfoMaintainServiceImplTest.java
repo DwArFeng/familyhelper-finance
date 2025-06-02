@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
@@ -38,14 +39,10 @@ public class BillFileInfoMaintainServiceImplTest {
     public void setUp() {
         billFileInfos = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            BillFileInfo billFileInfo = new BillFileInfo(
-                    null, null, "originName", i, 12450L, new Date(), "remark"
-            );
+            BillFileInfo billFileInfo = new BillFileInfo(null, null, "originName", i, 12450L, new Date(), "remark");
             billFileInfos.add(billFileInfo);
         }
-        fundChange = new FundChange(
-                null, null, BigDecimal.ZERO, "change_type", new Date(), "remark", new Date()
-        );
+        fundChange = new FundChange(null, null, BigDecimal.ZERO, "change_type", new Date(), "remark", new Date());
     }
 
     @After
@@ -70,9 +67,14 @@ public class BillFileInfoMaintainServiceImplTest {
             }
         } finally {
             for (BillFileInfo billFileInfo : billFileInfos) {
+                if (Objects.isNull(billFileInfo.getKey())) {
+                    continue;
+                }
                 billFileInfoMaintainService.deleteIfExists(billFileInfo.getKey());
             }
-            fundChangeMaintainService.deleteIfExists(fundChange.getKey());
+            if (Objects.nonNull(fundChange.getKey())) {
+                fundChangeMaintainService.deleteIfExists(fundChange.getKey());
+            }
         }
     }
 
@@ -92,9 +94,14 @@ public class BillFileInfoMaintainServiceImplTest {
             );
         } finally {
             for (BillFileInfo billFileInfo : billFileInfos) {
+                if (Objects.isNull(billFileInfo.getKey())) {
+                    continue;
+                }
                 billFileInfoMaintainService.deleteIfExists(billFileInfo.getKey());
             }
-            fundChangeMaintainService.deleteIfExists(fundChange.getKey());
+            if (Objects.nonNull(fundChange.getKey())) {
+                fundChangeMaintainService.deleteIfExists(fundChange.getKey());
+            }
         }
     }
 }

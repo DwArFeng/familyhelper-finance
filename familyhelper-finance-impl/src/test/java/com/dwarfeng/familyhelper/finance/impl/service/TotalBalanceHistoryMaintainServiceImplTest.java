@@ -17,6 +17,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 
@@ -37,21 +38,11 @@ public class TotalBalanceHistoryMaintainServiceImplTest {
         accountBookBalanceHistories = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             TotalBalanceHistory totalBalanceHistory = new TotalBalanceHistory(
-                    null,
-                    null,
-                    BigDecimal.ZERO,
-                    new Date(),
-                    "remark"
+                    null, null, BigDecimal.ZERO, new Date(), "remark"
             );
             accountBookBalanceHistories.add(totalBalanceHistory);
         }
-        accountBook = new AccountBook(
-                null,
-                "name",
-                new Date(),
-                BigDecimal.ZERO,
-                "remark"
-        );
+        accountBook = new AccountBook(null, "name", new Date(), BigDecimal.ZERO, "remark");
     }
 
     @After
@@ -75,6 +66,9 @@ public class TotalBalanceHistoryMaintainServiceImplTest {
             }
         } finally {
             for (TotalBalanceHistory totalBalanceHistory : accountBookBalanceHistories) {
+                if (Objects.isNull(totalBalanceHistory.getKey())) {
+                    continue;
+                }
                 totalBalanceHistoryMaintainService.deleteIfExists(totalBalanceHistory.getKey());
             }
         }
@@ -99,9 +93,14 @@ public class TotalBalanceHistoryMaintainServiceImplTest {
                     TotalBalanceHistoryMaintainService.CHILD_FOR_ACCOUNT_BOOK, new Object[]{accountBook.getKey()}
             ).getCount());
         } finally {
-            accountBookMaintainService.deleteIfExists(accountBook.getKey());
             for (TotalBalanceHistory totalBalanceHistory : accountBookBalanceHistories) {
+                if (Objects.isNull(totalBalanceHistory.getKey())) {
+                    continue;
+                }
                 totalBalanceHistoryMaintainService.deleteIfExists(totalBalanceHistory.getKey());
+            }
+            if (Objects.nonNull(accountBook.getKey())) {
+                accountBookMaintainService.deleteIfExists(accountBook.getKey());
             }
         }
     }

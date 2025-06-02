@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 
@@ -22,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 public class RemindDriverSupportMaintainServiceImplTest {
 
     @Autowired
-    private RemindDriverSupportMaintainService service;
+    private RemindDriverSupportMaintainService remindDriverSupportMaintainService;
 
     private final List<RemindDriverSupport> remindDriverSupports = new ArrayList<>();
 
@@ -45,14 +46,19 @@ public class RemindDriverSupportMaintainServiceImplTest {
     public void test() throws Exception {
         try {
             for (RemindDriverSupport remindDriverSupport : remindDriverSupports) {
-                remindDriverSupport.setKey(service.insert(remindDriverSupport));
-                service.update(remindDriverSupport);
-                RemindDriverSupport testRemindDriverSupport = service.get(remindDriverSupport.getKey());
+                remindDriverSupport.setKey(remindDriverSupportMaintainService.insert(remindDriverSupport));
+                remindDriverSupportMaintainService.update(remindDriverSupport);
+                RemindDriverSupport testRemindDriverSupport = remindDriverSupportMaintainService.get(
+                        remindDriverSupport.getKey()
+                );
                 assertEquals(BeanUtils.describe(remindDriverSupport), BeanUtils.describe(testRemindDriverSupport));
             }
         } finally {
             for (RemindDriverSupport remindDriverSupport : remindDriverSupports) {
-                service.delete(remindDriverSupport.getKey());
+                if (Objects.isNull(remindDriverSupport.getKey())) {
+                    continue;
+                }
+                remindDriverSupportMaintainService.delete(remindDriverSupport.getKey());
             }
         }
     }
