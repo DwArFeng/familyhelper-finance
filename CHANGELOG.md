@@ -4,6 +4,9 @@
 
 #### 功能构建
 
+- 为部分工具类中方法的入口参数增加 `@Nonnull` 注解。
+  - com.dwarfeng.familyhelper.finance.impl.service.telqos.CommandUtil。
+
 - 优化部分单元测试代码，以规避潜在的 bug。
   - com.dwarfeng.familyhelper.finance.impl.service.AccountBookMaintainServiceImplTest。
   - com.dwarfeng.familyhelper.finance.impl.service.BankCardBalanceHistoryMaintainServiceImplTest。
