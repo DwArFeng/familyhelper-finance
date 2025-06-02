@@ -13,14 +13,18 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 /**
- * Hibernate Bean 映射器。
+ * Bean 映射器。
+ *
+ * <p>
+ * 该映射器中包含了 <code>impl</code> 模块中所有实体与 <code>stack</code> 模块中对应实体的映射方法。
  *
  * @author DwArFeng
- * @since 1.4.0
+ * @since 1.6.0
  */
 @Mapper
-public interface HibernateMapper {
+public interface BeanMapper {
 
+    // -----------------------------------------------------------Subgrade Key-----------------------------------------------------------
     HibernateLongIdKey longIdKeyToHibernate(LongIdKey longIdKey);
 
     @InheritInverseConfiguration
@@ -31,11 +35,13 @@ public interface HibernateMapper {
     @InheritInverseConfiguration
     StringIdKey stringIdKeyFromHibernate(HibernateStringIdKey hibernateStringIdKey);
 
+    // -----------------------------------------------------------Familyhelper-finance Key-----------------------------------------------------------
     HibernatePoabKey poabKeyToHibernate(PoabKey poabKey);
 
     @InheritInverseConfiguration
     PoabKey poabKeyFromHibernate(HibernatePoabKey hibernatePoabKey);
 
+    // -----------------------------------------------------------Familyhelper-finance Entity-----------------------------------------------------------
     @Mapping(target = "remindDriverInfos", ignore = true)
     @Mapping(target = "poabs", ignore = true)
     @Mapping(target = "longId", ignore = true)
@@ -61,17 +67,15 @@ public interface HibernateMapper {
     HibernateBankCardBalanceHistory bankCardBalanceHistoryToHibernate(BankCardBalanceHistory bankCardBalanceHistory);
 
     @InheritInverseConfiguration
-    BankCardBalanceHistory bankCardBalanceHistoryFromHibernate(
-            HibernateBankCardBalanceHistory hibernateBankCardBalanceHistory
-    );
+    BankCardBalanceHistory bankCardBalanceHistoryFromHibernate(HibernateBankCardBalanceHistory hibernateBankCardBalanceHistory);
 
     @Mapping(target = "stringId", ignore = true)
+    @Mapping(target = "modifiedDatamark", ignore = true)
+    @Mapping(target = "createdDatamark", ignore = true)
     HibernateBankCardTypeIndicator bankCardTypeIndicatorToHibernate(BankCardTypeIndicator bankCardTypeIndicator);
 
     @InheritInverseConfiguration
-    BankCardTypeIndicator bankCardTypeIndicatorFromHibernate(
-            HibernateBankCardTypeIndicator hibernateBankCardTypeIndicator
-    );
+    BankCardTypeIndicator bankCardTypeIndicatorFromHibernate(HibernateBankCardTypeIndicator hibernateBankCardTypeIndicator);
 
     @Mapping(target = "longId", ignore = true)
     @Mapping(target = "fundChangeLongId", ignore = true)
@@ -91,14 +95,12 @@ public interface HibernateMapper {
     FundChange fundChangeFromHibernate(HibernateFundChange hibernateFundChange);
 
     @Mapping(target = "stringId", ignore = true)
-    HibernateFundChangeTypeIndicator fundChangeTypeIndicatorToHibernate(
-            FundChangeTypeIndicator fundChangeTypeIndicator
-    );
+    @Mapping(target = "modifiedDatamark", ignore = true)
+    @Mapping(target = "createdDatamark", ignore = true)
+    HibernateFundChangeTypeIndicator fundChangeTypeIndicatorToHibernate(FundChangeTypeIndicator fundChangeTypeIndicator);
 
     @InheritInverseConfiguration
-    FundChangeTypeIndicator fundChangeTypeIndicatorFromHibernate(
-            HibernateFundChangeTypeIndicator hibernateFundChangeTypeIndicator
-    );
+    FundChangeTypeIndicator fundChangeTypeIndicatorFromHibernate(HibernateFundChangeTypeIndicator hibernateFundChangeTypeIndicator);
 
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "stringId", ignore = true)
@@ -133,6 +135,8 @@ public interface HibernateMapper {
 
     @Mapping(target = "stringId", ignore = true)
     @Mapping(target = "poabs", ignore = true)
+    @Mapping(target = "modifiedDatamark", ignore = true)
+    @Mapping(target = "createdDatamark", ignore = true)
     HibernateUser userToHibernate(User user);
 
     @InheritInverseConfiguration

@@ -4,6 +4,8 @@
 
 #### 功能构建
 
+- 优化实体映射器机制。
+
 - 为部分工具类中方法的入口参数增加 `@Nonnull` 注解。
   - com.dwarfeng.familyhelper.finance.impl.service.telqos.CommandUtil。
 

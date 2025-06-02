@@ -1,6 +1,6 @@
 package com.dwarfeng.familyhelper.finance.impl.configuration;
 
-import com.dwarfeng.familyhelper.finance.sdk.bean.FastJsonMapper;
+import com.dwarfeng.familyhelper.finance.sdk.bean.BeanMapper;
 import com.dwarfeng.familyhelper.finance.sdk.bean.entity.*;
 import com.dwarfeng.familyhelper.finance.sdk.bean.key.formatter.PoabStringKeyFormatter;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.*;
@@ -56,7 +56,7 @@ public class CacheConfiguration {
         return new RedisBatchBaseCache<>(
                 (RedisTemplate<String, FastJsonAccountBook>) template,
                 new LongIdStringKeyFormatter(accountBookPrefix),
-                new MapStructBeanTransformer<>(AccountBook.class, FastJsonAccountBook.class, FastJsonMapper.class)
+                new MapStructBeanTransformer<>(AccountBook.class, FastJsonAccountBook.class, BeanMapper.class)
         );
     }
 
@@ -66,7 +66,7 @@ public class CacheConfiguration {
         return new RedisBatchBaseCache<>(
                 (RedisTemplate<String, FastJsonBankCard>) template,
                 new LongIdStringKeyFormatter(bankCardPrefix),
-                new MapStructBeanTransformer<>(BankCard.class, FastJsonBankCard.class, FastJsonMapper.class)
+                new MapStructBeanTransformer<>(BankCard.class, FastJsonBankCard.class, BeanMapper.class)
         );
     }
 
@@ -78,7 +78,7 @@ public class CacheConfiguration {
                 (RedisTemplate<String, FastJsonBankCardTypeIndicator>) template,
                 new StringIdStringKeyFormatter(bankCardTypeIndicatorPrefix),
                 new MapStructBeanTransformer<>(
-                        BankCardTypeIndicator.class, FastJsonBankCardTypeIndicator.class, FastJsonMapper.class
+                        BankCardTypeIndicator.class, FastJsonBankCardTypeIndicator.class, BeanMapper.class
                 )
         );
     }
@@ -89,7 +89,7 @@ public class CacheConfiguration {
         return new RedisBatchBaseCache<>(
                 (RedisTemplate<String, FastJsonFundChange>) template,
                 new LongIdStringKeyFormatter(fundChangePrefix),
-                new MapStructBeanTransformer<>(FundChange.class, FastJsonFundChange.class, FastJsonMapper.class)
+                new MapStructBeanTransformer<>(FundChange.class, FastJsonFundChange.class, BeanMapper.class)
         );
     }
 
@@ -101,7 +101,7 @@ public class CacheConfiguration {
                 (RedisTemplate<String, FastJsonFundChangeTypeIndicator>) template,
                 new StringIdStringKeyFormatter(fundChangeTypeIndicatorPrefix),
                 new MapStructBeanTransformer<>(
-                        FundChangeTypeIndicator.class, FastJsonFundChangeTypeIndicator.class, FastJsonMapper.class
+                        FundChangeTypeIndicator.class, FastJsonFundChangeTypeIndicator.class, BeanMapper.class
                 )
         );
     }
@@ -112,7 +112,7 @@ public class CacheConfiguration {
         return new RedisBatchBaseCache<>(
                 (RedisTemplate<String, FastJsonPoab>) template,
                 new PoabStringKeyFormatter(poabPrefix),
-                new MapStructBeanTransformer<>(Poab.class, FastJsonPoab.class, FastJsonMapper.class)
+                new MapStructBeanTransformer<>(Poab.class, FastJsonPoab.class, BeanMapper.class)
         );
     }
 
@@ -122,7 +122,7 @@ public class CacheConfiguration {
         return new RedisBatchBaseCache<>(
                 (RedisTemplate<String, FastJsonUser>) template,
                 new StringIdStringKeyFormatter(userPrefix),
-                new MapStructBeanTransformer<>(User.class, FastJsonUser.class, FastJsonMapper.class)
+                new MapStructBeanTransformer<>(User.class, FastJsonUser.class, BeanMapper.class)
         );
     }
 
@@ -134,7 +134,7 @@ public class CacheConfiguration {
                 (RedisTemplate<String, FastJsonTotalBalanceHistory>) template,
                 new LongIdStringKeyFormatter(totalBalanceHistoryPrefix),
                 new MapStructBeanTransformer<>(
-                        TotalBalanceHistory.class, FastJsonTotalBalanceHistory.class, FastJsonMapper.class
+                        TotalBalanceHistory.class, FastJsonTotalBalanceHistory.class, BeanMapper.class
                 )
         );
     }
@@ -147,7 +147,7 @@ public class CacheConfiguration {
                 (RedisTemplate<String, FastJsonBankCardBalanceHistory>) template,
                 new LongIdStringKeyFormatter(bankCardBalanceHistoryPrefix),
                 new MapStructBeanTransformer<>(
-                        BankCardBalanceHistory.class, FastJsonBankCardBalanceHistory.class, FastJsonMapper.class
+                        BankCardBalanceHistory.class, FastJsonBankCardBalanceHistory.class, BeanMapper.class
                 )
         );
     }
@@ -158,7 +158,7 @@ public class CacheConfiguration {
         return new RedisBatchBaseCache<>(
                 (RedisTemplate<String, FastJsonBillFileInfo>) template,
                 new LongIdStringKeyFormatter(billFileInfoPrefix),
-                new MapStructBeanTransformer<>(BillFileInfo.class, FastJsonBillFileInfo.class, FastJsonMapper.class)
+                new MapStructBeanTransformer<>(BillFileInfo.class, FastJsonBillFileInfo.class, BeanMapper.class)
         );
     }
 
@@ -170,7 +170,7 @@ public class CacheConfiguration {
                 (RedisTemplate<String, FastJsonRemindDriverInfo>) template,
                 new LongIdStringKeyFormatter(remindDriverInfoPrefix),
                 new MapStructBeanTransformer<>(
-                        RemindDriverInfo.class, FastJsonRemindDriverInfo.class, FastJsonMapper.class
+                        RemindDriverInfo.class, FastJsonRemindDriverInfo.class, BeanMapper.class
                 )
         );
     }
@@ -183,7 +183,7 @@ public class CacheConfiguration {
                 (RedisTemplate<String, FastJsonRemindDriverSupport>) template,
                 new StringIdStringKeyFormatter(remindDriverSupportPrefix),
                 new MapStructBeanTransformer<>(
-                        RemindDriverSupport.class, FastJsonRemindDriverSupport.class, FastJsonMapper.class
+                        RemindDriverSupport.class, FastJsonRemindDriverSupport.class, BeanMapper.class
                 )
         );
     }
