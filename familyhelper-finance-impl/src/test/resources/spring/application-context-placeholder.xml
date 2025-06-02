@@ -12,7 +12,8 @@
     <!-- 设置配置文件的路径 -->
     <context:property-placeholder
             location="classpath:database/*.properties,classpath:dubbo/*.properties,classpath:familyhelper/*.properties,
-            classpath:redis/*.properties,classpath:ftp/*.properties,classpath:curator/*.properties"
+            classpath:redis/*.properties,classpath:ftp/*.properties,classpath:curator/*.properties,
+            classpath:datamark/*.properties"
             local-override="true"
             properties-ref="refProperties"
     />
@@ -33,6 +34,8 @@
                 <value>file:conf/test.ftp/*.properties</value>
                 <!--suppress SpringXmlModelInspection -->
                 <value>file:conf/test.curator/*.properties</value>
+                <!--suppress SpringXmlModelInspection -->
+                <value>file:conf/test.datamark/*.properties</value>
             </list>
         </property>
     </bean>

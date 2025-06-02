@@ -17,6 +17,7 @@ public class ServiceExceptionMapperConfiguration {
     public MapServiceExceptionMapper mapServiceExceptionMapper() {
         Map<Class<? extends Exception>, ServiceException.Code> destination = ServiceExceptionHelper.putDefaultDestination(null);
         destination = com.dwarfeng.ftp.util.ServiceExceptionHelper.putDefaultDestination(destination);
+        destination = com.dwarfeng.datamark.util.ServiceExceptionHelper.putDefaultDestination(destination);
         destination.put(AccountBookNotExistsException.class, ServiceExceptionCodes.ACCOUNT_BOOK_NOT_EXISTS);
         destination.put(BankCardNotExistsException.class, ServiceExceptionCodes.BANK_CARD_NOT_EXISTS);
         destination.put(IllegalBankCardStateException.class, ServiceExceptionCodes.ILLEGAL_BANK_CARD_STATE);

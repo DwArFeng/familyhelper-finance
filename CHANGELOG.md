@@ -4,6 +4,16 @@
 
 #### 功能构建
 
+- 导入运维指令。
+  - com.dwarfeng.datamark.service.telqos.*。
+
+- 增加 Hibernate 实体数据标记字段，并应用相关实体侦听器。
+  - com.dwarfeng.acckeeper.impl.bean.entity.HibernateAccount。
+  - com.dwarfeng.acckeeper.impl.bean.entity.HibernateProtectorInfo。
+
+- 增加依赖。
+  - 增加依赖 `dwarfeng-datamark` 以应用其新功能，版本为 `1.0.2.a`。
+
 - SPI 目录结构优化。
   - 将驱动机制的 SPI 接口与抽象类提相关代码文件提升至 `sdk` 模块中。
   - 将执行机制的 SPI 接口与抽象类提相关代码文件提升至 `sdk` 模块中。

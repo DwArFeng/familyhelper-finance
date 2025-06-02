@@ -17,6 +17,8 @@ public class ExceptionCodeOffsetConfiguration {
     private int snowflakeExceptionCodeOffset;
     @Value("${familyhelper.exception_code_offset.dwarfeng_ftp}")
     private int dwarfengFtpExceptionCodeOffset;
+    @Value("${familyhelper.exception_code_offset.dwarfeng_datamark}")
+    private int dwarfengDatamarkExceptionCodeOffset;
 
     @PostConstruct
     public void init() {
@@ -24,5 +26,6 @@ public class ExceptionCodeOffsetConfiguration {
         com.dwarfeng.subgrade.sdk.exception.ServiceExceptionCodes.setExceptionCodeOffset(subgradeExceptionCodeOffset);
         com.dwarfeng.sfds.sdk.util.ServiceExceptionCodes.setExceptionCodeOffset(snowflakeExceptionCodeOffset);
         com.dwarfeng.ftp.util.ServiceExceptionCodes.setExceptionCodeOffset(dwarfengFtpExceptionCodeOffset);
+        com.dwarfeng.datamark.util.ServiceExceptionCodes.setExceptionCodeOffset(dwarfengDatamarkExceptionCodeOffset);
     }
 }
