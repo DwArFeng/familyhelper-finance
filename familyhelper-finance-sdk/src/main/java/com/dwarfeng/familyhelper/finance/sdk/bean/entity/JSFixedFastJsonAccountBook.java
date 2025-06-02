@@ -5,6 +5,8 @@ import com.dwarfeng.familyhelper.finance.stack.bean.entity.AccountBook;
 import com.dwarfeng.subgrade.sdk.bean.key.JSFixedFastJsonLongIdKey;
 import com.dwarfeng.subgrade.stack.bean.Bean;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -15,7 +17,7 @@ import java.util.Objects;
  */
 public class JSFixedFastJsonAccountBook implements Bean {
 
-    private static final long serialVersionUID = 8764952131371287068L;
+    private static final long serialVersionUID = 5250803371637192343L;
 
     public static JSFixedFastJsonAccountBook of(AccountBook accountBook) {
         if (Objects.isNull(accountBook)) {
@@ -24,6 +26,8 @@ public class JSFixedFastJsonAccountBook implements Bean {
             return new JSFixedFastJsonAccountBook(
                     JSFixedFastJsonLongIdKey.of(accountBook.getKey()),
                     accountBook.getName(),
+                    accountBook.getLastRecordedDate(),
+                    accountBook.getTotalValue(),
                     accountBook.getRemark()
             );
         }
@@ -35,15 +39,25 @@ public class JSFixedFastJsonAccountBook implements Bean {
     @JSONField(name = "name", ordinal = 2)
     private String name;
 
-    @JSONField(name = "remark", ordinal = 3)
+    @JSONField(name = "last_recorded_date", ordinal = 3)
+    private Date lastRecordedDate;
+
+    @JSONField(name = "total_value", ordinal = 4)
+    private BigDecimal totalValue;
+
+    @JSONField(name = "remark", ordinal = 5)
     private String remark;
 
     public JSFixedFastJsonAccountBook() {
     }
 
-    public JSFixedFastJsonAccountBook(JSFixedFastJsonLongIdKey key, String name, String remark) {
+    public JSFixedFastJsonAccountBook(
+            JSFixedFastJsonLongIdKey key, String name, Date lastRecordedDate, BigDecimal totalValue, String remark
+    ) {
         this.key = key;
         this.name = name;
+        this.lastRecordedDate = lastRecordedDate;
+        this.totalValue = totalValue;
         this.remark = remark;
     }
 
@@ -63,6 +77,22 @@ public class JSFixedFastJsonAccountBook implements Bean {
         this.name = name;
     }
 
+    public Date getLastRecordedDate() {
+        return lastRecordedDate;
+    }
+
+    public void setLastRecordedDate(Date lastRecordedDate) {
+        this.lastRecordedDate = lastRecordedDate;
+    }
+
+    public BigDecimal getTotalValue() {
+        return totalValue;
+    }
+
+    public void setTotalValue(BigDecimal totalValue) {
+        this.totalValue = totalValue;
+    }
+
     public String getRemark() {
         return remark;
     }
@@ -73,9 +103,11 @@ public class JSFixedFastJsonAccountBook implements Bean {
 
     @Override
     public String toString() {
-        return "FastJsonAccountBook{" +
+        return "JSFixedFastJsonAccountBook{" +
                 "key=" + key +
                 ", name='" + name + '\'' +
+                ", lastRecordedDate=" + lastRecordedDate +
+                ", totalValue=" + totalValue +
                 ", remark='" + remark + '\'' +
                 '}';
     }

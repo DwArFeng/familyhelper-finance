@@ -49,7 +49,8 @@
 
 #### Bug修复
 
-- (无)
+- 修复部分 FastJson 实体中缺失的字段。
+  - com.dwarfeng.familyhelper.finance.sdk.bean.entity.JSFixedFastJsonAccountBook。
 
 #### 功能移除
 
