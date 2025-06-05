@@ -1,6 +1,5 @@
 package com.dwarfeng.familyhelper.finance.impl.handler;
 
-import com.dwarfeng.familyhelper.finance.impl.util.FtpConstants;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.BillFile;
 import com.dwarfeng.familyhelper.finance.stack.bean.dto.BillFileUploadInfo;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.BillFileInfo;
@@ -23,6 +22,8 @@ public class BillFileOperateHandlerImpl implements BillFileOperateHandler {
     private final BillFileInfoMaintainService billFileInfoMaintainService;
     private final FtpHandler ftpHandler;
 
+    private final FtpPathResolver ftpPathResolver;
+
     private final KeyGenerator<LongIdKey> keyGenerator;
 
     private final HandlerValidator handlerValidator;
@@ -30,11 +31,13 @@ public class BillFileOperateHandlerImpl implements BillFileOperateHandler {
     public BillFileOperateHandlerImpl(
             BillFileInfoMaintainService billFileInfoMaintainService,
             FtpHandler ftpHandler,
+            FtpPathResolver ftpPathResolver,
             KeyGenerator<LongIdKey> keyGenerator,
             HandlerValidator handlerValidator
     ) {
         this.billFileInfoMaintainService = billFileInfoMaintainService;
         this.ftpHandler = ftpHandler;
+        this.ftpPathResolver = ftpPathResolver;
         this.keyGenerator = keyGenerator;
         this.handlerValidator = handlerValidator;
     }
@@ -54,7 +57,7 @@ public class BillFileOperateHandlerImpl implements BillFileOperateHandler {
 
             // 4. 下载票据文件。
             byte[] content = ftpHandler.retrieveFile(
-                    FtpConstants.PATH_BILL_FILE, getFileName(billFileKey)
+                    ftpPathResolver.resolvePath(FtpPathResolver.RELATIVE_PATH_BILL_FILE), getFileName(billFileKey)
             );
 
             // 6. 拼接 BillFile 并返回。
@@ -82,7 +85,11 @@ public class BillFileOperateHandlerImpl implements BillFileOperateHandler {
 
             // 5. 票据文件内容并存储（覆盖）。
             byte[] content = billFileUploadInfo.getContent();
-            ftpHandler.storeFile(FtpConstants.PATH_BILL_FILE, getFileName(billFileKey), content);
+            ftpHandler.storeFile(
+                    ftpPathResolver.resolvePath(FtpPathResolver.RELATIVE_PATH_BILL_FILE),
+                    getFileName(billFileKey),
+                    content
+            );
 
             // 6. 查询当前资金变更的票据的最高 maxIndex，令新的 index = maxIndex + 1。
             BillFileInfo lastBillFileInfo = billFileInfoMaintainService.lookupFirst(
@@ -121,8 +128,12 @@ public class BillFileOperateHandlerImpl implements BillFileOperateHandler {
             handlerValidator.makeSureUserModifyPermittedForFundChange(userKey, billFileInfo.getFundChangeKey());
 
             // 4. 如果存在 BillFile 文件，则删除。
-            if (ftpHandler.existsFile(FtpConstants.PATH_BILL_FILE, getFileName(billFileKey))) {
-                ftpHandler.deleteFile(FtpConstants.PATH_BILL_FILE, getFileName(billFileKey));
+            if (ftpHandler.existsFile(
+                    ftpPathResolver.resolvePath(FtpPathResolver.RELATIVE_PATH_BILL_FILE), getFileName(billFileKey)
+            )) {
+                ftpHandler.deleteFile(
+                        ftpPathResolver.resolvePath(FtpPathResolver.RELATIVE_PATH_BILL_FILE), getFileName(billFileKey)
+                );
             }
 
             // 5. 如果存在 BillFileInfo 实体，则删除。

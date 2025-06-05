@@ -1,6 +1,6 @@
 package com.dwarfeng.familyhelper.finance.impl.service.operation;
 
-import com.dwarfeng.familyhelper.finance.impl.util.FtpConstants;
+import com.dwarfeng.familyhelper.finance.impl.handler.FtpPathResolver;
 import com.dwarfeng.familyhelper.finance.stack.bean.entity.BillFileInfo;
 import com.dwarfeng.familyhelper.finance.stack.cache.BillFileInfoCache;
 import com.dwarfeng.familyhelper.finance.stack.dao.BillFileInfoDao;
@@ -22,16 +22,21 @@ public class BillFileInfoCrudOperation implements BatchCrudOperation<LongIdKey, 
 
     private final FtpHandler ftpHandler;
 
+    private final FtpPathResolver ftpPathResolver;
+
     @Value("${cache.timeout.entity.bill_file_info}")
     private long billFileInfoTimeout;
 
     public BillFileInfoCrudOperation(
-            BillFileInfoDao billFileInfoDao, BillFileInfoCache billFileInfoCache,
-            FtpHandler ftpHandler
+            BillFileInfoDao billFileInfoDao,
+            BillFileInfoCache billFileInfoCache,
+            FtpHandler ftpHandler,
+            FtpPathResolver ftpPathResolver
     ) {
         this.billFileInfoDao = billFileInfoDao;
         this.billFileInfoCache = billFileInfoCache;
         this.ftpHandler = ftpHandler;
+        this.ftpPathResolver = ftpPathResolver;
     }
 
     @Override
@@ -68,8 +73,12 @@ public class BillFileInfoCrudOperation implements BatchCrudOperation<LongIdKey, 
     @Override
     public void delete(LongIdKey key) throws Exception {
         // 如果存在票据文件，则删除票据文件。
-        if (ftpHandler.existsFile(FtpConstants.PATH_BILL_FILE, getFileName(key))) {
-            ftpHandler.deleteFile(FtpConstants.PATH_BILL_FILE, getFileName(key));
+        if (ftpHandler.existsFile(
+                ftpPathResolver.resolvePath(FtpPathResolver.RELATIVE_PATH_BILL_FILE), getFileName(key)
+        )) {
+            ftpHandler.deleteFile(
+                    ftpPathResolver.resolvePath(FtpPathResolver.RELATIVE_PATH_BILL_FILE), getFileName(key)
+            );
         }
 
         // 删除票据文件信息实体自身。
