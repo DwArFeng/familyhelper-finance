@@ -54,6 +54,8 @@
 
 #### Bug修复
 
+- 修正 `impl` 模块中错误的 dubbo 应用名称。
+
 - 修复部分 FastJson 实体中缺失的字段。
   - com.dwarfeng.familyhelper.finance.sdk.bean.entity.JSFixedFastJsonAccountBook。
 
