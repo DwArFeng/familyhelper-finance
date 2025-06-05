@@ -30,7 +30,7 @@ public class RemindDriveCommand extends CliCommand {
     };
 
     // 指令标识符，系专有术语，忽略相关的拼写检查。
-    @SuppressWarnings("SpellCheckingInspection")
+    @SuppressWarnings({"SpellCheckingInspection", "RedundantSuppression"})
     private static final String IDENTITY = "redrive";
     private static final String DESCRIPTION = "驱动处理器操作/查看";
 

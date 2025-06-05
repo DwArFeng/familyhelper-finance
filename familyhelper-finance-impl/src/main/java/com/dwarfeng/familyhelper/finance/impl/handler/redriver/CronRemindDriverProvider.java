@@ -32,6 +32,7 @@ public class CronRemindDriverProvider implements RemindDriverProvider {
 
     private final CronRemindDriver cronDriver;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public CronRemindDriverProvider(CronRemindDriver cronDriver) {
         this.cronDriver = cronDriver;
     }

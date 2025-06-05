@@ -31,6 +31,7 @@ public class FixedDelayRemindDriverProvider implements RemindDriverProvider {
 
     private final FixedDelayRemindDriver fixedDelayDriver;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public FixedDelayRemindDriverProvider(FixedDelayRemindDriver fixedDelayDriver) {
         this.fixedDelayDriver = fixedDelayDriver;
     }

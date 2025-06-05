@@ -31,6 +31,7 @@ public class FixedRateRemindDriverProvider implements RemindDriverProvider {
 
     private final FixedRateRemindDriver fixedRateDriver;
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public FixedRateRemindDriverProvider(FixedRateRemindDriver fixedRateDriver) {
         this.fixedRateDriver = fixedRateDriver;
     }
