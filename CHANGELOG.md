@@ -4,6 +4,15 @@
 
 #### 功能构建
 
+- Wiki 编写。
+  - 构建 wiki 目录结构。
+  - docs/wiki/en_US/Contents.md。
+  - docs/wiki/en_US/Introduction.md。
+  - docs/wiki/zh_CN/Contents.md。
+  - docs/wiki/zh_CN/Introduction.md。
+
+- 更新 README.md。
+
 - FTP 路径机制优化。
   - 新增 FtpPathResolver 代替 FtpConstants，使得 FTP 路径由静态定义变为动态解析。
   - 新增 `ftp/path.properties`，使得服务的 FTP 根路径支持动态配置。
